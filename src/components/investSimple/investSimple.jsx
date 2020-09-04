@@ -61,9 +61,31 @@ const styles = theme => ({
     alignItems: 'center',
     justifyContent: 'flex-start',
     minWidth: '100%',
-    marginTop: '40px',
     [theme.breakpoints.up('md')]: {
       minWidth: '900px',
+    }
+  }, 
+  twoColumns: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gridColumnGap: '0',
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridColumnGap: '24px',
+    },
+  },
+  exclusivesContainer: {
+    margin: '0 20px',
+    [theme.breakpoints.up('md')]: {
+      margin: '0',
+    }
+  },
+  exclusivesTitle: {
+    marginTop: '20px',
+    marginBottom: '20px',
+    [theme.breakpoints.up('md')]: {
+      marginTop: '0',
+      marginBottom: 'auto',
     }
   },
   balancesContainer: {
@@ -373,25 +395,25 @@ class InvestSimple extends Component {
 
     return (
       <div className={ classes.root }>
-        <div className={ classes.investedContainer }>
-          <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
-          <div className={ classes.intro }>
-            <ToggleButtonGroup value={value} onChange={this.handleTabChange} aria-label="version" exclusive size={ 'small' }>
-              <ToggleButton value={0} aria-label="v1">
-                <Typography variant={ 'h4' }>v1</Typography>
-              </ToggleButton>
-              <ToggleButton value={1} aria-label="v2">
-                <Typography variant={ 'h4' }>y.curve.fi</Typography>
-              </ToggleButton>
-              <ToggleButton value={2} aria-label="v3">
-                <Typography variant={ 'h4' }>busd.curve.fi</Typography>
-              </ToggleButton>
-            </ToggleButtonGroup>
+        <Typography 
+          variant={'h5'} 
+          className={ classes.disaclaimer }
+          style={{ marginTop: '24px' }}
+        >This project is in beta. Use at your own risk.</Typography>
+        <div className={ classes.twoColumns }>
+          <div className={ classes.investedContainer }>
+            { account.address && value === 0 && this.renderAssetBlocksv1() }
+            { account.address && value === 1 && this.renderAssetBlocksv2() }
+            { account.address && value === 2 && this.renderAssetBlocksv3() }
           </div>
-          { account.address && value === 0 && this.renderAssetBlocksv1() }
-          { account.address && value === 1 && this.renderAssetBlocksv2() }
-          { account.address && value === 2 && this.renderAssetBlocksv3() }
+          <div className={ classes.exclusivesContainer }>
+            <h2 className={ classes.exclusivesTitle }>Yeld project exclusives</h2>
+            <p>Everyday you receive YELD tokens based on the yield generated in addition to your standard yield to boost the APY.</p>
+            <p>A portion of the yield returns will be used for the Buy and Burn mechanism to increase the token price.</p>
+            <p>Users that have staked for at least a full day will receive Retirement Yield forever based on their holdings.</p>
+          </div>
         </div>
+
         { loading && <Loader /> }
         { snackbarMessage && this.renderSnackbar() }
       </div>

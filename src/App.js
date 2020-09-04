@@ -63,38 +63,12 @@ class App extends Component {
             flexDirection: 'column',
             minHeight: '100vh',
             alignItems: 'center',
-            background: "#f9fafb"
+            background: "#e1e1e1"
           }}>
             <Switch>
-              <Route path="/apr">
-                <Header />
-                <APR />
-              </Route>
-              <Route path="/earn">
+              <Route path="/">
                 <Header />
                 <InvestSimple />
-              </Route>
-              <Route path="/zap">
-                <Header />
-                <Zap />
-              </Route>
-              <Route path="/idai">
-                <IDai />
-              </Route>
-              <Route path="/performance">
-                <Header />
-                <Performance />
-              </Route>
-              <Route path="/manage">
-                <Header />
-                <Manage />
-              </Route>
-              <Route path="/vaults">
-                <Header />
-                <Vaults />
-              </Route>
-              <Route path="/">
-                <Home />
               </Route>
             </Switch>
             <Footer />
