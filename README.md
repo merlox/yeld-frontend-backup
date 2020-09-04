@@ -1,6 +1,6 @@
 # YELD frontend
 
-The official yeld.finance app frontend
+The official yeld.finance app frontend.
 
 ## Available Scripts
 
@@ -8,7 +8,7 @@ In the project directory, you can run:
 
 ### `npm start`
 
-To run the app in your development configuration<br>
+To run the app in your development configuration.
 
 ### `npm test`
 
