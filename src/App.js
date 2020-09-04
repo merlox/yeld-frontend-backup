@@ -71,7 +71,7 @@ class App extends Component {
                 <InvestSimple />
               </Route>
             </Switch>
-            <Footer />
+            {/* <Footer /> */}
           </div>
         </IpfsRouter>
       </MuiThemeProvider>

@@ -402,9 +402,7 @@ class InvestSimple extends Component {
         >This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.twoColumns }>
           <div className={ classes.investedContainer }>
-            { account.address && value === 0 && this.renderAssetBlocksv1() }
             { account.address && value === 1 && this.renderAssetBlocksv2() }
-            { account.address && value === 2 && this.renderAssetBlocksv3() }
           </div>
           <div className={ classes.exclusivesContainer }>
             <h2 className={ classes.exclusivesTitle }>Yeld project exclusives</h2>
@@ -430,70 +428,6 @@ class InvestSimple extends Component {
     this.setState(val)
   };
 
-  renderAssetBlocksv1 = () => {
-    const { assets, expanded, hideV1 } = this.state
-    const { classes, t } = this.props
-    const width = window.innerWidth
-
-    return assets.filter((asset) => {
-      return (hideV1 === true || asset.version !== 1)
-    }).filter((asset) => {
-      return (asset.version === 1 && asset.investedBalance && (asset.investedBalance).toFixed(4) > 0)
-    }).filter((asset) => {
-      return !(asset.symbol === "iDAI")
-    }).map((asset) => {
-      return (
-        <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <div className={ classes.assetSummary }>
-              <div className={classes.headingName}>
-                <div className={ classes.assetIcon }>
-                  <img
-                    alt=""
-                    src={ require('../../assets/'+asset.symbol+'-logo.png') }
-                    height={ width > 600 ? '40px' : '30px'}
-                    style={asset.disabled?{filter:'grayscale(100%)'}:{}}
-                  />
-                </div>
-                <div>
-                  <Typography variant={ 'h3' }>{ asset.name }</Typography>
-                  <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
-                </div>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>
-                  {
-                    asset.maxApr
-                      ? (asset.maxApr * 100).toFixed(4) + ' %'
-                      : 'N/A'
-                  }
-                </Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>
-                  {
-                    asset.balance
-                      ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
-                      : 'N/A'
-                  }
-                </Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
-              </div>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Asset asset={ asset } startLoading={ this.startLoading } />
-          </AccordionDetails>
-        </Accordion>
-      )
-    })
-  }
-
   renderAssetBlocksv2 = () => {
     const { assets, expanded } = this.state
     const { classes, t } = this.props
@@ -503,68 +437,7 @@ class InvestSimple extends Component {
     }).filter((asset) => {
       return !(asset.symbol === "iDAI")
     }).map((asset) => {
-      return (
-        <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <div className={ classes.assetSummary }>
-              <div className={classes.headingName}>
-                <div className={ classes.assetIcon }>
-                  <img
-                    alt=""
-                    src={ require('../../assets/'+asset.symbol+'-logo.png') }
-                    height={ width > 600 ? '40px' : '30px'}
-                    style={asset.disabled?{filter:'grayscale(100%)'}:{}}
-                  />
-                </div>
-                <div>
-                  <Typography variant={ 'h3' }>{ asset.name }</Typography>
-                  <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
-                </div>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>
-                  {
-                    asset.maxApr
-                      ? (asset.maxApr * 100).toFixed(4) + ' %'
-                      : 'N/A'
-                  }
-                </Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>
-                  {
-                    asset.balance
-                      ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
-                      : 'N/A'
-                  }
-                </Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
-              </div>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Asset asset={ asset } startLoading={ this.startLoading } />
-          </AccordionDetails>
-        </Accordion>
-      )
-    })
-  }
-
-  renderAssetBlocksv3 = () => {
-    const { assets, expanded } = this.state
-    const { classes, t } = this.props
-    const width = window.innerWidth
-
-    return assets.filter((asset) => {
-      return (asset.version === 3)
-    }).filter((asset) => {
-      return !(asset.symbol === "iDAI")
-    }).map((asset) => {
+      console.log(asset)
       return (
         <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
           <AccordionSummary
