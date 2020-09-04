@@ -209,7 +209,6 @@ class InvestModal extends Component {
   }
 
   onInvest = () => {
-    alert('ON INVEST CLICKED')
     this.setState({ amountError: false })
 
     const { amount, ethBalance } = this.state
