@@ -59,18 +59,6 @@ const styles = theme => ({
       minWidth: '900px',
     }
   },
-  investedContainer: {
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    minWidth: '100%',
-    marginTop: '40px',
-    [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
-    }
-  },
   balancesContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -269,7 +257,41 @@ const styles = theme => ({
   },
   positive: {
     color: colors.compoundGreen
-  }
+  },
+  investedContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    minWidth: '100%',
+    [theme.breakpoints.up('md')]: {
+      minWidth: '900px',
+    }
+  }, 
+  twoColumns: {
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    gridColumnGap: '0',
+    [theme.breakpoints.up('lg')]: {
+      gridTemplateColumns: 'repeat(2, 1fr)',
+      gridColumnGap: '24px',
+    },
+  },
+  exclusivesContainer: {
+    margin: '0 20px',
+    [theme.breakpoints.up('md')]: {
+      margin: '0',
+    }
+  },
+  exclusivesTitle: {
+    marginTop: '20px',
+    marginBottom: '20px',
+    [theme.breakpoints.up('md')]: {
+      marginTop: '0',
+      marginBottom: 'auto',
+    }
+  },
 });
 
 class Vault extends Component {
@@ -392,9 +414,23 @@ class Vault extends Component {
     return (
       <div className={ classes.root }>
         <div className={ classes.investedContainer }>
-          <Typography variant={'h5'} className={ classes.disaclaimer }>This project is in beta. Use at your own risk.</Typography>
-          { this.renderFilters() }
-          { this.renderAssetBlocks() }
+          <Typography 
+            variant={'h5'} 
+            className={ classes.disaclaimer }
+            style={{ marginTop: '24px' }}
+          >This project is in beta. Use at your own risk.</Typography>
+          <div className={ classes.twoColumns }>
+            <div className={ classes.investedContainer }>
+              { this.renderFilters() }
+              { this.renderAssetBlocks() }
+            </div>
+            <div className={ classes.exclusivesContainer }>
+              <h2 className={ classes.exclusivesTitle }>Yeld mechanics</h2>
+              <p>Everyday you receive YELD tokens based on the yield generated in addition to your standard yield to boost the APY.</p>
+              <p>A portion of the yield returns will be used for the Buy and Burn mechanism to increase the token price.</p>
+              <p>Users that have staked for at least a full day will receive Retirement Yield forever based on their holdings.</p>
+            </div>
+          </div>
         </div>
         { loading && <Loader /> }
         { snackbarMessage && this.renderSnackbar() }

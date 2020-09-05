@@ -256,7 +256,7 @@ const styles = theme => ({
   },
   disaclaimer: {
     padding: '12px',
-    border: '1px solid rgb(174, 174, 174)',
+    // border: '1px solid rgb(174, 174, 174)',
     borderRadius: '0.75rem',
     marginBottom: '24px',
     background: colors.white
@@ -402,10 +402,10 @@ class InvestSimple extends Component {
         >This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.twoColumns }>
           <div className={ classes.investedContainer }>
-            { account.address && value === 1 && this.renderAssetBlocksv2() }
+            { account.address && value === 1 && this.renderAssetBlocksv3() }
           </div>
           <div className={ classes.exclusivesContainer }>
-            <h2 className={ classes.exclusivesTitle }>Yeld project exclusives</h2>
+            <h2 className={ classes.exclusivesTitle }>Yeld mechanics</h2>
             <p>Everyday you receive YELD tokens based on the yield generated in addition to your standard yield to boost the APY.</p>
             <p>A portion of the yield returns will be used for the Buy and Burn mechanism to increase the token price.</p>
             <p>Users that have staked for at least a full day will receive Retirement Yield forever based on their holdings.</p>
@@ -428,16 +428,16 @@ class InvestSimple extends Component {
     this.setState(val)
   };
 
-  renderAssetBlocksv2 = () => {
+  renderAssetBlocksv3 = () => {
     const { assets, expanded } = this.state
     const { classes, t } = this.props
     const width = window.innerWidth
+
     return assets.filter((asset) => {
-      return (asset.version === 2)
+      return (asset.version === 3)
     }).filter((asset) => {
       return !(asset.symbol === "iDAI")
     }).map((asset) => {
-      console.log(asset)
       return (
         <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
           <AccordionSummary

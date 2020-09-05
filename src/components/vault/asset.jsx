@@ -297,6 +297,7 @@ class Asset extends Component {
           </Button>
         </div>
         <div className={ classes.buttons }>
+          {/* Withdraw buttons */}
           { asset.withdraw === true &&
             <Button
               className={ classes.actionButton }
