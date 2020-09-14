@@ -148,6 +148,10 @@ class Asset extends Component {
       loading
     } = this.state
 
+    console.log('asset', asset)
+    console.log('invested balance', asset.investedBalance.toString())
+    console.log('asset price', asset.price)
+
     return (<div className={ classes.actionsContainer }>
       <div className={ classes.tradeContainer }>
         {!asset.disabled && <div className={ classes.balances }>
@@ -213,7 +217,7 @@ class Asset extends Component {
       <div className={ classes.sepperator }></div>
       <div className={classes.tradeContainer}>
         <div className={ classes.balances }>
-          <Typography variant='h3' className={ classes.title }></Typography><Typography variant='h4' onClick={ () => { this.setRedeemAmount(100) } }  className={ classes.value } noWrap>{ asset.investedBalance ? asset.investedBalance.toFixed(4) : '0.0000' } { asset.investSymbol } ({ asset.investedBalance ? (parseFloat(asset.investedBalance)*parseFloat(asset.price)).toFixed(4) : '0' }  { asset.tokenSymbol ? asset.tokenSymbol : asset.symbol } )</Typography>
+          <Typography variant='h3' className={ classes.title }></Typography><Typography variant='h4' onClick={ () => { this.setRedeemAmount(100) } }  className={ classes.value } noWrap>{ asset.investedBalance ? asset.investedBalance.toFixed(4) : '0.0000' } { asset.investSymbol } ({ asset.investedBalance ? (parseFloat(asset.investedBalance)*parseFloat(asset.price)).toFixed(4) : '0' } ssssssssssssssss { asset.tokenSymbol ? asset.tokenSymbol : asset.symbol } )</Typography>
         </div>
         <TextField
           fullWidth

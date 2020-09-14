@@ -187,7 +187,7 @@ class Store {
           description: 'DAI Stablecoin',
           investSymbol: 'yDAI',
           erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: '0xC2cB1040220768554cf699b0d863A3cd4324ce32',
+          iEarnContract: '0x272fcA11FBe8822275f24435259C2FE64FF2D7bd',
           maxApr: 0,
           balance: 0,
           investedBalance: 0,
@@ -907,7 +907,7 @@ class Store {
           description: 'DAI Stablecoin',
           vaultSymbol: 'yDAI',
           erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          vaultContractAddress: '0xACd43E627e64355f1861cEC6d3a6688B31a6F952',
+          vaultContractAddress: '0x273243188de4d0f56f85144C0Ed09BfC99dfE9d0',
           vaultContractABI: config.vaultContractV2ABI,
           balance: 0,
           vaultBalance: 0,
@@ -2323,6 +2323,8 @@ class Store {
         return emitter.emit(ERROR, err)
       }
 
+      console.log('assets', assets)
+
       store.setStore({ vaultAssets: assets })
       return emitter.emit(VAULT_BALANCES_RETURNED, assets)
     })
@@ -2666,6 +2668,7 @@ class Store {
 
       const block = await web3.eth.getBlockNumber();
       const contract = new web3.eth.Contract(asset.vaultContractABI, asset.vaultContractAddress);
+      console.log('Contract', contract)
       let pricePerFullShare = await contract.methods.getPricePerFullShare().call();
 
       let balance = pricePerFullShare - asset.measurement;

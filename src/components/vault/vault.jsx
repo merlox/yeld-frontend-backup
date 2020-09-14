@@ -510,7 +510,7 @@ class Vault extends Component {
                 <div className={classes.headingEarning}>
                   <Typography variant={ 'h5' } className={ classes.grey }>This vault is earning:</Typography>
                   <div className={ classes.flexy }>
-                    <Typography variant={ 'h3' } noWrap>{ (asset.apy ? (asset.apy).toFixed(2) : '0.00') }% </Typography>
+                    <Typography variant={ 'h3' } noWrap>{console.log('ASSET', asset)}{ (asset.apy ? (asset.apy).toFixed(2) : '0.00') }% </Typography>
                   </div>
                 </div>
               }

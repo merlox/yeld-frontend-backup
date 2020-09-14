@@ -68,8 +68,8 @@ class App extends Component {
             <Switch>
               <Route path="/">
                 <Header />
-                <Vaults />
-                {/* <InvestSimple /> */}
+                {/* <Vaults /> */}
+                <InvestSimple />
               </Route>
             </Switch>
             {/* <Footer /> */}

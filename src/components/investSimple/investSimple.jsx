@@ -402,7 +402,7 @@ class InvestSimple extends Component {
         >This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.twoColumns }>
           <div className={ classes.investedContainer }>
-            { account.address && value === 1 && this.renderAssetBlocksv3() }
+            { account.address && value === 1 && this.renderAssetBlocksv2() }
           </div>
           <div className={ classes.exclusivesContainer }>
             <h2 className={ classes.exclusivesTitle }>Yeld mechanics</h2>
@@ -427,6 +427,67 @@ class InvestSimple extends Component {
     val[event.target.id] = event.target.checked
     this.setState(val)
   };
+
+  renderAssetBlocksv2 = () => {
+    const { assets, expanded } = this.state
+    const { classes, t } = this.props
+    const width = window.innerWidth
+    return assets.filter((asset) => {
+      return (asset.version === 2)
+    }).filter((asset) => {
+      return !(asset.symbol === "iDAI")
+    }).map((asset) => {
+      return (
+        <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1bh-content"
+            id="panel1bh-header"
+          >
+            <div className={ classes.assetSummary }>
+              <div className={classes.headingName}>
+                <div className={ classes.assetIcon }>
+                  <img
+                    alt=""
+                    src={ require('../../assets/'+asset.symbol+'-logo.png') }
+                    height={ width > 600 ? '40px' : '30px'}
+                    style={asset.disabled?{filter:'grayscale(100%)'}:{}}
+                  />
+                </div>
+                <div>
+                  <Typography variant={ 'h3' }>{ asset.name }</Typography>
+                  <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
+                </div>
+              </div>
+              <div className={classes.heading}>
+                <Typography variant={ 'h3' }>
+                  {
+                    asset.maxApr
+                      ? (asset.maxApr * 100).toFixed(4) + ' %'
+                      : '0.0000 %'
+                  }
+                </Typography>
+                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
+              </div>
+              <div className={classes.heading}>
+                <Typography variant={ 'h3' }>
+                  {
+                    asset.balance
+                      ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
+                      : '0.0000 ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
+                  }
+                </Typography>
+                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
+              </div>
+            </div>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Asset asset={ asset } startLoading={ this.startLoading } />
+          </AccordionDetails>
+        </Accordion>
+      )
+    })
+  }
 
   renderAssetBlocksv3 = () => {
     const { assets, expanded } = this.state
