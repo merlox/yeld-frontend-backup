@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import {
-  Typography
+  TextField,
+  Button,
+  Typography,
 } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 import { colors } from '../../theme'
@@ -125,13 +127,43 @@ class Header extends Component {
 
     this.state = {
       account: store.getStore('account'),
-      modalOpen: false
+      modalOpen: false,
+      retirementYeldAvailable: false, // When you have something to redeem
+      earnings: 0,
+      yeldBalance: 0,
     }
   }
 
   componentWillMount() {
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected);
     emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected);
+  }
+
+  async componentDidMount() {
+    window.retirementYeld.snapshots(window.web3.eth.accounts[0], async (err, snapshot) => {
+      snapshot = {
+        timestamp: snapshot[0].toString(),
+        yeldBalance: snapshot[1].toString(),
+      }
+      const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
+      if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
+        const balanceBlackHole = String(await window.yeld.balanceOfAsync('0x0000000000000000000000000000000000000000'))
+        const totalSupply = await window.yeld.totalSupplyAsync()
+        const userPercentage = (await window.yeld.balanceOfAsync(window.web3.eth.accounts[0])).div(totalSupply - balanceBlackHole)
+
+        // Gets how many ETH the user earns based on his balance
+        window.web3.eth.getBalance(window.retirementYeld.address, (err, retirementContractBalance) => {
+          const earnings = retirementContractBalance.mul(userPercentage).div(100)
+          this.setState({retirementYeldAvailable: true, earnings})
+        })
+      }
+    })
+
+    let yeldBalance = String(window.web3.fromWei(await window.yeld.balanceOfAsync(window.web3.eth.accounts[0])))
+    if (yeldBalance.split().length > 0) {
+      yeldBalance = yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
+    }
+    this.setState({ yeldBalance })
   }
 
   componentWillUnmount() {
@@ -174,6 +206,27 @@ class Header extends Component {
             />
             <Typography variant={ 'h3'} className={ classes.name } onClick={ () => { this.nav('') } }>Yeld.finance</Typography>
           </div>
+          <Button
+            style={{marginLeft: '10px'}}
+            variant="outlined"
+            color="primary"
+            onClick={async () => {
+              await window.retirementYeld.takeSnapshotAsync()
+            }}
+            >
+            <Typography variant={ 'h5'} color='secondary'>Snapshot Yeld Balance ({this.state.yeldBalance} YELD)</Typography>
+          </Button>
+          <Button
+            style={{marginLeft: '10px'}}
+            variant="outlined"
+            color="primary"
+            disabled={ !this.state.retirementYeldAvailable }
+            onClick={async () => {
+              await window.retirementYeld.redeemETHAsync()
+            }}
+            >
+            <Typography variant={ 'h5'} color='secondary'>Redeem Retirement Yield ({this.state.earnings} ETH)</Typography>
+          </Button>
           <div className={ classes.account }>
             { address &&
               <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >

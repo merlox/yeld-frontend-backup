@@ -406,9 +406,17 @@ class InvestSimple extends Component {
           </div>
           <div className={ classes.exclusivesContainer }>
             <h2 className={ classes.exclusivesTitle }>Yeld mechanics</h2>
-            <p>Everyday you receive YELD tokens based on the yield generated in addition to your standard yield to boost the APY.</p>
+            <p>Everyday you earn YELD tokens based on the yield generated in addition to your standard yield to boost the APY.</p>
             <p>A portion of the yield returns will be used for the Buy and Burn mechanism to increase the token price.</p>
-            <p>Users that have staked for at least a full day will receive Retirement Yield forever based on their holdings.</p>
+            <p>Users that hold YELD tokens can snapshot their YELD balance and redeem Retirement Yield everyday based on their holdings.</p>
+            <p>To redeem your Retirement Yield follow these steps:</p>
+            <ol>
+              <li>Click on "Snapshot Yeld Balance" to inform the Smart Contract about how much Yeld you hold.</li>
+              <br/>
+              <li>After 1 day or more, you'll be able to click on "Redeem Retirement Yield" and get ETH based on how much balance you had when you made the snapshot.</li>
+              <br/>
+              <li>You must hold the same snapshotted balance or more to redeem your earnings. The larger pecentage of the total YELD supply you hold, the more ETH you'll get from the Retirement Yield pool.</li>
+            </ol>
           </div>
         </div>
 
@@ -489,67 +497,67 @@ class InvestSimple extends Component {
     })
   }
 
-  renderAssetBlocksv3 = () => {
-    const { assets, expanded } = this.state
-    const { classes, t } = this.props
-    const width = window.innerWidth
+  // renderAssetBlocksv3 = () => {
+  //   const { assets, expanded } = this.state
+  //   const { classes, t } = this.props
+  //   const width = window.innerWidth
 
-    return assets.filter((asset) => {
-      return (asset.version === 3)
-    }).filter((asset) => {
-      return !(asset.symbol === "iDAI")
-    }).map((asset) => {
-      return (
-        <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id="panel1bh-header"
-          >
-            <div className={ classes.assetSummary }>
-              <div className={classes.headingName}>
-                <div className={ classes.assetIcon }>
-                  <img
-                    alt=""
-                    src={ require('../../assets/'+asset.symbol+'-logo.png') }
-                    height={ width > 600 ? '40px' : '30px'}
-                    style={asset.disabled?{filter:'grayscale(100%)'}:{}}
-                  />
-                </div>
-                <div>
-                  <Typography variant={ 'h3' }>{ asset.name }</Typography>
-                  <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
-                </div>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>
-                  {
-                    asset.maxApr
-                      ? (asset.maxApr * 100).toFixed(4) + ' %'
-                      : 'N/A'
-                  }
-                </Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
-              </div>
-              <div className={classes.heading}>
-                <Typography variant={ 'h3' }>
-                  {
-                    asset.balance
-                      ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
-                      : 'N/A'
-                  }
-                </Typography>
-                <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
-              </div>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Asset asset={ asset } startLoading={ this.startLoading } />
-          </AccordionDetails>
-        </Accordion>
-      )
-    })
-  }
+  //   return assets.filter((asset) => {
+  //     return (asset.version === 3)
+  //   }).filter((asset) => {
+  //     return !(asset.symbol === "iDAI")
+  //   }).map((asset) => {
+  //     return (
+  //       <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
+  //         <AccordionSummary
+  //           expandIcon={<ExpandMoreIcon />}
+  //           aria-controls="panel1bh-content"
+  //           id="panel1bh-header"
+  //         >
+  //           <div className={ classes.assetSummary }>
+  //             <div className={classes.headingName}>
+  //               <div className={ classes.assetIcon }>
+  //                 <img
+  //                   alt=""
+  //                   src={ require('../../assets/'+asset.symbol+'-logo.png') }
+  //                   height={ width > 600 ? '40px' : '30px'}
+  //                   style={asset.disabled?{filter:'grayscale(100%)'}:{}}
+  //                 />
+  //               </div>
+  //               <div>
+  //                 <Typography variant={ 'h3' }>{ asset.name }</Typography>
+  //                 <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
+  //               </div>
+  //             </div>
+  //             <div className={classes.heading}>
+  //               <Typography variant={ 'h3' }>
+  //                 {
+  //                   asset.maxApr
+  //                     ? (asset.maxApr * 100).toFixed(4) + ' %'
+  //                     : 'N/A'
+  //                 }
+  //               </Typography>
+  //               <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
+  //             </div>
+  //             <div className={classes.heading}>
+  //               <Typography variant={ 'h3' }>
+  //                 {
+  //                   asset.balance
+  //                     ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
+  //                     : 'N/A'
+  //                 }
+  //               </Typography>
+  //               <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
+  //             </div>
+  //           </div>
+  //         </AccordionSummary>
+  //         <AccordionDetails>
+  //           <Asset asset={ asset } startLoading={ this.startLoading } />
+  //         </AccordionDetails>
+  //       </Accordion>
+  //     )
+  //   })
+  // }
 
   handleChange = (id) => {
     this.setState({ expanded: this.state.expanded === id ? null : id })

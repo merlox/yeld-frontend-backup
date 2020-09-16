@@ -6,6 +6,7 @@ import {
   Route
 } from "react-router-dom";
 import IpfsRouter from 'ipfs-react-router'
+import { promisifyAll } from 'bluebird'
 
 import './i18n';
 import interestTheme from './theme';
@@ -21,8 +22,8 @@ import Home from './components/home';
 import Header from './components/header';
 import Vaults from './components/vault';
 
-
 import { injected } from "./stores/connectors";
+import yeldConfig from './yeldConfig'
 
 import {
   CONNECTION_CONNECTED,
@@ -36,6 +37,11 @@ class App extends Component {
   state = {};
 
   componentWillMount() {
+    // Create the retirementyeld and yelddai contract instances
+    window.retirementYeld = promisifyAll(window.web3.eth.contract(yeldConfig.retirementYeldAbi).at(yeldConfig.retirementYeldAddress))
+    window.yDAI = promisifyAll(window.web3.eth.contract(yeldConfig.yDAIAbi).at(yeldConfig.yDAIAddress))
+    window.yeld = promisifyAll(window.web3.eth.contract(yeldConfig.yeldAbi).at(yeldConfig.yeldAddress))
+
     injected.isAuthorized().then(isAuthorized => {
       if (isAuthorized) {
         injected.activate()

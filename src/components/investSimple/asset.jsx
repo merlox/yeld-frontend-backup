@@ -217,7 +217,7 @@ class Asset extends Component {
       <div className={ classes.sepperator }></div>
       <div className={classes.tradeContainer}>
         <div className={ classes.balances }>
-          <Typography variant='h3' className={ classes.title }></Typography><Typography variant='h4' onClick={ () => { this.setRedeemAmount(100) } }  className={ classes.value } noWrap>{ asset.investedBalance ? asset.investedBalance.toFixed(4) : '0.0000' } { asset.investSymbol } ({ asset.investedBalance ? (parseFloat(asset.investedBalance)*parseFloat(asset.price)).toFixed(4) : '0' } ssssssssssssssss { asset.tokenSymbol ? asset.tokenSymbol : asset.symbol } )</Typography>
+          <Typography variant='h3' className={ classes.title }></Typography><Typography variant='h4' onClick={ () => { this.setRedeemAmount(100) } }  className={ classes.value } noWrap>{ asset.investedBalance ? asset.investedBalance.toFixed(4) : '0.0000' } { asset.investSymbol } ({ asset.investedBalance ? (parseFloat(asset.investedBalance)*parseFloat(asset.price)).toFixed(4) : '0' } { asset.tokenSymbol ? asset.tokenSymbol : asset.symbol } )</Typography>
         </div>
         <TextField
           fullWidth
@@ -274,6 +274,23 @@ class Asset extends Component {
           fullWidth
           >
           <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>{ t('Asset.Claim') }</Typography>
+        </Button>
+        <Button
+          className={ classes.actionButton }
+          style={{marginTop: '10px'}}
+          variant="outlined"
+          color="primary"
+          disabled={ loading || !account.address }
+          onClick={() => {
+            window.yDAI.checkIfRedeemableBalance((err, isRedeemable) => {
+              if (isRedeemable) window.yDAI.redeemYeld((err, res) => {
+                console.log(err, res)
+              })
+            })
+          }}
+          fullWidth
+          >
+          <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Redeem YELD</Typography>
         </Button>
       </div>
     </div>)
