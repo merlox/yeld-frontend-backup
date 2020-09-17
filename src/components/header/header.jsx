@@ -215,8 +215,11 @@ class Header extends Component {
             style={{marginLeft: '10px'}}
             variant="outlined"
             color="primary"
+            disabled={ this.state.yeldBalance <= 0 }
             onClick={async () => {
-              await window.retirementYeld.methods.takeSnapshot().send()
+              await window.retirementYeld.methods.takeSnapshot().send({
+                from: window.web3.eth.defaultAccount,
+              })
             }}
             >
             <Typography variant={ 'h5'} color='secondary'>Snapshot Yeld Balance ({this.state.yeldBalance} YELD)</Typography>
@@ -227,7 +230,9 @@ class Header extends Component {
             color="primary"
             disabled={ !this.state.retirementYeldAvailable }
             onClick={async () => {
-              await window.retirementYeld.methods.redeemETH().send()
+              await window.retirementYeld.methods.redeemETH().send({
+                from: window.web3.eth.defaultAccount,
+              })
             }}
             >
             <Typography variant={ 'h5'} color='secondary'>Redeem Retirement Yield ({this.state.earnings} ETH)</Typography>

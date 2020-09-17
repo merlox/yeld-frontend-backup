@@ -277,11 +277,10 @@ class Asset extends Component {
           variant="outlined"
           color="primary"
           disabled={ loading || !account.address }
-          onClick={() => {
-            window.yDAI.checkIfRedeemableBalance((err, isRedeemable) => {
-              if (isRedeemable) window.yDAI.redeemYeld((err, res) => {
-                console.log(err, res)
-              })
+          onClick={async () => {
+            const isRedeemable = await window.yDAI.methods.checkIfRedeemableBalance().call()
+            if (isRedeemable) window.yDAI.methods.redeemYeld().send({
+              from: window.web3.eth.defaultAccount,
             })
           }}
           fullWidth
