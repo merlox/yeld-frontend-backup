@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import IpfsRouter from 'ipfs-react-router'
 import { promisifyAll } from 'bluebird'
+import MyWeb3 from 'web3'
 
 import './i18n';
 import interestTheme from './theme';
@@ -34,13 +35,12 @@ const emitter = Store.emitter
 const store = Store.store
 
 class App extends Component {
-  state = {};
+  state = {
+    setupComplete: false,
+  };
 
-  componentWillMount() {
-    // Create the retirementyeld and yelddai contract instances
-    window.retirementYeld = promisifyAll(window.web3.eth.contract(yeldConfig.retirementYeldAbi).at(yeldConfig.retirementYeldAddress))
-    window.yDAI = promisifyAll(window.web3.eth.contract(yeldConfig.yDAIAbi).at(yeldConfig.yDAIAddress))
-    window.yeld = promisifyAll(window.web3.eth.contract(yeldConfig.yeldAbi).at(yeldConfig.yeldAddress))
+  async componentWillMount() {
+    await this.setup()
 
     injected.isAuthorized().then(isAuthorized => {
       if (isAuthorized) {
@@ -48,7 +48,6 @@ class App extends Component {
         .then((a) => {
           store.setStore({ account: { address: a.account }, web3context: { library: { provider: a.provider } } })
           emitter.emit(CONNECTION_CONNECTED)
-          console.log(a)
         })
         .catch((e) => {
           console.log(e)
@@ -57,6 +56,30 @@ class App extends Component {
 
       }
     });
+  }
+
+  async setup() {
+    // Create the contract instance
+    window.web3 = new MyWeb3(window.ethereum)
+    try {
+        await window.ethereum.enable();
+    } catch (error) {
+        console.error('You must approve this dApp to interact with it')
+    }
+    // Create the retirementyeld and yelddai contract instances
+    window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
+    window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
+    window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
+    const account = await this.getAccount()
+    window.web3.eth.defaultAccount = account
+    this.setState({ setupComplete: true })
+  }
+
+  getAccount() {
+    return new Promise(async resolve => {
+      const accs = await window.web3.eth.getAccounts()
+      resolve(accs[0])
+    })
   }
 
   render() {
@@ -73,9 +96,9 @@ class App extends Component {
           }}>
             <Switch>
               <Route path="/">
-                <Header />
+                <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
-                <InvestSimple />
+                <InvestSimple setupComplete={this.state.setupComplete} />
               </Route>
             </Switch>
             {/* <Footer /> */}

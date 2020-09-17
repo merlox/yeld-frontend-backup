@@ -132,6 +132,8 @@ class Header extends Component {
       earnings: 0,
       yeldBalance: 0,
     }
+
+    this.waitUntilSetupComplete()
   }
 
   componentWillMount() {
@@ -139,28 +141,31 @@ class Header extends Component {
     emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected);
   }
 
-  async componentDidMount() {
-    window.retirementYeld.snapshots(window.web3.eth.accounts[0], async (err, snapshot) => {
-      snapshot = {
-        timestamp: snapshot[0].toString(),
-        yeldBalance: snapshot[1].toString(),
+  waitUntilSetupComplete() {
+    window.myInterval = setInterval(async () => {
+      if (this.props.setupComplete) {
+        window.clearInterval(window.myInterval)
+        await this.setupContractData()
       }
-      const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
-      if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
-        const balanceBlackHole = String(await window.yeld.balanceOfAsync('0x0000000000000000000000000000000000000000'))
-        const totalSupply = await window.yeld.totalSupplyAsync()
-        const userPercentage = (await window.yeld.balanceOfAsync(window.web3.eth.accounts[0])).div(totalSupply - balanceBlackHole)
+    }, 1e2)
+  }
 
-        // Gets how many ETH the user earns based on his balance
-        window.web3.eth.getBalance(window.retirementYeld.address, (err, retirementContractBalance) => {
-          const earnings = retirementContractBalance.mul(userPercentage).div(100)
-          this.setState({retirementYeldAvailable: true, earnings})
-        })
-      }
-    })
+  async setupContractData() {
+    const snapshot = await window.retirementYeld.methods.snapshots(window.web3.eth.defaultAccount).call()
+    const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
+    if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
+      const balanceBlackHole = String(await window.yeld.methods.balanceOf('0x0000000000000000000000000000000000000000').call())
+      const totalSupply = await window.yeld.methods.totalSupply().call()
+      const userPercentage = (await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()) / (totalSupply - balanceBlackHole)
 
-    let yeldBalance = String(window.web3.fromWei(await window.yeld.balanceOfAsync(window.web3.eth.accounts[0])))
-    if (yeldBalance.split().length > 0) {
+      // Gets how many ETH the user earns based on his balance
+      const balanceRetirementContract = await window.web3.eth.getBalance(window.retirementYeld._address)
+      const earnings = String(balanceRetirementContract * userPercentage / 100)
+      if (earnings > 0) this.setState({retirementYeldAvailable: true, earnings})
+    }
+
+    let yeldBalance = String(window.web3.utils.fromWei(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()))
+    if (yeldBalance.split('.').length > 1) {
       yeldBalance = yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
     }
     this.setState({ yeldBalance })
@@ -211,7 +216,7 @@ class Header extends Component {
             variant="outlined"
             color="primary"
             onClick={async () => {
-              await window.retirementYeld.takeSnapshotAsync()
+              await window.retirementYeld.methods.takeSnapshot().send()
             }}
             >
             <Typography variant={ 'h5'} color='secondary'>Snapshot Yeld Balance ({this.state.yeldBalance} YELD)</Typography>
@@ -222,7 +227,7 @@ class Header extends Component {
             color="primary"
             disabled={ !this.state.retirementYeldAvailable }
             onClick={async () => {
-              await window.retirementYeld.redeemETHAsync()
+              await window.retirementYeld.methods.redeemETH().send()
             }}
             >
             <Typography variant={ 'h5'} color='secondary'>Redeem Retirement Yield ({this.state.earnings} ETH)</Typography>

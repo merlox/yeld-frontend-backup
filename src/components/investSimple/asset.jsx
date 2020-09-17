@@ -148,10 +148,6 @@ class Asset extends Component {
       loading
     } = this.state
 
-    console.log('asset', asset)
-    console.log('invested balance', asset.investedBalance.toString())
-    console.log('asset price', asset.price)
-
     return (<div className={ classes.actionsContainer }>
       <div className={ classes.tradeContainer }>
         {!asset.disabled && <div className={ classes.balances }>
