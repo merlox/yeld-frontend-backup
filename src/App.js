@@ -99,9 +99,9 @@ class App extends Component {
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
                 <InvestSimple setupComplete={this.state.setupComplete} />
+                {/* <Footer /> */}
               </Route>
             </Switch>
-            {/* <Footer /> */}
           </div>
         </IpfsRouter>
       </MuiThemeProvider>
