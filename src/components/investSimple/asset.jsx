@@ -101,8 +101,8 @@ const styles = theme => ({
 
 class Asset extends Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
 
     this.state = {
       amount: '',

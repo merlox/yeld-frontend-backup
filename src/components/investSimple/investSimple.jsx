@@ -162,7 +162,7 @@ const styles = theme => ({
   heading: {
     display: 'none',
     paddingTop: '12px',
-    flex: 1,
+    flex: 2,
     flexShrink: 0,
     [theme.breakpoints.up('sm')]: {
       paddingTop: '5px',
@@ -286,12 +286,31 @@ class InvestSimple extends Component {
       snackbarMessage: null,
       hideV1: true,
       value: 1,
+      YELDAPY: 0,
     }
 
     if(account && account.address) {
       dispatcher.dispatch({ type: GET_BALANCES_LIGHT, content: {} })
     }
+
+    this.getYELDPrice()
   }
+
+  async getYELDPrice() {
+    const priceUrl = 'https://api.coingecko.com/api/v3/simple/price?ids=yeld-finance&vs_currencies=usd'
+
+    const req = await fetch(priceUrl, {
+      headers: {
+        'content-type': 'application/json',
+      }
+    })
+    const res = await req.json()
+    const price = res['yeld-finance'].usd
+    // 365 days * 100 yeld * yeld price * 100(%) / 1 million since that's the equivalence
+    const rawAPY = 365 * 100 * price * 100 / 1e6
+    this.setState({ YELDAPY: rawAPY })
+  }
+
   componentWillMount() {
     emitter.on(INVEST_RETURNED, this.investReturned);
     emitter.on(REDEEM_RETURNED, this.redeemReturned);
@@ -467,13 +486,16 @@ class InvestSimple extends Component {
                   <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
                 </div>
               </div>
-              <div className={classes.heading}>
+              <div className={classes.heading} style={{flex: '4', textAlign: 'center', }}>
                 <Typography variant={ 'h3' }>
                   {
                     asset.maxApr
-                      ? (asset.maxApr * 100).toFixed(4) + ' %'
-                      : '0.0000 %'
+                      ? ((asset.maxApr / 2 * 100) + this.state.YELDAPY).toFixed(2) + ' %'
+                      : '0.00 %'
                   }
+                </Typography>
+                <Typography variant={ 'h4' }>
+                  ({ this.state.YELDAPY.toFixed(2) } % in YELD)
                 </Typography>
                 <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
               </div>
@@ -482,7 +504,7 @@ class InvestSimple extends Component {
                   {
                     asset.balance
                       ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
-                      : '0.0000 ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
+                      : '0.00 ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
                   }
                 </Typography>
                 <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
@@ -496,68 +518,6 @@ class InvestSimple extends Component {
       )
     })
   }
-
-  // renderAssetBlocksv3 = () => {
-  //   const { assets, expanded } = this.state
-  //   const { classes, t } = this.props
-  //   const width = window.innerWidth
-
-  //   return assets.filter((asset) => {
-  //     return (asset.version === 3)
-  //   }).filter((asset) => {
-  //     return !(asset.symbol === "iDAI")
-  //   }).map((asset) => {
-  //     return (
-  //       <Accordion className={ classes.expansionPanel } square key={ asset.id+"_expand" } expanded={ expanded === asset.id} onChange={ () => { this.handleChange(asset.id) } }>
-  //         <AccordionSummary
-  //           expandIcon={<ExpandMoreIcon />}
-  //           aria-controls="panel1bh-content"
-  //           id="panel1bh-header"
-  //         >
-  //           <div className={ classes.assetSummary }>
-  //             <div className={classes.headingName}>
-  //               <div className={ classes.assetIcon }>
-  //                 <img
-  //                   alt=""
-  //                   src={ require('../../assets/'+asset.symbol+'-logo.png') }
-  //                   height={ width > 600 ? '40px' : '30px'}
-  //                   style={asset.disabled?{filter:'grayscale(100%)'}:{}}
-  //                 />
-  //               </div>
-  //               <div>
-  //                 <Typography variant={ 'h3' }>{ asset.name }</Typography>
-  //                 <Typography variant={ 'h5' } className={ classes.grey }>{ asset.description }</Typography>
-  //               </div>
-  //             </div>
-  //             <div className={classes.heading}>
-  //               <Typography variant={ 'h3' }>
-  //                 {
-  //                   asset.maxApr
-  //                     ? (asset.maxApr * 100).toFixed(4) + ' %'
-  //                     : 'N/A'
-  //                 }
-  //               </Typography>
-  //               <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.InterestRate') }</Typography>
-  //             </div>
-  //             <div className={classes.heading}>
-  //               <Typography variant={ 'h3' }>
-  //                 {
-  //                   asset.balance
-  //                     ? (asset.balance).toFixed(4) + ' ' + (asset.tokenSymbol ? asset.tokenSymbol : asset.symbol)
-  //                     : 'N/A'
-  //                 }
-  //               </Typography>
-  //               <Typography variant={ 'h5' } className={ classes.grey }>{ t('InvestSimple.AvailableBalance') }</Typography>
-  //             </div>
-  //           </div>
-  //         </AccordionSummary>
-  //         <AccordionDetails>
-  //           <Asset asset={ asset } startLoading={ this.startLoading } />
-  //         </AccordionDetails>
-  //       </Accordion>
-  //     )
-  //   })
-  // }
 
   handleChange = (id) => {
     this.setState({ expanded: this.state.expanded === id ? null : id })
