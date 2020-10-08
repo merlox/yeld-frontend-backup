@@ -69,6 +69,10 @@ class App extends Component {
     // Create the retirementyeld and yelddai contract instances
     window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
     window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
+    window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yTUSDAddress)
+    window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
+    window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
+
     window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
     const account = await this.getAccount()
     window.web3.eth.defaultAccount = account

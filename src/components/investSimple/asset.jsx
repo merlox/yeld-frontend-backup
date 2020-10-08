@@ -303,13 +303,48 @@ class Asset extends Component {
           disabled={ loading || !account.address }
           onClick={async () => {
             if(await this.betaTesting()) {
-              const isRedeemable = await window.yDAI.methods.checkIfRedeemableBalance().call()
-              if (isRedeemable) {
-                window.yDAI.methods.redeemYeld().send({
-                  from: window.web3.eth.defaultAccount,
-                })
-              } else {
-                alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+              let generatedYELD
+              switch (asset.symbol) {
+                case 'DAI': 
+                  generatedYELD = await window.yDAI.methods.getGeneratedYelds().call()
+                  if (generatedYELD > 0) {
+                    window.yDAI.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                      from: window.web3.eth.defaultAccount,
+                    })
+                  } else {
+                    alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+                  }
+                  break
+                case 'USDC':
+                  generatedYELD = await window.yUSDC.methods.getGeneratedYelds().call()
+                  if (generatedYELD > 0) {
+                    window.yUSDC.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                      from: window.web3.eth.defaultAccount,
+                    })
+                  } else {
+                    alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+                  }
+                  break
+                case 'USDT':
+                  generatedYELD = await window.yUSDT.methods.getGeneratedYelds().call()
+                  if (generatedYELD > 0) {
+                    window.yUSDT.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                      from: window.web3.eth.defaultAccount,
+                    })
+                  } else {
+                    alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+                  }
+                  break
+                case 'TUSD':
+                  generatedYELD = await window.yTUSD.methods.getGeneratedYelds().call()
+                  if (generatedYELD > 0) {
+                    window.yTUSD.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                      from: window.web3.eth.defaultAccount,
+                    })
+                  } else {
+                    alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+                  }
+                  break
               }
             } else {
               alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
