@@ -277,13 +277,13 @@ class Header extends Component {
                 
                 await window.yeld.methods.approve(
                   window.retirementYeld._address, 
-                  window.web3.utils.toWei(amountToStake), 
+                  window.web3.utils.toWei(String(amountToStake)), 
                 ).send({
                   from: window.web3.eth.defaultAccount,
                 })
 
                 await window.retirementYeld.methods.stakeYeld(
-                  window.web3.utils.toWei(amountToStake)
+                  window.web3.utils.toWei(String(amountToStake))
                 ).send({
                     from: window.web3.eth.defaultAccount,
                 })
@@ -311,7 +311,7 @@ class Header extends Component {
                 let amountToStake = prompt("Enter how much YELD you want to unstake:", this.state.retirementYeldCurrentStaked)
 
                 await window.retirementYeld.methods.unstake(
-                  window.web3.utils.toWei(amountToStake)
+                  window.web3.utils.toWei(String(amountToStake))
                 ).send({
                   from: window.web3.eth.defaultAccount,
                 })
