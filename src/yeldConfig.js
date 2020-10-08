@@ -1,6 +1,6 @@
 export default {
-  yDAIAddress: '0x5454B43d6F3915D9c9f8cFD06bC9096b6Fb2A5c9',
-  retirementYeldAddress: '0x895C7FADFc3500284e0e1C44E25EC5F6387cC560',
+  yDAIAddress: '0xE3EAB4679677FCDD1492051Ad217CfEe17dEDFdf',
+  retirementYeldAddress: '0x17B4F7eF02063381a860DCCBb46CA0406618a333',
   yeldAddress: '0x468ab3b1f63A1C14b361bC367c3cC92277588Da1',
   yeldAbi: [
     {
@@ -1436,6 +1436,15 @@ export default {
     },
     {
       "constant": false,
+      "inputs": [],
+      "name": "extractETHIfStuck",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
       "inputs": [
         {
           "internalType": "address",
@@ -1598,6 +1607,21 @@ export default {
         }
       ],
       "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "unstake",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",

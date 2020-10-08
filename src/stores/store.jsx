@@ -274,7 +274,7 @@ class Store {
           description: 'DAI Stablecoin',
           investSymbol: 'yDAI',
           erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: '0x5454B43d6F3915D9c9f8cFD06bC9096b6Fb2A5c9',
+          iEarnContract: '0xE3EAB4679677FCDD1492051Ad217CfEe17dEDFdf',
           lastMeasurement: 9465912,
           measurement: 1000037230456849197,
           maxApr: 0,

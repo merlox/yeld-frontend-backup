@@ -136,6 +136,18 @@ class Asset extends Component {
   errorReturned = (error) => {
     this.setState({ loading: false })
   };
+  
+  betaTesting() {
+    return new Promise(async resolve => {
+      const endBetaTimestamp = 1604080800000
+      if (Date.now() > endBetaTimestamp) {
+        return resolve(true)
+      }
+      let yeldBalance = String(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call())
+      const fiveYeld = await window.web3.utils.toWei('5')
+      resolve(yeldBalance >= fiveYeld) 
+    })
+  }
 
   render() {
     const { classes, asset, t } = this.props;
@@ -204,7 +216,13 @@ class Asset extends Component {
           variant="outlined"
           color="primary"
           disabled={ loading || !account.address || asset.disabled }
-          onClick={ this.onInvest }
+          onClick={ async () => {
+            if(await this.betaTesting()) {
+              this.onInvest()
+            } else {
+              alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
+            }
+          }}
           fullWidth
           >
           <Typography className={ classes.buttonText } variant={ 'h5'} color={asset.disabled?'':'secondary'}>{asset.disabled? t('Asset.Disabled'):t('Asset.Earn')}</Typography>
@@ -266,7 +284,13 @@ class Asset extends Component {
           variant="outlined"
           color="primary"
           disabled={ loading || !account.address }
-          onClick={ this.onRedeem }
+          onClick={ async () => {
+            if(await this.betaTesting()) {
+              this.onRedeem()
+            } else {
+              alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
+            }
+          }}
           fullWidth
           >
           <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>{ t('Asset.Claim') }</Typography>
@@ -278,13 +302,17 @@ class Asset extends Component {
           color="primary"
           disabled={ loading || !account.address }
           onClick={async () => {
-            const isRedeemable = await window.yDAI.methods.checkIfRedeemableBalance().call()
-            if (isRedeemable) {
-              window.yDAI.methods.redeemYeld().send({
-                from: window.web3.eth.defaultAccount,
-              })
+            if(await this.betaTesting()) {
+              const isRedeemable = await window.yDAI.methods.checkIfRedeemableBalance().call()
+              if (isRedeemable) {
+                window.yDAI.methods.redeemYeld().send({
+                  from: window.web3.eth.defaultAccount,
+                })
+              } else {
+                alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+              }
             } else {
-              alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+              alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
             }
           }}
           fullWidth

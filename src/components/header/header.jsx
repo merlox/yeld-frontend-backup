@@ -147,6 +147,8 @@ class Header extends Component {
     window.myInterval = setInterval(async () => {
       if (this.props.setupComplete) {
         window.clearInterval(window.myInterval)
+    this.betaTesting()
+
         await this.setupContractData()
       }
     }, 1e2)
@@ -192,7 +194,7 @@ class Header extends Component {
 
     this.setState({
       retirementYeldCurrentStaked: snapshot.yeldBalance,
-      hoursPassedAfterStaking: hoursPassedAfterStaking,
+      hoursPassedAfterStaking: snapshot.timestamp == 0 ? 0 : hoursPassedAfterStaking,
     })
 
     // If one day has passed, change 
@@ -212,6 +214,18 @@ class Header extends Component {
       yeldBalance = yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
     }
     this.setState({ yeldBalance })
+  }
+
+  betaTesting() {
+    return new Promise(async resolve => {
+      const endBetaTimestamp = 1604080800000
+      if (Date.now() > endBetaTimestamp) {
+        return resolve(true)
+      }
+      let yeldBalance = String(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call())
+      const fiveYeld = await window.web3.utils.toWei('5')
+      resolve(yeldBalance >= fiveYeld) 
+    })
   }
 
   componentWillUnmount() {
@@ -260,17 +274,21 @@ class Header extends Component {
             color="primary"
             disabled={ this.state.yeldBalance <= 0 }
             onClick={async () => {
-              await window.yeld.methods.approve(
-                window.retirementYeld._address, 
-                window.web3.utils.toWei(this.state.yeldBalance), 
-              ).send({
-                from: window.web3.eth.defaultAccount,
-              })
-              await window.retirementYeld.methods.stakeYeld(
-                window.web3.utils.toWei(this.state.yeldBalance)
-              ).send({
+              if(await this.betaTesting()) {
+                await window.yeld.methods.approve(
+                  window.retirementYeld._address, 
+                  window.web3.utils.toWei(this.state.yeldBalance), 
+                ).send({
                   from: window.web3.eth.defaultAccount,
-              })
+                })
+                await window.retirementYeld.methods.stakeYeld(
+                  window.web3.utils.toWei(this.state.yeldBalance)
+                ).send({
+                    from: window.web3.eth.defaultAccount,
+                })
+              } else {
+                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
+              }
             }}
           >
             <Typography variant={ 'h5'} color='secondary'>
@@ -286,14 +304,39 @@ class Header extends Component {
             style={{marginLeft: '10px'}}
             variant="outlined"
             color="primary"
-            disabled={ !this.state.retirementYeldAvailable }
+            disabled={this.state.retirementYeldCurrentStaked <= 0}
             onClick={async () => {
-              await window.retirementYeld.methods.redeemETH().send({
-                from: window.web3.eth.defaultAccount,
-              })
+              if(await this.betaTesting()) {
+                await window.retirementYeld.methods.unstake(
+                  window.web3.utils.toWei(this.state.retirementYeldCurrentStaked)
+                ).send({
+                  from: window.web3.eth.defaultAccount,
+                })
+              } else {
+                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
+              }
             }}
           >
-            <Typography variant={ 'h5'} color='secondary' style={{whiteSpace: 'pre-line'}}>
+            <Typography variant={ 'h5'} color='secondary'>
+              Unstake Yeld
+            </Typography>
+          </Button>
+          <Button
+            style={{marginLeft: '10px'}}
+            variant="outlined"
+            color="primary"
+            disabled={ !this.state.retirementYeldAvailable }
+            onClick={async () => {
+              if(await this.betaTesting()) {
+                await window.retirementYeld.methods.redeemETH().send({
+                  from: window.web3.eth.defaultAccount,
+                })
+              } else {
+                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
+              }
+            }}
+          >
+            <Typography variant={ 'h5'} color='secondary'>
               {!this.state.retirementYeldAvailable ? (
                 <span>
                   Retirement Yield Available in 24h
