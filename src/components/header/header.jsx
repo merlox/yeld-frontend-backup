@@ -273,7 +273,7 @@ class Header extends Component {
             disabled={ this.state.yeldBalance <= 0 }
             onClick={async () => {
               if(await this.betaTesting()) {
-                let amountToStake = prompt("Enter how much YELD you want to stake:", this.state.yeldBalance)
+                let amountToStake = prompt("Enter how much YELD you want to stake. Warning: leave at least 5 YELD in your wallet to keep using the beta!", this.state.yeldBalance)
                 
                 await window.yeld.methods.approve(
                   window.retirementYeld._address, 
