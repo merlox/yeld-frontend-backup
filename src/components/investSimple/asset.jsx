@@ -143,9 +143,9 @@ class Asset extends Component {
       if (Date.now() > endBetaTimestamp) {
         return resolve(true)
       }
-      let yeldBalance = String(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call())
+      let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
       const fiveYeld = await window.web3.utils.toWei('5')
-      resolve(yeldBalance >= fiveYeld) 
+      resolve(Number(yeldBalance) >= Number(fiveYeld))
     })
   }
 

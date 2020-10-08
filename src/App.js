@@ -65,11 +65,9 @@ class App extends Component {
       if (Date.now() > endBetaTimestamp) {
         return resolve(true)
       }
-      let yeldBalance = String(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call())
+      let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
       const fiveYeld = await window.web3.utils.toWei('5')
-      console.log('YELD balance', yeldBalance)
-      console.log('Five YELD', fiveYeld)
-      resolve(yeldBalance >= fiveYeld) 
+      resolve(Number(yeldBalance) >= Number(fiveYeld))
     })
   }
 
