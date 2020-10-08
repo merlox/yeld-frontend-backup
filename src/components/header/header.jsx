@@ -147,8 +147,6 @@ class Header extends Component {
     window.myInterval = setInterval(async () => {
       if (this.props.setupComplete) {
         window.clearInterval(window.myInterval)
-    this.betaTesting()
-
         await this.setupContractData()
       }
     }, 1e2)
@@ -275,14 +273,17 @@ class Header extends Component {
             disabled={ this.state.yeldBalance <= 0 }
             onClick={async () => {
               if(await this.betaTesting()) {
+                let amountToStake = prompt("Enter how much YELD you want to stake:", this.state.yeldBalance)
+                
                 await window.yeld.methods.approve(
                   window.retirementYeld._address, 
-                  window.web3.utils.toWei(this.state.yeldBalance), 
+                  window.web3.utils.toWei(amountToStake), 
                 ).send({
                   from: window.web3.eth.defaultAccount,
                 })
+
                 await window.retirementYeld.methods.stakeYeld(
-                  window.web3.utils.toWei(this.state.yeldBalance)
+                  window.web3.utils.toWei(amountToStake)
                 ).send({
                     from: window.web3.eth.defaultAccount,
                 })
