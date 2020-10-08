@@ -307,17 +307,13 @@ class Header extends Component {
             color="primary"
             disabled={this.state.retirementYeldCurrentStaked <= 0}
             onClick={async () => {
-              if(await this.betaTesting()) {
-                let amountToStake = prompt("Enter how much YELD you want to unstake:", this.state.retirementYeldCurrentStaked)
+              let amountToStake = prompt("Enter how much YELD you want to unstake:", this.state.retirementYeldCurrentStaked)
 
-                await window.retirementYeld.methods.unstake(
-                  window.web3.utils.toWei(String(amountToStake))
-                ).send({
-                  from: window.web3.eth.defaultAccount,
-                })
-              } else {
-                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
-              }
+              await window.retirementYeld.methods.unstake(
+                window.web3.utils.toWei(String(amountToStake))
+              ).send({
+                from: window.web3.eth.defaultAccount,
+              })
             }}
           >
             <Typography variant={ 'h5'} color='secondary'>
