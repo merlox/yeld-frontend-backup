@@ -425,16 +425,16 @@ class InvestSimple extends Component {
           </div>
           <div className={ classes.exclusivesContainer }>
             <h2 className={ classes.exclusivesTitle }>Yeld mechanics</h2>
-            <p>Everyday you earn YELD tokens based on the yield generated in addition to your standard yield to boost the APY.</p>
+            <p>Every block you earn YELD tokens based on the stablecoin yield generated in addition to your standard yield to boost the APY.</p>
             <p>A portion of the yield returns will be used for the Buy and Burn mechanism to increase the token price.</p>
-            <p>Users that hold YELD tokens can snapshot their YELD balance and redeem Retirement Yield everyday based on their holdings.</p>
+            <p>Users that hold YELD tokens can stake their YELD balance and redeem Retirement Yield everyday based on their holdings.</p>
             <p>To redeem your Retirement Yield follow these steps:</p>
             <ol>
-              <li>Click on "Snapshot Yeld Balance" to inform the Smart Contract about how much Yeld you hold.</li>
+              <li>Click on "Stake Yeld" with the amount to stake.</li>
               <br/>
-              <li>After 1 day or more, you'll be able to click on "Redeem Retirement Yield" and get ETH based on how much balance you had when you made the snapshot.</li>
+              <li>After 1 day or more, you'll be able to click on "Redeem Retirement Yield" and get ETH based on how much YELD you staked.</li>
               <br/>
-              <li>You must hold the same snapshotted balance or more to redeem your earnings. The larger pecentage of the total YELD supply you hold, the more ETH you'll get from the Retirement Yield pool.</li>
+              <li>The larger pecentage of the total YELD supply you stake, the more ETH you'll get from the Retirement Yield pool.</li>
             </ol>
           </div>
         </div>

@@ -279,9 +279,13 @@ class Asset extends Component {
           disabled={ loading || !account.address }
           onClick={async () => {
             const isRedeemable = await window.yDAI.methods.checkIfRedeemableBalance().call()
-            if (isRedeemable) window.yDAI.methods.redeemYeld().send({
-              from: window.web3.eth.defaultAccount,
-            })
+            if (isRedeemable) {
+              window.yDAI.methods.redeemYeld().send({
+                from: window.web3.eth.defaultAccount,
+              })
+            } else {
+              alert('No YELD to redeem yet, wait for a full day to redeem your YELD')
+            }
           }}
           fullWidth
           >

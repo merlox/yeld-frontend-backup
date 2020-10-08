@@ -131,6 +131,8 @@ class Header extends Component {
       retirementYeldAvailable: false, // When you have something to redeem
       earnings: 0,
       yeldBalance: 0,
+      hoursPassedAfterStaking: 0,
+      retirementYeldCurrentStaked: 0,
     }
 
     this.waitUntilSetupComplete()
@@ -150,13 +152,54 @@ class Header extends Component {
     }, 1e2)
   }
 
+  secondsToHms(seconds) {
+    if (!seconds) return '';
+   
+    let duration = seconds;
+    let hours = duration / 3600;
+    duration = duration % (3600);
+   
+    let min = parseInt(duration / 60);
+    duration = duration % (60);
+   
+    let sec = parseInt(duration);
+   
+    if (sec < 10) {
+      sec = `0${sec}`;
+    }
+    if (min < 10) {
+      min = `0${min}`;
+    }
+   
+    if (parseInt(hours, 10) > 0) {
+      return `${parseInt(hours, 10)}h ${min}m ${sec}s`
+    }
+    else if (min == 0) {
+      return `${sec}s`
+    }
+    else {
+      return `${min}m ${sec}s`
+    }
+  }
+
   async setupContractData() {
-    const snapshot = await window.retirementYeld.methods.snapshots(window.web3.eth.defaultAccount).call()
+    const snapshot = await window.retirementYeld.methods.stakes(window.web3.eth.defaultAccount).call()
+
     const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
+    const dateNow = Number(Date.now().toString().substr(0, 10))
+    const substraction = Number(dateNow) - Number(snapshot.timestamp)
+    const hoursPassedAfterStaking = this.secondsToHms(substraction)
+
+    this.setState({
+      retirementYeldCurrentStaked: snapshot.yeldBalance,
+      hoursPassedAfterStaking: hoursPassedAfterStaking,
+    })
+
+    // If one day has passed, change 
     if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
       const balanceBlackHole = String(await window.yeld.methods.balanceOf('0x0000000000000000000000000000000000000000').call())
       const totalSupply = await window.yeld.methods.totalSupply().call()
-      const userPercentage = (await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()) / (totalSupply - balanceBlackHole)
+      const userPercentage = (snapshot.yeldBalance) / (totalSupply - balanceBlackHole)
 
       // Gets how many ETH the user earns based on his balance
       const balanceRetirementContract = await window.web3.eth.getBalance(window.retirementYeld._address)
@@ -217,12 +260,27 @@ class Header extends Component {
             color="primary"
             disabled={ this.state.yeldBalance <= 0 }
             onClick={async () => {
-              await window.retirementYeld.methods.takeSnapshot().send({
+              await window.yeld.methods.approve(
+                window.retirementYeld._address, 
+                window.web3.utils.toWei(this.state.yeldBalance), 
+              ).send({
                 from: window.web3.eth.defaultAccount,
               })
+              await window.retirementYeld.methods.stakeYeld(
+                window.web3.utils.toWei(this.state.yeldBalance)
+              ).send({
+                  from: window.web3.eth.defaultAccount,
+              })
             }}
-            >
-            <Typography variant={ 'h5'} color='secondary'>Snapshot Yeld Balance ({this.state.yeldBalance} YELD)</Typography>
+          >
+            <Typography variant={ 'h5'} color='secondary'>
+              Stake Yeld Tokens ({this.state.yeldBalance} YELD)
+              <br/>
+              <i>{this.state.retirementYeldCurrentStaked <= 0 ? 
+              '' : 
+              `Currently Staked ${window.web3.utils.fromWei(this.state.retirementYeldCurrentStaked)} YELD`}
+              </i>
+            </Typography>
           </Button>
           <Button
             style={{marginLeft: '10px'}}
@@ -234,8 +292,27 @@ class Header extends Component {
                 from: window.web3.eth.defaultAccount,
               })
             }}
-            >
-            <Typography variant={ 'h5'} color='secondary'>Redeem Retirement Yield ({this.state.earnings} ETH)</Typography>
+          >
+            <Typography variant={ 'h5'} color='secondary' style={{whiteSpace: 'pre-line'}}>
+              {!this.state.retirementYeldAvailable ? (
+                <span>
+                  Retirement Yield Available in 24h
+                  <br/>
+                  <i>
+                  {
+                    this.state.hoursPassedAfterStaking <= 0 ?
+                    '' :
+                    `Time passed ${this.state.hoursPassedAfterStaking}`
+                  }
+                  </i>
+                </span>
+              )
+              : (
+                <span>
+                  Redeem Retirement Yield ({this.state.earnings} ETH)
+                </span>
+              )}
+            </Typography>
           </Button>
           <div className={ classes.account }>
             { address &&
