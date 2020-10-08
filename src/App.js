@@ -67,6 +67,8 @@ class App extends Component {
       }
       let yeldBalance = String(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call())
       const fiveYeld = await window.web3.utils.toWei('5')
+      console.log('YELD balance', yeldBalance)
+      console.log('Five YELD', fiveYeld)
       resolve(yeldBalance >= fiveYeld) 
     })
   }
@@ -83,8 +85,6 @@ class App extends Component {
     const account = await this.getAccount()
     window.web3.eth.defaultAccount = account
 
-    if (await this.betaTesting()) this.setState({ betaValid: true })
-
     // Create the retirementyeld and yelddai contract instances
     window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
     window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
@@ -92,7 +92,14 @@ class App extends Component {
     window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
     window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
 
-    this.setState({ setupComplete: true })
+    if (await this.betaTesting()) {
+      this.setState({ 
+        betaValid: true,
+        setupComplete: true,
+      })
+    } else {
+      this.setState({ setupComplete: true })
+    }
   }
 
   getAccount() {
