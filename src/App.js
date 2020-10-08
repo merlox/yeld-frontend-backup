@@ -37,6 +37,7 @@ const store = Store.store
 class App extends Component {
   state = {
     setupComplete: false,
+    betaValid: false,
   };
 
   async componentWillMount() {
@@ -58,6 +59,18 @@ class App extends Component {
     });
   }
 
+  betaTesting() {
+    return new Promise(async resolve => {
+      const endBetaTimestamp = 1604080800000
+      if (Date.now() > endBetaTimestamp) {
+        return resolve(true)
+      }
+      let yeldBalance = String(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call())
+      const fiveYeld = await window.web3.utils.toWei('5')
+      resolve(yeldBalance >= fiveYeld) 
+    })
+  }
+
   async setup() {
     // Create the contract instance
     window.web3 = new MyWeb3(window.ethereum)
@@ -66,6 +79,12 @@ class App extends Component {
     } catch (error) {
         console.error('You must approve this dApp to interact with it')
     }
+    window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
+    const account = await this.getAccount()
+    window.web3.eth.defaultAccount = account
+
+    if (await this.betaTesting()) this.setState({ betaValid: true })
+
     // Create the retirementyeld and yelddai contract instances
     window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
     window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
@@ -73,9 +92,6 @@ class App extends Component {
     window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
     window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
 
-    window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
-    const account = await this.getAccount()
-    window.web3.eth.defaultAccount = account
     this.setState({ setupComplete: true })
   }
 
@@ -102,7 +118,11 @@ class App extends Component {
               <Route path="/">
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
-                <InvestSimple setupComplete={this.state.setupComplete} />
+                {!this.state.betaValid ? (
+                  <h2 style={{margin: 'auto'}}>You need to hold 5 YELD to use the dApp</h2>
+                ) : (
+                  <InvestSimple setupComplete={this.state.setupComplete} />
+                )}
                 {/* <Footer /> */}
               </Route>
             </Switch>
