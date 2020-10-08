@@ -308,8 +308,10 @@ class Header extends Component {
             disabled={this.state.retirementYeldCurrentStaked <= 0}
             onClick={async () => {
               if(await this.betaTesting()) {
+                let amountToStake = prompt("Enter how much YELD you want to unstake:", this.state.retirementYeldCurrentStaked)
+
                 await window.retirementYeld.methods.unstake(
-                  window.web3.utils.toWei(this.state.retirementYeldCurrentStaked)
+                  window.web3.utils.toWei(amountToStake)
                 ).send({
                   from: window.web3.eth.defaultAccount,
                 })
