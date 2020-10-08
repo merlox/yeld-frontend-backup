@@ -307,7 +307,7 @@ class Header extends Component {
             color="primary"
             disabled={this.state.retirementYeldCurrentStaked <= 0}
             onClick={async () => {
-              let amountToStake = prompt("Enter how much YELD you want to unstake:", this.state.retirementYeldCurrentStaked)
+              let amountToStake = prompt("Enter how much YELD you want to unstake:", window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked)))
 
               await window.retirementYeld.methods.unstake(
                 window.web3.utils.toWei(String(amountToStake))
