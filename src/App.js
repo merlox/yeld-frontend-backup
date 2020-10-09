@@ -46,41 +46,44 @@ class App extends Component {
     injected.isAuthorized().then(isAuthorized => {
       if (isAuthorized) {
         injected.activate()
-        .then((a) => {
-          store.setStore({ account: { address: a.account }, web3context: { library: { provider: a.provider } } })
-          emitter.emit(CONNECTION_CONNECTED)
-        })
-        .catch((e) => {
-          console.log(e)
-        })
+          .then((a) => {
+            store.setStore({ account: { address: a.account }, web3context: { library: { provider: a.provider } } })
+            emitter.emit(CONNECTION_CONNECTED)
+          })
+          .catch((e) => {
+            console.log(e)
+          })
       } else {
 
       }
     });
   }
 
-  betaTesting() {
+  betaTesting = () => {
     return new Promise(async resolve => {
       const endBetaTimestamp = 1604080800000
       if (Date.now() > endBetaTimestamp) {
         return resolve(true)
+      } else {
+        let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
+        const fiveYeld = await window.web3.utils.toWei('5')
+        resolve(Number(yeldBalance) >= Number(fiveYeld))
       }
-      let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
-      const fiveYeld = await window.web3.utils.toWei('5')
-      resolve(Number(yeldBalance) >= Number(fiveYeld))
     })
   }
 
-  async setup() {
+  setup = async () => {
     // Create the contract instance
     window.web3 = new MyWeb3(window.ethereum)
+
     try {
-        await window.ethereum.enable();
+      await window.ethereum.enable();
     } catch (error) {
-        console.error('You must approve this dApp to interact with it')
+      console.error('You must approve this dApp to interact with it')
     }
     window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
-    const account = await this.getAccount()
+    const account = await this.getAccount();
+
     window.web3.eth.defaultAccount = account
 
     // Create the retirementyeld and yelddai contract instances
@@ -91,7 +94,7 @@ class App extends Component {
     window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
 
     if (await this.betaTesting()) {
-      this.setState({ 
+      this.setState({
         betaValid: true,
         setupComplete: true,
       })
@@ -109,7 +112,7 @@ class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider theme={ createMuiTheme(interestTheme) }>
+      <MuiThemeProvider theme={createMuiTheme(interestTheme)}>
         <CssBaseline />
         <IpfsRouter>
           <div style={{
@@ -124,10 +127,10 @@ class App extends Component {
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
                 {!this.state.betaValid ? (
-                  <h2 style={{margin: 'auto'}}>You need to hold 5 YELD to use the dApp</h2>
+                  <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>
                 ) : (
-                  <InvestSimple setupComplete={this.state.setupComplete} />
-                )}
+                    <InvestSimple setupComplete={this.state.setupComplete} />
+                  )}
                 {/* <Footer /> */}
               </Route>
             </Switch>

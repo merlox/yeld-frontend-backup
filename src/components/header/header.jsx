@@ -4,6 +4,7 @@ import {
   TextField,
   Button,
   Typography,
+  Modal,
 } from '@material-ui/core';
 import { withRouter } from "react-router-dom";
 import { colors } from '../../theme'
@@ -64,6 +65,10 @@ const styles = theme => ({
   title: {
     textTransform: 'capitalize'
   },
+  actionInput: {
+    padding: '0px 0px 12px 0px',
+    fontSize: '0.5rem'
+  },
   linkActive: {
     padding: '12px 0px',
     margin: '0px 12px',
@@ -117,6 +122,18 @@ const styles = theme => ({
     [theme.breakpoints.down('sm')]: {
       display: 'none',
     }
+  },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    position: 'absolute',
+    width: 450,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   }
 });
 
@@ -133,6 +150,10 @@ class Header extends Component {
       yeldBalance: 0,
       hoursPassedAfterStaking: 0,
       retirementYeldCurrentStaked: 0,
+      stakeModalOpen: false,
+      unstakeModalOpen: false,
+      stakeAmount: 0,
+      unStakeAmount: 0,
     }
 
     this.waitUntilSetupComplete()
@@ -266,31 +287,13 @@ class Header extends Component {
             />
             <Typography variant={ 'h3'} className={ classes.name } onClick={ () => { this.nav('') } }>Yeld.finance</Typography>
           </div>
-          <Button
+
+          <Button 
             style={{marginLeft: '10px'}}
             variant="outlined"
             color="primary"
             disabled={ this.state.yeldBalance <= 0 }
-            onClick={async () => {
-              if(await this.betaTesting()) {
-                let amountToStake = prompt("Enter how much YELD you want to stake. Warning: leave at least 5 YELD in your wallet to keep using the beta!", this.state.yeldBalance)
-                
-                await window.yeld.methods.approve(
-                  window.retirementYeld._address, 
-                  window.web3.utils.toWei(String(amountToStake)), 
-                ).send({
-                  from: window.web3.eth.defaultAccount,
-                })
-
-                await window.retirementYeld.methods.stakeYeld(
-                  window.web3.utils.toWei(String(amountToStake))
-                ).send({
-                    from: window.web3.eth.defaultAccount,
-                })
-              } else {
-                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
-              }
-            }}
+            onClick={() => this.setState({stakeModalOpen: true})}
           >
             <Typography variant={ 'h5'} color='secondary'>
               Stake Yeld Tokens ({this.state.yeldBalance} YELD)
@@ -301,25 +304,140 @@ class Header extends Component {
               </i>
             </Typography>
           </Button>
-          <Button
+
+          <Modal
+            className={classes.modal}
+            open={this.state.stakeModalOpen}
+            onClose={() => this.setState({stakeModalOpen: false})}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+          <div style={this.modalStyle} className={ classes.paper }>
+              <Typography variant='h4' className={ classes.title }>
+                Enter how much YELD you want to stake. Warning: leave at least 5 YELD in your wallet to keep using the beta!"
+              </Typography>
+              <br/>
+
+              <TextField
+                fullWidth
+                className={ classes.actionInput }
+                value={ this.state.stakeAmount }
+                onChange={ (e) => this.setState({stakeAmount: e.target.value}) }
+                placeholder="0"
+                variant="outlined"
+              />
+              <br/> <br/>
+
+              <div>
+                <Button 
+                variant="outlined"
+                color="primary"
+                disabled={this.state.stakeAmount <= 0}
+                onClick={async () => {
+                  if(await this.betaTesting()) {
+                    await window.yeld.methods.approve(
+                      window.retirementYeld._address, 
+                      window.web3.utils.toWei(String(this.state.stakeAmount)), 
+                    ).send({
+                      from: window.web3.eth.defaultAccount,
+                    });
+    
+                    await window.retirementYeld.methods.stakeYeld(
+                      window.web3.utils.toWei(String(this.state.stakeAmount))
+                    ).send({
+                        from: window.web3.eth.defaultAccount,
+                    });
+                  } else {
+                    alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD");
+                  }
+                }}
+                >
+                  <Typography variant={ 'h5'} color='secondary'>
+                    Stake
+                  </Typography>
+                </Button>
+
+                <Button 
+                  style={{marginLeft: "50%"}}
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => this.setState({stakeModalOpen: false})}
+                >
+                  <Typography variant={ 'h5'} color='secondary'>
+                    Cancel
+                  </Typography>
+                </Button>
+              </div>
+            </div>
+          </Modal>
+          
+          <Button 
             style={{marginLeft: '10px'}}
             variant="outlined"
             color="primary"
             disabled={this.state.retirementYeldCurrentStaked <= 0}
-            onClick={async () => {
-              let amountToStake = prompt("Enter how much YELD you want to unstake:", window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked)))
-
-              await window.retirementYeld.methods.unstake(
-                window.web3.utils.toWei(String(amountToStake))
-              ).send({
-                from: window.web3.eth.defaultAccount,
-              })
-            }}
+            onClick={() => this.setState({unstakeModalOpen: true})}
           >
             <Typography variant={ 'h5'} color='secondary'>
               Unstake Yeld
             </Typography>
           </Button>
+
+          <Modal
+            className={classes.modal}
+            open={this.state.unstakeModalOpen}
+            onClose={() => this.setState({unstakeModalOpen: false})}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+          >
+          <div style={this.modalStyle} className={ classes.paper }>
+              <Typography variant='h4' className={ classes.title }>
+                Enter how much YELD you want to unstake:
+              </Typography>
+              <br/>
+
+              <TextField
+                fullWidth
+                className={ classes.actionInput }
+                value={ this.state.unStakeAmount }
+                onChange={ (e) => this.setState({unStakeAmount: e.target.value}) }
+                placeholder="0"
+                variant="outlined"
+              />
+              <br/> <br/>
+
+              <div>
+                <Button 
+                variant="outlined"
+                color="primary"
+                disabled={this.state.unStakeAmount <= 0}
+                onClick={async () => {
+                  await window.retirementYeld.methods.unstake(
+                    window.web3.utils.toWei(String(this.state.unStakeAmount))
+                  ).send({
+                    from: window.web3.eth.defaultAccount,
+                  })
+                }}
+                >
+                  <Typography variant={ 'h5'} color='secondary'>
+                    Unstake
+                  </Typography>
+                </Button>
+
+                <Button 
+                  style={{marginLeft: "46%"}}
+                  variant="outlined"
+                  color="primary"
+                  onClick={() => this.setState({unstakeModalOpen: false})}
+                >
+                  <Typography variant={ 'h5'} color='secondary'>
+                    Cancel
+                  </Typography>
+                </Button>
+              </div>
+            </div>
+          </Modal>
+        
           <Button
             style={{marginLeft: '10px'}}
             variant="outlined"
@@ -374,6 +492,16 @@ class Header extends Component {
       </div>
     )
   }
+
+  getModalStyle = () => {
+    const top = 50 + Math.round(Math.random() * 20) - 10;
+    const left = 50 + Math.round(Math.random() * 20) - 10;
+    return {
+        top: `${top}%`,
+        left: `${left}%`,
+        transform: `translate(-${top}%, -${left}%)`,
+    };
+}
 
   renderLink = (screen) => {
     const {
