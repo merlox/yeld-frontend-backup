@@ -45,6 +45,7 @@ import Web3 from 'web3';
 
 import {
   injected,
+  injectedTorus,
   walletconnect,
   walletlink,
   ledger,
@@ -605,7 +606,7 @@ class Store {
       events: [],
       connectorsByName: {
         MetaMask: injected,
-        TrustWallet: injected,
+        TrustWallet: injectedTorus,
         WalletConnect: walletconnect,
         WalletLink: walletlink,
         Ledger: ledger,
