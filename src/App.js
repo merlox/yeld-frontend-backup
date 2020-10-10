@@ -64,42 +64,42 @@ class App extends Component {
       const endBetaTimestamp = 1604080800000
       if (Date.now() > endBetaTimestamp) {
         return resolve(true)
-      } else {
-        let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
-        const fiveYeld = await window.web3.utils.toWei('5')
-        resolve(Number(yeldBalance) >= Number(fiveYeld))
       }
+      let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
+      const fiveYeld = await window.web3.utils.toWei('5')
+      resolve(Number(yeldBalance) >= Number(fiveYeld))
     })
   }
 
   setup = async () => {
-    // Create the contract instance
-    window.web3 = new MyWeb3(window.ethereum)
+    if (typeof (window.ethereum) !== 'undefined') {
+      // Create the contract instance
+      window.web3 = new MyWeb3(window.ethereum);
 
-    try {
-      await window.ethereum.enable();
-    } catch (error) {
-      console.error('You must approve this dApp to interact with it')
-    }
-    window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
-    const account = await this.getAccount();
+      try {
+        await window.ethereum.enable();
+      } catch (error) {
+        console.error('You must approve this dApp to interact with it')
+      }
+      window.yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
+      const account = await this.getAccount();
+      window.web3.eth.defaultAccount = account
 
-    window.web3.eth.defaultAccount = account
+      // Create the retirementyeld and yelddai contract instances
+      window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
+      window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
+      window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yTUSDAddress)
+      window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
+      window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
 
-    // Create the retirementyeld and yelddai contract instances
-    window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
-    window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
-    window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yTUSDAddress)
-    window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
-    window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
-
-    if (await this.betaTesting()) {
-      this.setState({
-        betaValid: true,
-        setupComplete: true,
-      })
-    } else {
-      this.setState({ setupComplete: true })
+      if (await this.betaTesting()) {
+        this.setState({
+          betaValid: true,
+          setupComplete: true,
+        })
+      } else {
+        this.setState({ setupComplete: true })
+      }
     }
   }
 
@@ -126,11 +126,18 @@ class App extends Component {
               <Route path="/">
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
-                {!this.state.betaValid ? (
-                  <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>
-                ) : (
-                    <InvestSimple setupComplete={this.state.setupComplete} />
-                  )}
+                {typeof (window.ethereum) !== 'undefined' ?
+                  (!this.state.betaValid ? (
+                    <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>
+                  ) : (
+                      <InvestSimple setupComplete={this.state.setupComplete} />
+                    ))
+                  :
+                  <h2 style={{ margin: 'auto' }}>
+                    <p style={{ marginLeft: "10px" }}>You don't have Metamask Installed or </p>
+                    <p>Your browser doesn't support Metamask</p>
+                  </h2>
+                }
                 {/* <Footer /> */}
               </Route>
             </Switch>
