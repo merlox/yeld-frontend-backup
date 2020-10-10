@@ -1,9 +1,9 @@
 export default {
-  yDAIAddress: '0x0',
-  yTUSDAddress: '0x0',
-  yUSDTAddress: '0x0',
-  yUSDCAddress: '0x0',
-  retirementYeldAddress: '0x0',
+  yDAIAddress: '0xdADF6764de3452B7d00059A6A8678289BC5aA869',
+  yTUSDAddress: '0xEbaC66AD745df447549C9B9d5cB4265FCEFA126e',
+  yUSDTAddress: '0x9cD568a0cCFe19a47904E59CF33426F510aeC2d8',
+  yUSDCAddress: '0x1Cd03B5bFD0A137c25a66DDbEB7b7794fC8f2706',
+  retirementYeldAddress: '0xa06AB0aAef5Bb9B4855343e6Ab98CB19Ee8C134d',
   yeldAddress: '0x468ab3b1f63A1C14b361bC367c3cC92277588Da1',
   yeldAbi: [
     {
