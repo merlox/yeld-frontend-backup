@@ -376,6 +376,13 @@ class Asset extends Component {
     const { amount } = this.state
     const { asset, startLoading } = this.props
 
+    console.log('asset', asset)
+    console.log('asset', asset)
+    console.log('asset', asset)
+    console.log('asset', asset)
+    console.log('asset', asset)
+    console.log('asset', asset)
+
     if(!amount || isNaN(amount) || amount <= 0 || amount > asset.balance) {
       this.setState({ amountError: true })
       return false

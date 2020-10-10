@@ -1,3 +1,7 @@
+// YELD
+import yeldConfig from '../yeldConfig'
+
+
 import config from "../config";
 import async from 'async';
 import {
@@ -275,7 +279,7 @@ class Store {
           description: 'DAI Stablecoin',
           investSymbol: 'yDAI',
           erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: '0xE3EAB4679677FCDD1492051Ad217CfEe17dEDFdf',
+          iEarnContract: yeldConfig.yDAIAddress,
           lastMeasurement: 9465912,
           measurement: 1000037230456849197,
           maxApr: 0,
@@ -298,7 +302,7 @@ class Store {
           description: 'USD//C',
           investSymbol: 'yUSDC',
           erc20address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-          iEarnContract: '0xfD8011e760C6F39CB99895bb74B81c36be1de964',
+          iEarnContract: yeldConfig.yUSDCAddress,
           lastMeasurement: 9465880,
           measurement: 1139534904703193728,
           apr: 0,
@@ -322,7 +326,7 @@ class Store {
           description: 'Tether USD',
           investSymbol: 'yUSDT',
           erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          iEarnContract: '0xb194A96AADC7e99a2462EF1669eB38E6B541DF79',
+          iEarnContract: yeldConfig.yUSDTAddress,
           lastMeasurement: 9465880,
           measurement: 1000030025124779312,
           apr: 0,
@@ -346,7 +350,7 @@ class Store {
           description: 'TrueUSD',
           investSymbol: 'yTUSD',
           erc20address: '0x0000000000085d4780B73119b644AE5ecd22b376',
-          iEarnContract: '0xE21eb031eF38239B090Ee640425390d8b46f411F',
+          iEarnContract: yeldConfig.yTUSDAddress,
           lastMeasurement: 9479531,
           measurement: 1000197346651007837 ,
           apr: 0,
