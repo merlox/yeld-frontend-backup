@@ -183,7 +183,7 @@ class Asset extends Component {
             variant='text'
             disabled={ loading || asset.disabled }
             color="primary"
-            onClick={ () => { this.setAmount(25) } }>
+            onClick={ () => { this.setAmount(25) } }> 
             <Typography variant={'h5'}>25%</Typography>
           </Button>
           <Button
@@ -215,7 +215,7 @@ class Asset extends Component {
           className={ classes.actionButton }
           variant="outlined"
           color="primary"
-          disabled={ loading || !account.address || asset.disabled }
+          disabled={ loading || !account.address || asset.disabled || amount <= 0 }
           onClick={ async () => {
             if(await this.betaTesting()) {
               this.onInvest()
@@ -283,7 +283,7 @@ class Asset extends Component {
           className={ classes.actionButton }
           variant="outlined"
           color="primary"
-          disabled={ loading || !account.address }
+          disabled={ loading || !account.address || redeemAmount <= 0 }
           onClick={ async () => {
             if(await this.betaTesting()) {
               this.onRedeem()
@@ -300,7 +300,7 @@ class Asset extends Component {
           style={{marginTop: '10px'}}
           variant="outlined"
           color="primary"
-          disabled={ loading || !account.address }
+          disabled={ loading || !account.address || redeemAmount <= 0 }
           onClick={async () => {
             if(await this.betaTesting()) {
               let generatedYELD

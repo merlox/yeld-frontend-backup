@@ -172,7 +172,10 @@ function getLibrary(provider) {
 function onConnectionClicked(currentConnector, name, setActivatingConnector, activate) {
   const connectorsByName = store.getStore('connectorsByName')
   setActivatingConnector(currentConnector);
-  activate(connectorsByName[name]);
+  activate(connectorsByName[name], null, true)
+  .catch((_) => {
+    setActivatingConnector(undefined);
+  });
 }
 
 function onDeactivateClicked(deactivate, connector) {
@@ -187,12 +190,13 @@ function onDeactivateClicked(deactivate, connector) {
 }
 
 function MyComponent(props) {
-
   const context = useWeb3React();
   const localContext = store.getStore('web3context');
+  var connectorsByName = store.getStore('connectorsByName')
   var localConnector = null;
+
   if (localContext) {
-    localConnector = localContext.connector
+    localConnector = connectorsByName[localContext.connector]
   }
   const {
     connector,
@@ -203,7 +207,6 @@ function MyComponent(props) {
     active,
     error
   } = context;
-  var connectorsByName = store.getStore('connectorsByName')
 
   const { closeModal, t } = props
 
@@ -290,7 +293,8 @@ function MyComponent(props) {
               onClick={() => {
                 onConnectionClicked(currentConnector, name, setActivatingConnector, activate)
               }}
-              disabled={ disabled }>
+              disabled={ disabled }
+          >
               <Typography style={ {
                   margin: '0px 12px',
                   color: 'rgb(1, 1, 1)',
