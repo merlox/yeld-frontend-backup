@@ -28,7 +28,7 @@ const styles = (theme) => ({
     verticalAlign: "top",
     width: "100%",
     maxWidth: "calc(100vw - 24px)",
-    border: 0,
+    border: "0",
   },
   stakeContainer: {
     display: "flex",

@@ -44,8 +44,20 @@ const styles = (theme) => ({
   },
   icon: {
     display: "flex",
+    order: "0",
     alignItems: "center",
     cursor: "pointer",
+  },
+  brandColor: {
+    order: "1",
+    width: "3px",
+    height: "100%",
+    marginLeft: "15px",
+    backgroundColor: "#2036ff"
+  },
+  brandV2: {
+    display: "flex",
+    order: "2",
   },
   divBlock: {
     width: "3px",
@@ -85,6 +97,7 @@ const styles = (theme) => ({
     alignItems: "center",
     justifyContent: "flex-end",
     flex: 1,
+    order: "4",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexWrap: 'wrap',
@@ -306,7 +319,8 @@ class Header extends Component {
               }}
             />
           </div>
-          <div style={{ display: "flex" }}>
+          <div className={classes.brandColor}></div>
+          <div className={classes.brandV2}>
             <div
               className={classes.brand}
               style={{
