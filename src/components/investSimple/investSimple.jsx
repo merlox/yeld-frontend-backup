@@ -6,6 +6,7 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
@@ -49,19 +50,27 @@ const styles = (theme) => ({
     minWidth: "100%",
     marginTop: "40px",
     [theme.breakpoints.up("md")]: {
-      minWidth: "900px",
+      minWidth: "1000px",
     },
   },
   investedContainer: {
     display: "flex",
     flex: 1,
     flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "flex-start",
     minWidth: "100%",
     [theme.breakpoints.up("md")]: {
-      minWidth: "900px",
+      minWidth: "1000px",
     },
+  },
+  titleInvested: {
+    margin: "15px 0 15px",
+  },
+  investedVaults: {
+    display: "flex",
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
   },
   twoColumns: {
     display: "grid",
@@ -131,7 +140,7 @@ const styles = (theme) => ({
     },
     padding: "12px",
     backgroundColor: "#2F80ED",
-    border: "1px solid #E1E1E1",
+    border: "1px solid #9C9DA0",
     fontWeight: 500,
     [theme.breakpoints.up("md")]: {
       padding: "15px",
@@ -143,7 +152,7 @@ const styles = (theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    border: "1px solid #aaa",
+    border: "1px solid #9C9DA0",
     cursor: "pointer",
 
     right: "0px",
@@ -239,6 +248,10 @@ const styles = (theme) => ({
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "100%",
+      maxWidth: "auto",
     },
   },
   between: {
@@ -426,13 +439,6 @@ class InvestSimple extends Component {
 
     return (
       <div className={classes.root}>
-        <Typography
-          variant={"h5"}
-          className={classes.disaclaimer}
-          style={{ marginTop: "24px" }}
-        >
-          This project is in beta. Use at your own risk.
-        </Typography>
         <div className={classes.twoColumns}>
           <div className={classes.iconInvested}>
             <img
@@ -441,14 +447,30 @@ class InvestSimple extends Component {
               height={"65px"}
             />
           </div>
-
           <div className={classes.investedContainer}>
-            {account.address && value === 1 && this.renderAssetBlocksv2()}
+            <Typography
+              variant={"h3"}
+              className={classes.titleInvested}
+              style={{ textAlign: "left" }}
+            >
+              {" "}
+              Your Optimised Yield Farm{" "}
+            </Typography>
+            <div className={classes.investedVaults}>
+              {account.address && value === 1 && this.renderAssetBlocksv2()}
+            </div>
           </div>
         </div>
 
         {loading && <Loader />}
         {snackbarMessage && this.renderSnackbar()}
+        <Typography
+          variant={"h5"}
+          className={classes.disaclaimer}
+          style={{ marginTop: "24px" }}
+        >
+          This project is in beta. Use at your own risk.
+        </Typography>
       </div>
     );
   };

@@ -83,7 +83,7 @@ const styles = theme => ({
     display: 'flex',
     marginTop: '60px',
     flexWrap: 'wrap',
-    maxWidth: '900px',
+    maxWidth: '1000px',
     justifyContent: 'center'
   },
   introCenter: {

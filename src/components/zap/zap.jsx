@@ -58,7 +58,7 @@ const styles = theme => ({
     minWidth: '100%',
     marginTop: '40px',
     [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
+      minWidth: '1000px'
     }
   },
   iHaveContainer: {

@@ -56,7 +56,7 @@ const styles = theme => ({
     minWidth: '100%',
     marginTop: '40px',
     [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
+      minWidth: '1000px'
     }
   },
   balancesContainer: {
@@ -263,7 +263,7 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     minWidth: '100%',
     [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
+      minWidth: '1000px'
     }
   }, 
   twoColumns: {

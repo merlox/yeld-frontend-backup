@@ -41,7 +41,7 @@ const styles = theme => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '900px',
+    maxWidth: '1000px',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -56,7 +56,7 @@ const styles = theme => ({
     padding: '23px 30px',
     minWidth: '100%',
     [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
+      minWidth: '1000px'
     }
   },
   intro: {

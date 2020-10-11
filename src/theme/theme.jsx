@@ -22,7 +22,7 @@ export const colors = {
   darkBlue: "#2c3b57",
   blue: "#2F80ED",
   gray: "#e1e1e1",
-  darkGray: "#dadde2",
+  darkGray: "#828282",
   lightGray: "rgb(247,248,250)",
   lightBlack: "#6a6a6a",
   darkBlack: "#141414",
@@ -37,19 +37,20 @@ export const colors = {
   text: "#212529",
   lightBlue: "#2F80ED",
   topaz: "rgba(17,92,242)",
-  borderGray: "rgba(47, 99, 165, .12)",
+  borderGray: "#9C9DA0",
   borderBlue: "rgb(99,104,247)",
   investGray: "rgb(247,248,250)",
 };
 
 const breakpoints = createBreakpoints({
-  keys: ["xs", "sm", "md", "lg", "xl"],
+  keys: ["xs", "sm", "md", "lg", "xl", "xxl"],
   values: {
     xs: 0,
     sm: 600,
     md: 900,
     lg: 1200,
-    xl: 1800
+    xl: 1800,
+    xxl: 2560
   }
 })
 
@@ -223,6 +224,11 @@ const iswapTheme = {
       content: {
         backgroundColor: colors.white,
         margin: "0px !important",
+      },
+      MuiSvgIcon: {
+        root: {
+          color: "#4147F6",
+        },
       },
     },
     MuiAccordionDetails: {
