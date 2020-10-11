@@ -53,6 +53,7 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    padding: '23px 30px',
     minWidth: '100%',
     [theme.breakpoints.up('md')]: {
       minWidth: '900px',
@@ -127,7 +128,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   expansionPanel: {
     maxWidth: 'calc(100vw - 24px)',

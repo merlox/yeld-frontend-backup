@@ -17,11 +17,12 @@ const WorkSans = {
 };
 
 export const colors = {
-  white: "#fff",
+  white: "#f2f4f7",
   black: "#000",
   darkBlue: "#2c3b57",
   blue: "#2F80ED",
   gray: "#e1e1e1",
+  darkGray: "#dadde2",
   lightGray: "rgb(247,248,250)",
   lightBlack: "#6a6a6a",
   darkBlack: "#141414",
@@ -36,8 +37,8 @@ export const colors = {
   text: "#212529",
   lightBlue: "#2F80ED",
   topaz: "rgba(17,92,242)",
-  darkGray: "rgba(43,57,84,.5)",
-  borderGray: "rgba(217,218,221, 0.5)",
+  borderGray: "#dadde2",
+  borderBlue: "rgb(99,104,247)",
   investGray: "rgb(247,248,250)",
 };
 
@@ -52,246 +53,250 @@ const breakpoints = createBreakpoints({
   }
 })
 
-const iswapTheme =  {
+const iswapTheme = {
   typography: {
     fontFamily: [
       '"Work Sans Thin"',
-      'BlinkMacSystemFont',
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
+      "Arial",
+      "sans-serif",
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
+    ].join(","),
     h1: {
-      fontSize: '48px',
-      fontWeight: '600',
+      fontSize: "48px",
+      fontWeight: "600",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
-      lineHeight: 1.2
+      lineHeight: 1.2,
     },
     h2: {
-      fontSize: '36px',
-      fontWeight: '600',
+      fontSize: "36px",
+      fontWeight: "600",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
-      lineHeight: 1.2
+      lineHeight: 1.2,
     },
     h3: {
-      fontSize: '22px',
-      fontWeight: '600',
+      fontSize: "22px",
+      fontWeight: "600",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
-      lineHeight: 1.2
+      lineHeight: 1.2,
     },
     h4: {
-      fontSize: '16px',
-      fontWeight: '600',
+      fontSize: "16px",
+      fontWeight: "600",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
-      lineHeight: 1.2
+      lineHeight: 1.2,
     },
     h5: {
-      fontSize: '14px',
-      fontWeight: '600',
+      fontSize: "14px",
+      fontWeight: "600",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
-      lineHeight: 1.2
+      lineHeight: 1.2,
     },
     body1: {
-      fontSize: '16px',
-      fontWeight: '300',
+      fontSize: "16px",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
     },
     body2: {
-      fontSize: '16px',
-      fontWeight: '300',
+      fontSize: "16px",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
     },
   },
-  type: 'light',
+  type: "light",
   overrides: {
     MuiCssBaseline: {
-      '@global': {
-        '@font-face': [WorkSans],
+      "@global": {
+        "@font-face": [WorkSans],
       },
     },
     MuiSelect: {
       select: {
-        padding: '9px'
+        padding: "9px",
       },
       selectMenu: {
-        minHeight: '30px',
-        display: 'flex',
-        alignItems: 'center'
-      }
+        minHeight: "30px",
+        display: "flex",
+        alignItems: "center",
+      },
     },
     MuiButton: {
       root: {
-        padding: '10px 24px'
+        padding: "10px 24px",
       },
       outlined: {
-        padding: '10px 24px',
-        borderWidth: '2px !important'
+        padding: "10px 24px",
+        borderWidth: "2px !important",
       },
       text: {
-        padding: '10px 24px'
+        padding: "10px 24px",
       },
       label: {
-        textTransform: 'none',
-        fontSize: '1rem'
-      }
+        textTransform: "none",
+        fontSize: "1rem",
+      },
     },
     MuiInputBase: {
       input: {
-        fontSize: '16px',
-        fontWeight: '600',
+        fontSize: "16px",
+        fontWeight: "600",
         WebkitFontSmoothing: "antialiased",
         MozOsxFontSmoothing: "grayscale",
-        lineHeight: 1.2
-      }
+        lineHeight: 1.2,
+      },
     },
     MuiOutlinedInput: {
       input: {
         "&::placeholder": {
-          color: colors.text
+          color: colors.text,
         },
         color: colors.text,
-        padding: '14px'
+        padding: "14px",
       },
       root: {
         // border: "none !important"
       },
       notchedOutline: {
         // border: "none !important"
-      }
+      },
     },
-    MuiSnackbar : {
+    MuiSnackbar: {
       root: {
-        maxWidth: 'calc(100vw - 24px)'
+        maxWidth: "calc(100vw - 24px)",
       },
       anchorOriginBottomLeft: {
-        bottom: '12px',
-        left: '12px',
-        '@media (min-width: 960px)': {
-          bottom: '50px',
-          left: '80px'
-        }
-      }
+        bottom: "12px",
+        left: "12px",
+        "@media (min-width: 960px)": {
+          bottom: "50px",
+          left: "80px",
+        },
+      },
     },
     MuiSnackbarContent: {
       root: {
-        backgroundColor: colors.gray,
-        padding: '0px',
-        minWidth: 'auto',
-        '@media (min-width: 960px)': {
-          minWidth: '500px',
-        }
+        backgroundColor: colors.white,
+        padding: "0px",
+        minWidth: "auto",
+        "@media (min-width: 960px)": {
+          minWidth: "500px",
+        },
       },
       message: {
-        padding: '0px'
+        padding: "0px",
       },
       action: {
-        marginRight: '0px'
-      }
+        marginRight: "0px",
+      },
     },
     MuiAccordion: {
       root: {
-        border: '1px solid '+colors.borderGray,
-        margin: '8px 0px',
-        '&:before': { //underline color when textfield is inactive
-          backgroundColor: 'none',
-          height: '0px'
+        border: "1px solid " + colors.borderGray,
+        margin: "8px 0px",
+        "&:before": {
+          //underline color when textfield is inactive
+          backgroundColor: colors.white,
+          height: "0px",
         },
-      }
+      },
     },
     MuiAccordionSummary: {
       root: {
-        padding: '12px 24px',
-        '@media (min-width: 960px)': {
-          padding: '30px 42px',
-        }
+        backgroundColor: colors.white,
+        padding: "12px 24px",
+        "@media (min-width: 960px)": {
+          padding: "30px 42px",
+        },
       },
       content: {
-        margin: '0px !important'
-      }
+        backgroundColor: colors.white,
+        margin: "0px !important",
+      },
     },
     MuiAccordionDetails: {
       root: {
-        padding: '0 12px 15px 12px',
-        '@media (min-width: 960px)': {
-          padding: '0 24px 30px 24px',
-        }
-      }
+        backgroundColor: colors.white,
+        padding: "0 12px 15px 12px",
+        "@media (min-width: 960px)": {
+          padding: "0 24px 30px 24px",
+        },
+      },
     },
     MuiToggleButton: {
       root: {
-        textTransform: 'none',
-        minWidth:  '100px',
-        border: 'none',
-        background: colors.gray,
-        '& > span > h4': {
-          color: '#555',
+        textTransform: "none",
+        minWidth: "100px",
+        border: "none",
+        background: colors.borderBlue,
+        "& > span > h4": {
+          color: "#555",
         },
-        '&:hover': {
-          backgroundColor: "rgba(47,128,237, 0.2)",
+        "&:hover": {
+          backgroundColor: colors.white,
         },
         "&$selected": {
-          backgroundColor: '#2f80ed',
-          '& > span > h4': {
-            color: '#fff',
+          backgroundColor: colors.white,
+          "& > span > h4": {
+            color: "#fff",
           },
-          '&:hover': {
-            backgroundColor: "rgba(47,128,237, 0.2)",
-            '& > span > h4': {
-              color: '#000',
+          "&:hover": {
+            backgroundColor: colors.white,
+            "& > span > h4": {
+              color: "#000",
             },
           },
-        }
-      }
+        },
+      },
     },
     MuiPaper: {
       elevation1: {
-        boxShadow: 'none'
-      }
+        boxShadow: "none",
+      },
     },
     MuiToggleButtonGroup: {
       root: {
-        border: '1px solid '+colors.borderGray,
+        border: "1px solid " + colors.borderGray,
       },
       groupedSizeSmall: {
-        padding: '42px 30px'
-      }
+        padding: "42px 30px",
+      },
     },
     MuiFormControlLabel: {
       label: {
-        color: colors.darkBlack,
-        fontSize: '14px',
-        fontWeight: '600',
+        color: colors.borderBlue,
+        fontSize: "14px",
+        fontWeight: "600",
         WebkitFontSmoothing: "antialiased",
         MozOsxFontSmoothing: "grayscale",
-        lineHeight: 1.2
-      }
-    }
+        lineHeight: 1.2,
+      },
+    },
   },
   palette: {
     primary: {
-      main: colors.blue
+      main: colors.blue,
     },
     secondary: {
-      main: colors.topaz
+      main: colors.topaz,
     },
     text: {
       primary: colors.text,
-      secondary: colors.text
-    }
+      secondary: colors.text,
+    },
   },
-  breakpoints: breakpoints
+  breakpoints: breakpoints,
 };
 
 export default iswapTheme;

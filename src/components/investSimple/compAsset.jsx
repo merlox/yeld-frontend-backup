@@ -60,7 +60,7 @@ const styles = theme => ({
   },
   actionButton: {
     padding: '12px',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: '1rem',
     border: '1px solid #E1E1E1',
     fontWeight: 500,

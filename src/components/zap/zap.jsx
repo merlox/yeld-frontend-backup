@@ -156,7 +156,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   sepperator: {
     borderBottom: '1px solid #E1E1E1',
@@ -185,7 +185,7 @@ const styles = theme => ({
     border: '1px solid rgb(174, 174, 174)',
     borderRadius: '0.75rem',
     marginBottom: '24px',
-    background: colors.gray
+    background: colors.white
   },
   walletAddress: {
     padding: '0px 12px'

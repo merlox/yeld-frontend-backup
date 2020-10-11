@@ -43,18 +43,18 @@ const styles = theme => ({
     }
   },
   earn: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
     '&:hover': {
       backgroundColor: colors.pink,
       '& .title': {
-        color: colors.gray
+        color: colors.white
       },
       '& .icon': {
-        color: colors.gray
+        color: colors.white
       },
       '& .description': {
         display: 'block',
-        color: colors.gray,
+        color: colors.white,
         padding: '48px',
         textAlign: 'center'
       }
@@ -70,18 +70,18 @@ const styles = theme => ({
     }
   },
   zap: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
     '&:hover': {
       backgroundColor: colors.blue,
       '& .title': {
-        color: colors.gray,
+        color: colors.white,
       },
       '& .icon': {
-        color: colors.gray
+        color: colors.white
       },
       '& .description': {
         display: 'block',
-        color: colors.gray,
+        color: colors.white,
         padding: '48px',
         textAlign: 'center'
       }
@@ -102,18 +102,18 @@ const styles = theme => ({
     }
   },
   apr: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
     '&:hover': {
       backgroundColor: colors.lightBlack,
       '& .title': {
-        color: colors.gray
+        color: colors.white
       },
       '& .icon': {
-        color: colors.gray
+        color: colors.white
       },
       '& .description': {
         display: 'block',
-        color: colors.gray,
+        color: colors.white,
         padding: '48px',
         textAlign: 'center'
       }
@@ -129,18 +129,18 @@ const styles = theme => ({
     }
   },
   vault: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
     '&:hover': {
       backgroundColor: colors.tomato,
       '& .title': {
-        color: colors.gray,
+        color: colors.white,
       },
       '& .icon': {
-        color: colors.gray
+        color: colors.white
       },
       '& .description': {
         display: 'block',
-        color: colors.gray,
+        color: colors.white,
         padding: '48px',
         textAlign: 'center'
       }
@@ -156,18 +156,18 @@ const styles = theme => ({
     }
   },
   cover: {
-    backgroundColor: colors.gray,
+    backgroundColor: colors.white,
     '&:hover': {
       backgroundColor: colors.compoundGreen,
       '& .title': {
-        color: colors.gray,
+        color: colors.white,
       },
       '& .icon': {
-        color: colors.gray
+        color: colors.white
       },
       '& .description': {
         display: 'block',
-        color: colors.gray,
+        color: colors.white,
         padding: '48px',
         textAlign: 'center'
       }
@@ -232,10 +232,10 @@ class Home extends Component {
           <BarChartIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>{ t("Home.Apr") }</Typography>
         </Card>
-        <Card className={ `${classes.card} ${classes.cover}` } onClick={ () => { window.open("https://yinsure.finance", "_blank") } }>
+        <Card className={ `${classes.card} ${classes.cover}` } onClick={ () => { window.open("https://yeld.finance", "_blank") } }>
           <SecurityIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>{ t("Home.Cover") }</Typography>
-          <Typography variant={'h4'} className={ `${classes.description} description` }>{ "Get cover with Nexus Mutual from yinsure.finance" }</Typography>
+          <Typography variant={'h4'} className={ `${classes.description} description` }>{ "Get cover with Nexus Mutual from yeld.finance" }</Typography>
         </Card>
       </div>
     )

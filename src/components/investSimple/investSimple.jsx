@@ -7,8 +7,6 @@ import {
   AccordionDetails,
   AccordionSummary,
 } from '@material-ui/core';
-import ToggleButton from '@material-ui/lab/ToggleButton';
-import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
 import { colors } from '../../theme'
@@ -209,6 +207,11 @@ const styles = (theme) => ({
       marginRight: "24px",
     },
   },
+  iconInvested: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "left"
+  },
   addressContainer: {
     display: "flex",
     justifyContent: "space-between",
@@ -254,12 +257,12 @@ const styles = (theme) => ({
     justifyContent: "flex-end",
     width: "100%",
   },
-  disaclaimer: {
+  disclaimer: {
     padding: "12px",
     // border: '1px solid rgb(174, 174, 174)',
     borderRadius: "0.75rem",
     marginBottom: "24px",
-    background: colors.gray,
+    background: colors.white,
   },
   walletAddress: {
     padding: "0px 12px",
@@ -271,6 +274,9 @@ const styles = (theme) => ({
   grey: {
     color: colors.darkGray,
   },
+  titleStake: {
+    textAlign: 'left'
+  }
 });
 
 class InvestSimple extends Component {
@@ -413,24 +419,35 @@ class InvestSimple extends Component {
     }
 
     return (
-      <div className={ classes.root }>
-        <Typography 
-          variant={'h5'} 
-          className={ classes.disaclaimer }
-          style={{ marginTop: '24px' }}
-        >This project is in beta. Use at your own risk.</Typography>
-        <div className={ classes.twoColumns }>
-          <div className={ classes.investedContainer }>
-            <Typography variant={'h3'}  className={ classes.titleStake} style={{ textAlign: 'left'}}>You optimised Yield Farm</Typography>
-            { account.address && value === 1 && this.renderAssetBlocksv2() }
+      <div className={classes.root}>
+        <Typography
+          variant={"h5"}
+          className={classes.disaclaimer}
+          style={{ marginTop: "24px" }}
+        >
+          This project is in beta. Use at your own risk.
+        </Typography>
+        <div className={classes.twoColumns}>
+          <div className={classes.iconInvested}>
+            <img
+              alt="Optimized Yield Farming"
+              src={require("../../assets/Icon-awesome-dollar-sign.svg")}
+              height={"65px"}
+            />
           </div>
-          
+
+          <div className={classes.investedContainer}>
+            <div className={classes.titleStake}>
+              <Typography variant={"h3"} >You optimised Yield Farm </Typography>
+            </div>
+            {account.address && value === 1 && this.renderAssetBlocksv2()}
+          </div>
         </div>
 
-        { loading && <Loader /> }
-        { snackbarMessage && this.renderSnackbar() }
+        {loading && <Loader />}
+        {snackbarMessage && this.renderSnackbar()}
       </div>
-    )
+    );
   };
 
   handleTabChange = (event, newValue) => {

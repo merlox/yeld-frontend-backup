@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { withStyles } from '@material-ui/core/styles';
 import {
-  TextField,
   Button,
   Typography,
   Modal,
@@ -20,118 +19,137 @@ import Store from "../../stores";
 const emitter = Store.emitter
 const store = Store.store
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    verticalAlign: 'top',
-    width: '100%',
-    display: 'flex',
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: '40px'
-    }
+    verticalAlign: "top",
+    width: "100%",
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "40px",
+    },
   },
   headerV2: {
-    background: colors.gray,
-    border: '1px solid '+colors.Darkgray,
-    borderTop: 'none',
-    width: '100%',
-    display: 'flex',
-    padding: '24px 32px',
-    alignItems: 'center',
-    justifyContent: 'center',
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: 'space-between',
-      padding: '16px 24px'
-    }
+    background: colors.white,
+    border: "1px solid #e1e3e6",
+    borderTop: "none",
+    width: "100%",
+    display: "flex",
+    padding: "24px 32px",
+    alignItems: "center",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: "space-between",
+      padding: "16px 24px",
+    },
   },
   icon: {
-    display: 'flex',
-    alignItems: 'center',
-    flex: 1,
-    cursor: 'pointer'
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+  },
+  divBlock: {
+    width: "3px",
+    height: "100%",
+    marginRight: "15px",
+    marginLeft: "15px",
+    backgroundColor: colors.borderBlue,
   },
   links: {
-    display: 'flex'
+    display: "flex",
   },
   link: {
-    padding: '12px 0px',
-    margin: '0px 12px',
-    cursor: 'pointer',
-    '&:hover': {
-      paddingBottom: '9px',
-      borderBottom: "3px solid "+colors.borderBlue,
+    padding: "12px 0px",
+    margin: "0px 12px",
+    cursor: "pointer",
+    "&:hover": {
+      paddingBottom: "9px",
+      borderBottom: "3px solid " + colors.borderBlue,
     },
   },
   title: {
-    textTransform: 'capitalize'
+    textTransform: "capitalize",
   },
   actionInput: {
-    padding: '0px 0px 12px 0px',
-    fontSize: '0.5rem'
+    padding: "0px 0px 12px 0px",
+    fontSize: "0.5rem",
   },
   linkActive: {
-    padding: '12px 0px',
-    margin: '0px 12px',
-    cursor: 'pointer',
-    paddingBottom: '9px',
-    borderBottom: "3px solid "+colors.borderBlue,
+    padding: "12px 0px",
+    margin: "0px 12px",
+    cursor: "pointer",
+    paddingBottom: "9px",
+    borderBottom: "3px solid " + colors.borderBlue,
   },
   account: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
     flex: 1,
-    [theme.breakpoints.down('sm')]: {
-      flex: '0'
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexWrap: 'wrap',
+      paddingBottom: "20px"
+    },
+  },
+  yieldMechanics: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      position: "absolute",
+      top: "90px",
+      left: "20px",
+
+    },
   },
   walletAddress: {
-    padding: '12px',
-    border: '2px solid rgb(174, 174, 174)',
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    '&:hover': {
-      border: "2px solid "+colors.borderBlue,
-      background: 'rgba(47, 128, 237, 0.1)'
+    padding: "12px",
+    border: "2px solid rgb(174, 174, 174)",
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    "&:hover": {
+      border: "2px solid " + colors.borderBlue,
+      background: "rgba(47, 128, 237, 0.1)",
     },
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      position: 'absolute',
-      top: '90px',
-      border: "1px solid "+colors.borderBlue,
-      background: colors.gray
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      position: "absolute",
+      top: "90px",
+      border: "1px solid " + colors.borderBlue,
+      background: colors.white,
+    },
   },
   walletTitle: {
     flex: 1,
-    color: colors.darkGray
+    color: colors.darkGray,
   },
   connectedDot: {
     background: colors.compoundGreen,
-    opacity: '1',
-    width: '10px',
-    height: '10px',
-    marginRight: '3px',
-    marginLeft:'6px'
+    opacity: "1",
+    width: "10px",
+    height: "10px",
+    marginRight: "3px",
+    marginLeft: "6px",
   },
   name: {
-    paddingLeft: '24px',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 450,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-  }
+  },
 });
 
 class Header extends Component {
@@ -192,7 +210,7 @@ class Header extends Component {
     if (parseInt(hours, 10) > 0) {
       return `${parseInt(hours, 10)}h ${min}m ${sec}s`
     }
-    else if (min == 0) {
+    else if (min === 0) {
       return `${sec}s`
     }
     else {
@@ -210,11 +228,11 @@ class Header extends Component {
 
     this.setState({
       retirementYeldCurrentStaked: snapshot.yeldBalance,
-      hoursPassedAfterStaking: snapshot.timestamp == 0 ? 0 : hoursPassedAfterStaking,
+      hoursPassedAfterStaking: snapshot.timestamp === 0 ? 0 : hoursPassedAfterStaking,
     })
 
     // If one day has passed, change 
-    if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
+    if (snapshot.timestamp !== 0 && dateNowWithOneDay >= snapshot.timestamp) {
       const balanceBlackHole = String(await window.yeld.methods.balanceOf('0x0000000000000000000000000000000000000000').call())
       const totalSupply = await window.yeld.methods.totalSupply().call()
       const userPercentage = (snapshot.yeldBalance) / (totalSupply - balanceBlackHole)
@@ -285,23 +303,12 @@ class Header extends Component {
               }}
             />
           </div>
-          <div style={{ display: "flex", flex: "wrap" }}>
-            <div
-              className={`${classes.divBlock22} div-block-22`}
-              style={{
-                width: "3px",
-                height: "100%",
-                marginRight: "15px",
-                marginLeft: "15px",
-                backgroundColor: "#2036ff",
-              }}
-            ></div>
+          <div style={{ display: "flex" }}>
             <div
               className={classes.brand}
               style={{
-                display: "flex",
-                flexFlow: "row wrap",
-                paddingLeft: "0",
+                alignContent: "space-around",
+                paddingLeft: "23px",
               }}
             >
               <Typography
@@ -331,18 +338,64 @@ class Header extends Component {
             </div>
           </div>
 
-          <Button
-            style={{ marginLeft: "10px" }}
-            variant="outlined"
-            color="primary"
-            onClick={() => this.setState({ yMechanicsModalOpen: true })}
+          <Modal
+            className={classes.modal}
+            open={this.state.yMechanicsModalOpen}
+            onClose={() => this.setState({ yMechanicsModalOpen: false })}
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
           >
-            <Typography variant={"h5"} color="secondary">
-              Yield Mechanics
-            </Typography>
-          </Button>
+            <div style={this.modalStyle} className={classes.paper}>
+              <div className={classes.exclusivesContainer}>
+                <h2 className={classes.exclusivesTitle}>Yeld mechanics</h2>
+                <p>
+                  Every block you earn YELD tokens based on the stablecoin yield
+                  generated in addition to your standard yield to boost the APY.
+                </p>
+                <p>
+                  A portion of the yield returns will be used for the Buy and
+                  Burn mechanism to increase the token price.
+                </p>
+                <p>
+                  Users that hold YELD tokens can stake their YELD balance and
+                  redeem Retirement Yield everyday based on their holdings.
+                </p>
+                <p>To redeem your Retirement Yield follow these steps:</p>
+                <ol>
+                  <li>Click on "Stake Yeld" with the amount to stake.</li>
+                  <br />
+                  <li>
+                    After 1 day or more, you'll be able to click on "Redeem
+                    Retirement Yield" and get ETH based on how much YELD you
+                    staked.
+                  </li>
+                  <br />
+                  <li>
+                    The larger percentage of the total YELD supply you stake, the
+                    more ETH you'll get from the Retirement Yield pool.
+                  </li>
+                </ol>
+              </div>
+            </div>
+          </Modal>
 
           <div className={classes.account}>
+            <div className={classes.yieldMechanics}>
+              <Button
+                style={{
+                  border: "none",
+                }}
+                variant="outlined"
+                color="primary"
+                noWrap
+                onClick={() => this.setState({ yMechanicsModalOpen: true })}
+              >
+                <Typography variant={"h5"} color="secondary">
+                  Yield Mechanics
+                </Typography>
+              </Button>
+            </div>
+
             {address && (
               <Typography
                 variant={"h4"}
@@ -379,7 +432,7 @@ class Header extends Component {
         left: `${left}%`,
         transform: `translate(-${top}%, -${left}%)`,
     };
-}
+  }
 
   renderLink = (screen) => {
     const {
@@ -395,7 +448,7 @@ class Header extends Component {
 
   nav = (screen) => {
     if(screen === 'cover') {
-      window.open("https://yinsure.finance", "_blank")
+      window.open("https://yeld.finance", "_blank")
       return
     }
     this.props.history.push('/'+screen)

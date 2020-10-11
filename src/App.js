@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import { colors } from './theme'
 import {
   Switch,
   Route
@@ -38,7 +39,7 @@ const store = Store.store
 class App extends Component {
   state = {
     setupComplete: false,
-    betaValid: true,
+    betaValid: false,
   };
 
   async componentWillMount() {
@@ -126,7 +127,7 @@ class App extends Component {
             flexDirection: 'column',
             minHeight: '100vh',
             alignItems: 'center',
-            background: "#e1e1e1"
+            background: colors.white
           }}>
             <Switch>
               <Route path="/">

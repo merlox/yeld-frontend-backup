@@ -137,7 +137,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   assetSummary: {
     display: 'flex',
@@ -210,7 +210,7 @@ const styles = theme => ({
     borderRadius: '0.75rem',
     marginBottom: '24px',
     lineHeight: '1.2',
-    background: colors.gray
+    background: colors.white
   },
   fees: {
     paddingRight: '75px',
@@ -238,7 +238,7 @@ const styles = theme => ({
   },
   searchField: {
     flex: 1,
-    background: colors.gray,
+    background: colors.white,
   },
   checkbox: {
     flex: 1,
