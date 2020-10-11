@@ -6,6 +6,7 @@ import {
   Button,
   Typography,
   Modal,
+  Box,
 } from "@material-ui/core";
 
 
@@ -29,43 +30,17 @@ const styles = (theme) => ({
     width: "100%",
     maxWidth: "calc(100vw - 24px)",
   },
-  // overrides: {
-  //   MuiOutlinedInput: {
-  //     root: {
-  //       "& $notchedOutline": {
-  //         borderColor: "rgba(47, 99, 165, .12)"
-  //       },
-  //       "&$focused $notchedOutline": {
-  //         borderColor: "rgba(47, 99, 165, .12)"
-  //       },
-  //       color: "rgba(47, 99, 165, .12)"
-  //     },
-  //     notchedOutline: {},
-  //   },
-  //   MuiButton: {
-  //     outlined: {
-  //       borderColor: "rgba(47, 99, 165, .12)",
-  //       color: "rgba(47, 99, 165, .12)",
-  //       borderWidth: "1px",
-  //       borderRadius: "0px"
-  //     },
-  //     outlinedPrimary: {
-  //       borderColor: "rgba(47, 99, 165, .12)",
-  //     },
-  //   },
-  // },
   stakeContainer: {
     display: "flex",
     flex: 1,
     alignItems: "center",
     flexDirection: "row",
-    justifyContent: "center",
+    // justifyContent: "s",
     minWidth: "100%",
     [theme.breakpoints.up("md")]: {
       minWidth: "900px",
     },
     [theme.breakpoints.down("sm")]: {
-      display: "flex",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
@@ -73,7 +48,6 @@ const styles = (theme) => ({
   },
   stakeOptions: {
     display: "flex",
-    justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexDirection: "column",
@@ -299,10 +273,10 @@ class StakeSimple extends Component {
               Your Retirement Yield Stake
             </Typography>
             <div className={classes.stakeOptions}>
+
+            <Box color="text.secundary" m={2} className={classes.boxRetirement} style={{ display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid rgba(47, 99, 165, .12)"}}>
               <Button
-                style={{borderWidth: "1px !important"}}
-                variant="outlined"
-                color="primary"
+                color="secundary"
                 disabled={!this.state.retirementYeldAvailable}
                 onClick={async () => {
                   if (await this.betaTesting()) {
@@ -334,14 +308,9 @@ class StakeSimple extends Component {
                   )}
                 </Typography>
               </Button>
+            </Box>
+            <Box color="text.secundary" m={2} className={classes.boxBalance} style={{ display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid rgba(47, 99, 165, .12)"}}>
               <Button
-                style={{
-                  marginLeft: "10px",
-                  borderRadius: "0",
-                  backgroundColor: "#f7f8fa",
-                  borderWidth: "1px !important"
-                }}
-                variant="outlined"
                 color="primary"
                 disabled={this.state.yeldBalance <= 0}
                 onClick={() => this.setState({ stakeModalOpen: true })}
@@ -358,6 +327,7 @@ class StakeSimple extends Component {
                   </i>
                 </Typography>
               </Button>
+              </Box>
 
               <Modal
                 className={classes.modal}
@@ -437,77 +407,76 @@ class StakeSimple extends Component {
                 </div>
               </Modal>
 
-              <Button
-                style={{ marginLeft: "20px", display: "flex", justifyContent:"center", textAlign: "center", width: "50%"}}
-                variant="outlined"
-                color="primary"
-                disabled={this.state.retirementYeldCurrentStaked <= 0}
-                onClick={() => this.setState({ unstakeModalOpen: true })}
-              >
-                <Typography variant={"h5"} color="secondary">
-                  Unstake Wallet
-                </Typography>
-              </Button>
-
-              <Modal
-                className={classes.modal}
-                open={this.state.unstakeModalOpen}
-                onClose={() => this.setState({ unstakeModalOpen: false })}
-                aria-labelledby="simple-modal-title"
-                aria-describedby="simple-modal-description"
-              >
-                <div style={this.modalStyle} className={classes.paper}>
-                  <Typography variant="h4" className={classes.title}>
-                    Enter how much YELD you want to unstake:
+              <Box color="text.secundary" m={2}  className={classes.boxUnstake} style={{ display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid rgba(47, 99, 165, .12)"}}>
+                <Button
+                  color="primary"
+                  disabled={this.state.retirementYeldCurrentStaked <= 0}
+                  onClick={() => this.setState({ unstakeModalOpen: true })}
+                >
+                  <Typography variant={"h5"} color="secondary">
+                    Unstake Wallet
                   </Typography>
-                  <br />
-                  <TextField
-                    fullWidth
-                    className={classes.actionInput}
-                    value={this.state.unStakeAmount}
-                    onChange={(e) =>
-                      this.setState({ unStakeAmount: e.target.value })
-                    }
-                    placeholder="0"
-                    variant="outlined"
-                  />
-                  <br /> <br />
-                  <div>
-                    <Button
-                      variant="outlined"
-                      color="primary"
-                      style={{ display: "flex", order: "3" }}
-                      disabled={this.state.unStakeAmount <= 0}
-                      onClick={async () => {
-                        await window.retirementYeld.methods
-                          .unstake(
-                            window.web3.utils.toWei(
-                              String(this.state.unStakeAmount)
-                            )
-                          )
-                          .send({
-                            from: window.web3.eth.defaultAccount,
-                          });
-                      }}
-                    >
-                      <Typography variant={"h5"} color="secondary">
-                        Unstake
-                      </Typography>
-                    </Button>
+                </Button>
 
-                    <Button
-                      style={{ marginLeft: "46%" }}
+                <Modal
+                  className={classes.modal}
+                  open={this.state.unstakeModalOpen}
+                  onClose={() => this.setState({ unstakeModalOpen: false })}
+                  aria-labelledby="simple-modal-title"
+                  aria-describedby="simple-modal-description"
+                >
+                  <div style={this.modalStyle} className={classes.paper}>
+                    <Typography variant="h4" className={classes.title}>
+                      Enter how much YELD you want to unstake:
+                    </Typography>
+                    <br />
+                    <TextField
+                      fullWidth
+                      className={classes.actionInput}
+                      value={this.state.unStakeAmount}
+                      onChange={(e) =>
+                        this.setState({ unStakeAmount: e.target.value })
+                      }
+                      placeholder="0"
                       variant="outlined"
-                      color="primary"
-                      onClick={() => this.setState({ unstakeModalOpen: false })}
-                    >
-                      <Typography variant={"h5"} color="secondary">
-                        Cancel
-                      </Typography>
-                    </Button>
-                  </div>
-                </div>
-              </Modal>
+                    />
+                    <br /> <br />
+                    <div>
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        style={{ display: "flex", order: "3" }}
+                        disabled={this.state.unStakeAmount <= 0}
+                        onClick={async () => {
+                          await window.retirementYeld.methods
+                            .unstake(
+                              window.web3.utils.toWei(
+                                String(this.state.unStakeAmount)
+                              )
+                            )
+                            .send({
+                              from: window.web3.eth.defaultAccount,
+                            });
+                        }}
+                      >
+                        <Typography variant={"h5"} color="secondary">
+                          Unstake
+                        </Typography>
+                      </Button>
+
+                      <Button
+                        style={{ marginLeft: "46%" }}
+                        color="primary"
+                        onClick={() => this.setState({ unstakeModalOpen: false })}
+                      >
+                        <Typography variant={"h5"} color="secondary">
+                          Cancel
+                        </Typography>
+                      </Button>
+                      </div>
+                      </div>
+                      </Modal>
+                      </Box>
             </div>
           </div>
         </div>
