@@ -30,8 +30,8 @@ const styles = theme => ({
     }
   },
   headerV2: {
-    background: colors.white,
-    border: '1px solid '+colors.borderBlue,
+    background: colors.gray,
+    border: '1px solid '+colors.gray,
     borderTop: 'none',
     width: '100%',
     display: 'flex',
@@ -87,7 +87,6 @@ const styles = theme => ({
   walletAddress: {
     padding: '12px',
     border: '2px solid rgb(174, 174, 174)',
-    borderRadius: '50px',
     display: 'flex',
     alignItems: 'center',
     cursor: 'pointer',
@@ -100,7 +99,7 @@ const styles = theme => ({
       position: 'absolute',
       top: '90px',
       border: "1px solid "+colors.borderBlue,
-      background: colors.white
+      background: colors.gray
     }
   },
   walletTitle: {
@@ -110,7 +109,6 @@ const styles = theme => ({
   connectedDot: {
     background: colors.compoundGreen,
     opacity: '1',
-    borderRadius: '10px',
     width: '10px',
     height: '10px',
     marginRight: '3px',
@@ -286,200 +284,12 @@ class Header extends Component {
             /> 
           </div>
           <div className={ `${classes.divBlock22} div-block-22`} style={{ width: '3px', height: '100%', marginRight: '15px', marginLeft: '15px', backgroundColor: '#2036ff' }}></div>  
-          <div className={ classes.brand } style={{ display: 'flex', flexFlow: 'row wrap', }}>
-            <Typography variant={ 'h3'} className={ classes.name } style={{ color: '#2036ff', fontSize: '16px', paddingLeft: '0',
+          <div className={ classes.brand } style={{ display: 'flex', flexFlow: 'row wrap', paddingLeft: '0' }}>
+            <Typography variant={ 'h3'} className={ classes.name } style={{ color: '#2036ff', fontSize: '16px',
     fontWeight: '500'}} onClick={ () => { this.nav('') } }>YELD.APP </Typography>
             <Typography  style={{    marginBottom: '0', fontSize: '16px', lineHeight: '21px', fontWeight: '200'}} >{ "Next-Generation Yield Farming" }</Typography>
           </div>
                     
-          
-
-          <Button 
-            style={{marginLeft: '10px'}}
-            variant="outlined"
-            color="primary"
-            disabled={ this.state.yeldBalance <= 0 }
-            onClick={() => this.setState({stakeModalOpen: true})}
-          >
-            <Typography variant={ 'h5'} color='secondary'>
-              Stake Yeld Tokens ({this.state.yeldBalance} YELD)
-              <br/>
-              <i>{this.state.retirementYeldCurrentStaked <= 0 ? 
-              '' : 
-              `Currently Staked ${window.web3.utils.fromWei(this.state.retirementYeldCurrentStaked)} YELD`}
-              </i>
-            </Typography>
-          </Button>
-
-          <Modal
-            className={classes.modal}
-            open={this.state.stakeModalOpen}
-            onClose={() => this.setState({stakeModalOpen: false})}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-          >
-          <div style={this.modalStyle} className={ classes.paper }>
-              <Typography variant='h4' className={ classes.title }>
-                Enter how much YELD you want to stake. Warning: leave at least 5 YELD in your wallet to keep using the beta!"
-              </Typography>
-              <br/>
-
-              <TextField
-                fullWidth
-                className={ classes.actionInput }
-                value={ this.state.stakeAmount }
-                onChange={ (e) => this.setState({stakeAmount: e.target.value}) }
-                placeholder="0"
-                variant="outlined"
-              />
-              <br/> <br/>
-
-              <div>
-                <Button 
-                variant="outlined"
-                color="primary"
-                disabled={this.state.stakeAmount <= 0}
-                onClick={async () => {
-                  if(await this.betaTesting()) {
-                    await window.yeld.methods.approve(
-                      window.retirementYeld._address, 
-                      window.web3.utils.toWei(String(this.state.stakeAmount)), 
-                    ).send({
-                      from: window.web3.eth.defaultAccount,
-                    });
-    
-                    await window.retirementYeld.methods.stakeYeld(
-                      window.web3.utils.toWei(String(this.state.stakeAmount))
-                    ).send({
-                        from: window.web3.eth.defaultAccount,
-                    });
-                  } else {
-                    alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD");
-                  }
-                }}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    Stake
-                  </Typography>
-                </Button>
-
-                <Button 
-                  style={{marginLeft: "50%"}}
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => this.setState({stakeModalOpen: false})}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    Cancel
-                  </Typography>
-                </Button>
-              </div>
-            </div>
-          </Modal>
-          
-          <Button 
-            style={{marginLeft: '10px'}}
-            variant="outlined"
-            color="primary"
-            disabled={this.state.retirementYeldCurrentStaked <= 0}
-            onClick={() => this.setState({unstakeModalOpen: true})}
-          >
-            <Typography variant={ 'h5'} color='secondary'>
-              Unstake Yeld
-            </Typography>
-          </Button>
-
-          <Modal
-            className={classes.modal}
-            open={this.state.unstakeModalOpen}
-            onClose={() => this.setState({unstakeModalOpen: false})}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-          >
-          <div style={this.modalStyle} className={ classes.paper }>
-              <Typography variant='h4' className={ classes.title }>
-                Enter how much YELD you want to unstake:
-              </Typography>
-              <br/>
-
-              <TextField
-                fullWidth
-                className={ classes.actionInput }
-                value={ this.state.unStakeAmount }
-                onChange={ (e) => this.setState({unStakeAmount: e.target.value}) }
-                placeholder="0"
-                variant="outlined"
-              />
-              <br/> <br/>
-
-              <div>
-                <Button 
-                variant="outlined"
-                color="primary"
-                disabled={this.state.unStakeAmount <= 0}
-                onClick={async () => {
-                  await window.retirementYeld.methods.unstake(
-                    window.web3.utils.toWei(String(this.state.unStakeAmount))
-                  ).send({
-                    from: window.web3.eth.defaultAccount,
-                  })
-                }}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    Unstake
-                  </Typography>
-                </Button>
-
-                <Button 
-                  style={{marginLeft: "46%"}}
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => this.setState({unstakeModalOpen: false})}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    Cancel
-                  </Typography>
-                </Button>
-              </div>
-            </div>
-          </Modal>
-        
-          <Button
-            style={{marginLeft: '10px'}}
-            variant="outlined"
-            color="primary"
-            disabled={ !this.state.retirementYeldAvailable }
-            onClick={async () => {
-              if(await this.betaTesting()) {
-                await window.retirementYeld.methods.redeemETH().send({
-                  from: window.web3.eth.defaultAccount,
-                })
-              } else {
-                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
-              }
-            }}
-          >
-            <Typography variant={ 'h5'} color='secondary'>
-              {!this.state.retirementYeldAvailable ? (
-                <span>
-                  Retirement Yield Available in 24h
-                  <br/>
-                  <i>
-                  {
-                    this.state.hoursPassedAfterStaking <= 0 ?
-                    '' :
-                    `Time passed ${this.state.hoursPassedAfterStaking}`
-                  }
-                  </i>
-                </span>
-              )
-              : (
-                <span>
-                  Redeem Retirement Yield ({this.state.earnings} ETH)
-                </span>
-              )}
-            </Typography>
-          </Button>
           <div className={ classes.account }>
             { address &&
               <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >

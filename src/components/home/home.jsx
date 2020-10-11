@@ -43,18 +43,18 @@ const styles = theme => ({
     }
   },
   earn: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray,
     '&:hover': {
       backgroundColor: colors.pink,
       '& .title': {
-        color: colors.white
+        color: colors.gray
       },
       '& .icon': {
-        color: colors.white
+        color: colors.gray
       },
       '& .description': {
         display: 'block',
-        color: colors.white,
+        color: colors.gray,
         padding: '48px',
         textAlign: 'center'
       }
@@ -70,18 +70,18 @@ const styles = theme => ({
     }
   },
   zap: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray,
     '&:hover': {
       backgroundColor: colors.blue,
       '& .title': {
-        color: colors.white,
+        color: colors.gray,
       },
       '& .icon': {
-        color: colors.white
+        color: colors.gray
       },
       '& .description': {
         display: 'block',
-        color: colors.white,
+        color: colors.gray,
         padding: '48px',
         textAlign: 'center'
       }
@@ -102,18 +102,18 @@ const styles = theme => ({
     }
   },
   apr: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray,
     '&:hover': {
       backgroundColor: colors.lightBlack,
       '& .title': {
-        color: colors.white
+        color: colors.gray
       },
       '& .icon': {
-        color: colors.white
+        color: colors.gray
       },
       '& .description': {
         display: 'block',
-        color: colors.white,
+        color: colors.gray,
         padding: '48px',
         textAlign: 'center'
       }
@@ -129,18 +129,18 @@ const styles = theme => ({
     }
   },
   vault: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray,
     '&:hover': {
       backgroundColor: colors.tomato,
       '& .title': {
-        color: colors.white,
+        color: colors.gray,
       },
       '& .icon': {
-        color: colors.white
+        color: colors.gray
       },
       '& .description': {
         display: 'block',
-        color: colors.white,
+        color: colors.gray,
         padding: '48px',
         textAlign: 'center'
       }
@@ -156,18 +156,18 @@ const styles = theme => ({
     }
   },
   cover: {
-    backgroundColor: colors.white,
+    backgroundColor: colors.gray,
     '&:hover': {
       backgroundColor: colors.compoundGreen,
       '& .title': {
-        color: colors.white,
+        color: colors.gray,
       },
       '& .icon': {
-        color: colors.white
+        color: colors.gray
       },
       '& .description': {
         display: 'block',
-        color: colors.white,
+        color: colors.gray,
         padding: '48px',
         textAlign: 'center'
       }

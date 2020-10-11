@@ -18,26 +18,28 @@ const WorkSans = {
 
 export const colors = {
   white: "#fff",
-  black: '#000',
+  gray: "rgb(242,244,247)",
+  black: "#000",
   darkBlue: "#2c3b57",
   blue: "#2F80ED",
   gray: "#e1e1e1",
   lightGray: "#737373",
   lightBlack: "#6a6a6a",
   darkBlack: "#141414",
-  green: '#1abc9c',
-  red: '#ed4337',
-  orange: 'orange',
-  pink: '#DC6BE5',
-  compoundGreen: '#00d395',
-  tomato: '#e56b73',
-  purple: '#935dff',
+  green: "#1abc9c",
+  red: "#ed4337",
+  orange: "orange",
+  pink: "#DC6BE5",
+  compoundGreen: "#00d395",
+  tomato: "#e56b73",
+  purple: "#935dff",
 
   text: "#212529",
   lightBlue: "#2F80ED",
-  topaz: "#0b8f92",
+  topaz: "rgba(17,92,242)",
   darkGray: "rgba(43,57,84,.5)",
-  borderBlue: 'rgba(25, 101, 233, 0.5)'
+  borderGray: "rgba(217,218,221, 0.5)",
+  investGray: "rgb(247,248,250)",
 };
 
 const breakpoints = createBreakpoints({
@@ -132,7 +134,6 @@ const iswapTheme =  {
     },
     MuiButton: {
       root: {
-        borderRadius: '50px',
         padding: '10px 24px'
       },
       outlined: {
@@ -162,12 +163,10 @@ const iswapTheme =  {
           color: colors.text
         },
         color: colors.text,
-        padding: '14px',
-        borderRadius: '50px'
+        padding: '14px'
       },
       root: {
-        // border: "none !important",
-        borderRadius: '50px'
+        // border: "none !important"
       },
       notchedOutline: {
         // border: "none !important"
@@ -188,7 +187,7 @@ const iswapTheme =  {
     },
     MuiSnackbarContent: {
       root: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.gray,
         padding: '0px',
         minWidth: 'auto',
         '@media (min-width: 960px)': {
@@ -204,7 +203,7 @@ const iswapTheme =  {
     },
     MuiAccordion: {
       root: {
-        border: '1px solid '+colors.borderBlue,
+        border: '1px solid '+colors.borderGray,
         margin: '8px 0px',
         '&:before': { //underline color when textfield is inactive
           backgroundColor: 'none',
@@ -233,11 +232,10 @@ const iswapTheme =  {
     },
     MuiToggleButton: {
       root: {
-        borderRadius: '50px',
         textTransform: 'none',
         minWidth:  '100px',
         border: 'none',
-        background: colors.white,
+        background: colors.gray,
         '& > span > h4': {
           color: '#555',
         },
@@ -265,8 +263,7 @@ const iswapTheme =  {
     },
     MuiToggleButtonGroup: {
       root: {
-        border: '1px solid '+colors.borderBlue,
-        borderRadius: '50px',
+        border: '1px solid '+colors.borderGray,
       },
       groupedSizeSmall: {
         padding: '42px 30px'

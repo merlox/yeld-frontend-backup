@@ -14,6 +14,7 @@ import interestTheme from './theme';
 
 import APR from './components/apr';
 import InvestSimple from './components/investSimple';
+import StakeSimple from './components/stakeSimple';
 import Manage from './components/manage';
 import Performance from './components/performance';
 import Zap from './components/zap';
@@ -131,6 +132,7 @@ class App extends Component {
               <Route path="/">
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
+                <StakeSimple setupComplete={this.state.setupComplete} />
                 {typeof (window.ethereum) !== 'undefined' ?
                   (!this.state.betaValid ? (
                     <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>

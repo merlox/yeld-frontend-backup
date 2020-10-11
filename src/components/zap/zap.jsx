@@ -66,7 +66,6 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     padding: '42px 30px',
-    borderRadius: '50px',
     maxWidth: '500px',
     justifyContent: 'center',
     border: '1px solid '+colors.borderBlue,
@@ -175,7 +174,6 @@ const styles = theme => ({
     textOverflow:'ellipsis',
     cursor: 'pointer',
     padding: '28px 30px',
-    borderRadius: '50px',
     border: '1px solid '+colors.borderBlue,
     alignItems: 'center',
     [theme.breakpoints.up('md')]: {
@@ -187,7 +185,7 @@ const styles = theme => ({
     border: '1px solid rgb(174, 174, 174)',
     borderRadius: '0.75rem',
     marginBottom: '24px',
-    background: colors.white
+    background: colors.gray
   },
   walletAddress: {
     padding: '0px 12px'

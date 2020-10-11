@@ -153,7 +153,6 @@ const styles = theme => ({
   assetIcon: {
     display: 'inline-block',
     verticalAlign: 'middle',
-    borderRadius: '20px',
     height: '30px',
     width: '30px',
     textAlign: 'center',

@@ -92,7 +92,7 @@ const styles = theme => ({
     textOverflow:'ellipsis',
     cursor: 'pointer',
     padding: '28px 30px',
-    borderRadius: '50px',
+    
     border: '1px solid '+colors.borderBlue,
     alignItems: 'center',
     [theme.breakpoints.up('md')]: {
@@ -182,7 +182,6 @@ const styles = theme => ({
   disaclaimer: {
     padding: '12px',
     border: '1px solid rgb(174, 174, 174)',
-    borderRadius: '0.75rem',
     marginBottom: '24px',
   },
   walletAddress: {

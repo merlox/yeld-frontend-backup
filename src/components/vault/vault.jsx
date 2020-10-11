@@ -152,7 +152,6 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     verticalAlign: 'middle',
-    borderRadius: '20px',
     height: '30px',
     width: '30px',
     textAlign: 'center',
@@ -174,7 +173,6 @@ const styles = theme => ({
     textOverflow:'ellipsis',
     cursor: 'pointer',
     padding: '28px 30px',
-    borderRadius: '50px',
     border: '1px solid '+colors.borderBlue,
     alignItems: 'center',
     maxWidth: '450px',
@@ -212,7 +210,7 @@ const styles = theme => ({
     borderRadius: '0.75rem',
     marginBottom: '24px',
     lineHeight: '1.2',
-    background: colors.white
+    background: colors.gray
   },
   fees: {
     paddingRight: '75px',
@@ -240,8 +238,7 @@ const styles = theme => ({
   },
   searchField: {
     flex: 1,
-    background: colors.white,
-    borderRadius: '50px'
+    background: colors.gray,
   },
   checkbox: {
     flex: 1,

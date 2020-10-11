@@ -32,243 +32,244 @@ const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
     flex: 1,
-    display: 'flex',
-    flexDirection: 'column',
-    maxWidth: '1200px',
-    width: '100%',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "1200px",
+    width: "100%",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   investedContainerLoggedOut: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    minWidth: '100%',
-    marginTop: '40px',
-    [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
-    }
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    minWidth: "100%",
+    marginTop: "40px",
+    [theme.breakpoints.up("md")]: {
+      minWidth: "900px",
+    },
   },
   investedContainer: {
-    display: 'flex',
+    display: "flex",
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    minWidth: '100%',
-    [theme.breakpoints.up('md')]: {
-      minWidth: '900px',
-    }
-  }, 
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
+    minWidth: "100%",
+    [theme.breakpoints.up("md")]: {
+      minWidth: "900px",
+    },
+  },
   twoColumns: {
-    display: 'grid',
-    gridTemplateColumns: '1fr',
-    gridColumnGap: '0',
-    [theme.breakpoints.up('lg')]: {
-      gridTemplateColumns: 'repeat(2, 1fr)',
-      gridColumnGap: '24px',
+    display: "grid",
+    gridTemplateColumns: "1fr",
+    gridColumnGap: "0",
+    [theme.breakpoints.up("lg")]: {
+      gridTemplateColumns: "repeat(2, 1fr)",
+      gridColumnGap: "24px",
     },
   },
   exclusivesContainer: {
-    margin: '0 20px',
-    [theme.breakpoints.up('md')]: {
-      margin: '0',
-    }
+    backgroundColor: colors.investGray,
+    margin: "0 20px",
+    [theme.breakpoints.up("md")]: {
+      margin: "0",
+    },
   },
   exclusivesTitle: {
-    marginTop: '20px',
-    marginBottom: '20px',
-    [theme.breakpoints.up('md')]: {
-      marginTop: '0',
-      marginBottom: 'auto',
-    }
+    marginTop: "20px",
+    marginBottom: "20px",
+    [theme.breakpoints.up("md")]: {
+      marginTop: "0",
+      marginBottom: "auto",
+    },
   },
   balancesContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    justifyContent: 'flex-end',
-    padding: '12px 12px',
-    position: 'relative',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    flexWrap: "wrap",
+    justifyContent: "flex-end",
+    padding: "12px 12px",
+    position: "relative",
   },
   connectContainer: {
-    padding: '12px',
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    maxWidth: '450px',
-    [theme.breakpoints.up('md')]: {
-      width: '450',
-    }
+    padding: "12px",
+    display: "flex",
+    justifyContent: "center",
+    width: "100%",
+    maxWidth: "450px",
+    [theme.breakpoints.up("md")]: {
+      width: "450",
+    },
   },
   intro: {
-    width: '100%',
-    position: 'relative',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column-reverse',
-    }
+    width: "100%",
+    position: "relative",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    [theme.breakpoints.down("sm")]: {
+      flexDirection: "column-reverse",
+    },
   },
   introCenter: {
-    maxWidth: '500px',
-    textAlign: 'center',
-    display: 'flex',
-    padding: '24px 0px'
+    maxWidth: "500px",
+    textAlign: "center",
+    display: "flex",
+    padding: "24px 0px",
   },
   introText: {
-    paddingLeft: '20px'
+    paddingLeft: "20px",
   },
   actionButton: {
-    '&:hover': {
+    "&:hover": {
       backgroundColor: "#2F80ED",
     },
-    padding: '12px',
+    padding: "12px",
     backgroundColor: "#2F80ED",
-    border: '1px solid #E1E1E1',
+    border: "1px solid #E1E1E1",
     fontWeight: 500,
-    [theme.breakpoints.up('md')]: {
-      padding: '15px',
-    }
+    [theme.breakpoints.up("md")]: {
+      padding: "15px",
+    },
   },
   overlay: {
-    position: 'absolute',
-    background: 'RGBA(200, 200, 200, 1)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    border: '1px solid #aaa',
-    cursor: 'pointer',
+    position: "absolute",
+    background: "RGBA(200, 200, 200, 1)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    border: "1px solid #aaa",
+    cursor: "pointer",
 
-    right: '0px',
-    top: '10px',
-    height: '70px',
-    width: '160px',
-    [theme.breakpoints.up('md')]: {
-      right: '0px',
-      top: '10px',
-      height: '90px',
-      width: '210px',
-    }
+    right: "0px",
+    top: "10px",
+    height: "70px",
+    width: "160px",
+    [theme.breakpoints.up("md")]: {
+      right: "0px",
+      top: "10px",
+      height: "90px",
+      width: "210px",
+    },
   },
   heading: {
-    display: 'none',
-    paddingTop: '12px',
+    display: "none",
+    paddingTop: "12px",
     flex: 2,
     flexShrink: 0,
-    [theme.breakpoints.up('sm')]: {
-      paddingTop: '5px',
-      display: 'block'
-    }
+    [theme.breakpoints.up("sm")]: {
+      paddingTop: "5px",
+      display: "block",
+    },
   },
   headingName: {
-    paddingTop: '5px',
+    paddingTop: "5px",
     flex: 2,
     flexShrink: 0,
-    display: 'flex',
-    alignItems: 'center',
-    minWidth: '100%',
-    [theme.breakpoints.up('sm')]: {
-      minWidth: 'auto',
-    }
+    display: "flex",
+    alignItems: "center",
+    minWidth: "100%",
+    [theme.breakpoints.up("sm")]: {
+      minWidth: "auto",
+    },
   },
   buttonText: {
-    fontWeight: '700',
-    color: 'white',
+    fontWeight: "700",
+    color: "white",
   },
   assetSummary: {
-    display: 'flex',
-    alignItems: 'center',
+    display: "flex",
+    alignItems: "center",
     flex: 1,
-    flexWrap: 'wrap',
-    [theme.breakpoints.up('sm')]: {
-      flexWrap: 'nowrap'
-    }
+    flexWrap: "wrap",
+    [theme.breakpoints.up("sm")]: {
+      flexWrap: "nowrap",
+    },
   },
   assetIcon: {
-    display: 'flex',
-    alignItems: 'center',
-    verticalAlign: 'middle',
-    borderRadius: '20px',
-    height: '30px',
-    width: '30px',
-    textAlign: 'center',
-    cursor: 'pointer',
-    marginRight: '20px',
-    [theme.breakpoints.up('sm')]: {
-      height: '40px',
-      width: '40px',
-      marginRight: '24px',
-    }
+    display: "flex",
+    alignItems: "center",
+    verticalAlign: "middle",
+    borderRadius: "20px",
+    height: "30px",
+    width: "30px",
+    textAlign: "center",
+    cursor: "pointer",
+    marginRight: "20px",
+    [theme.breakpoints.up("sm")]: {
+      height: "40px",
+      width: "40px",
+      marginRight: "24px",
+    },
   },
   addressContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    overflow: 'hidden',
+    display: "flex",
+    justifyContent: "space-between",
+    overflow: "hidden",
     flex: 1,
-    whiteSpace: 'nowrap',
-    fontSize: '0.83rem',
-    textOverflow:'ellipsis',
-    cursor: 'pointer',
-    padding: '28px 30px',
-    borderRadius: '50px',
-    border: '1px solid '+colors.borderBlue,
-    alignItems: 'center',
-    maxWidth: 'calc(100vw - 24px)',
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '100%',
-      maxWidth: 'auto'
-    }
+    whiteSpace: "nowrap",
+    fontSize: "0.83rem",
+    textOverflow: "ellipsis",
+    cursor: "pointer",
+    padding: "28px 30px",
+
+    border: "1px solid " + colors.borderBlue,
+    alignItems: "center",
+    maxWidth: "calc(100vw - 24px)",
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "100%",
+      maxWidth: "auto",
+    },
   },
   between: {
-    width: '40px',
-    height: '40px'
+    width: "40px",
+    height: "40px",
   },
   expansionPanel: {
-    maxWidth: 'calc(100vw - 24px)',
-    width: '100%'
+    maxWidth: "calc(100vw - 24px)",
+    width: "100%",
   },
   versionToggle: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
   },
   tableHeadContainer: {
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   investAllContainer: {
-    paddingTop: '24px',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    width: '100%'
+    paddingTop: "24px",
+    display: "flex",
+    justifyContent: "flex-end",
+    width: "100%",
   },
   disaclaimer: {
-    padding: '12px',
+    padding: "12px",
     // border: '1px solid rgb(174, 174, 174)',
-    borderRadius: '0.75rem',
-    marginBottom: '24px',
-    background: colors.white
+    borderRadius: "0.75rem",
+    marginBottom: "24px",
+    background: colors.gray,
   },
   walletAddress: {
-    padding: '0px 12px'
+    padding: "0px 12px",
   },
   walletTitle: {
     flex: 1,
-    color: colors.darkGray
+    color: colors.darkGray,
   },
   grey: {
-    color: colors.darkGray
+    color: colors.darkGray,
   },
 });
 
@@ -420,23 +421,10 @@ class InvestSimple extends Component {
         >This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.twoColumns }>
           <div className={ classes.investedContainer }>
-            <Typography variant={'h3'}  className={ classes.titleStake} style={{ paddingLeft: '0'}}>You optimised Yield Farm</Typography>
+            <Typography variant={'h3'}  className={ classes.titleStake} style={{ textAlign: 'left'}}>You optimised Yield Farm</Typography>
             { account.address && value === 1 && this.renderAssetBlocksv2() }
           </div>
-          <div className={ classes.exclusivesContainer }>
-            <h2 className={ classes.exclusivesTitle }>Yeld mechanics</h2>
-            <p>Every block you earn YELD tokens based on the stablecoin yield generated in addition to your standard yield to boost the APY.</p>
-            <p>A portion of the yield returns will be used for the Buy and Burn mechanism to increase the token price.</p>
-            <p>Users that hold YELD tokens can stake their YELD balance and redeem Retirement Yield everyday based on their holdings.</p>
-            <p>To redeem your Retirement Yield follow these steps:</p>
-            <ol>
-              <li>Click on "Stake Yeld" with the amount to stake.</li>
-              <br/>
-              <li>After 1 day or more, you'll be able to click on "Redeem Retirement Yield" and get ETH based on how much YELD you staked.</li>
-              <br/>
-              <li>The larger pecentage of the total YELD supply you stake, the more ETH you'll get from the Retirement Yield pool.</li>
-            </ol>
-          </div>
+          
         </div>
 
         { loading && <Loader /> }
