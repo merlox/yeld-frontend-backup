@@ -28,8 +28,32 @@ const styles = (theme) => ({
     verticalAlign: "top",
     width: "100%",
     maxWidth: "calc(100vw - 24px)",
-    border: "0",
   },
+  // overrides: {
+  //   MuiOutlinedInput: {
+  //     root: {
+  //       "& $notchedOutline": {
+  //         borderColor: "rgba(47, 99, 165, .12)"
+  //       },
+  //       "&$focused $notchedOutline": {
+  //         borderColor: "rgba(47, 99, 165, .12)"
+  //       },
+  //       color: "rgba(47, 99, 165, .12)"
+  //     },
+  //     notchedOutline: {},
+  //   },
+  //   MuiButton: {
+  //     outlined: {
+  //       borderColor: "rgba(47, 99, 165, .12)",
+  //       color: "rgba(47, 99, 165, .12)",
+  //       borderWidth: "1px",
+  //       borderRadius: "0px"
+  //     },
+  //     outlinedPrimary: {
+  //       borderColor: "rgba(47, 99, 165, .12)",
+  //     },
+  //   },
+  // },
   stakeContainer: {
     display: "flex",
     flex: 1,
@@ -52,7 +76,6 @@ const styles = (theme) => ({
     justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
-      border: "none",
       flexDirection: "column",
       width: "100%",
     },
@@ -256,8 +279,6 @@ class StakeSimple extends Component {
       <div
         className={classes.root}
         style={{
-          borderBottom: "1px solid",
-          borderColor: "#e1e3e6",
           padding: "24px 32px",
         }}
       >

@@ -37,7 +37,7 @@ export const colors = {
   text: "#212529",
   lightBlue: "#2F80ED",
   topaz: "rgba(17,92,242)",
-  borderGray: "#dadde2",
+  borderGray: "rgba(47, 99, 165, .12)",
   borderBlue: "rgb(99,104,247)",
   investGray: "rgb(247,248,250)",
 };

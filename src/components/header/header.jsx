@@ -118,12 +118,12 @@ const styles = (theme) => ({
   },
   walletAddress: {
     padding: "12px",
-    border: "2px solid rgb(174, 174, 174)",
+    border: "1px solid rgba(47, 99, 165, .12)",
     display: "flex",
     alignItems: "center",
     cursor: "pointer",
     "&:hover": {
-      border: "2px solid " + colors.borderBlue,
+      border: "1px solid " + colors.borderBlue,
       background: "rgba(47, 128, 237, 0.1)",
     },
     [theme.breakpoints.down("sm")]: {
