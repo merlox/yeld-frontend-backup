@@ -31,7 +31,7 @@ const styles = theme => ({
   },
   headerV2: {
     background: colors.gray,
-    border: '1px solid '+colors.gray,
+    border: '1px solid '+colors.Darkgray,
     borderTop: 'none',
     width: '100%',
     display: 'flex',
@@ -273,40 +273,102 @@ class Header extends Component {
     }
 
     return (
-      <div className={ classes.root }>
-        <div className={ classes.headerV2 }>
-          <div className={ classes.icon }>
+      <div className={classes.root}>
+        <div className={classes.headerV2}>
+          <div className={classes.icon}>
             <img
               alt=""
-              src={ require('../../assets/logo-v2-yeld.png') }
-              height={ '40px' }
-              onClick={ () => { this.nav('') } }
-            /> 
+              src={require("../../assets/logo-v2-yeld.png")}
+              height={"40px"}
+              onClick={() => {
+                this.nav("");
+              }}
+            />
           </div>
-          <div className={ `${classes.divBlock22} div-block-22`} style={{ width: '3px', height: '100%', marginRight: '15px', marginLeft: '15px', backgroundColor: '#2036ff' }}></div>  
-          <div className={ classes.brand } style={{ display: 'flex', flexFlow: 'row wrap', paddingLeft: '0' }}>
-            <Typography variant={ 'h3'} className={ classes.name } style={{ color: '#2036ff', fontSize: '16px',
-    fontWeight: '500'}} onClick={ () => { this.nav('') } }>YELD.APP </Typography>
-            <Typography  style={{    marginBottom: '0', fontSize: '16px', lineHeight: '21px', fontWeight: '200'}} >{ "Next-Generation Yield Farming" }</Typography>
-          </div>
-                    
-          <div className={ classes.account }>
-            { address &&
-              <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >
-                { address }
-                <div className={ classes.connectedDot }></div>
+          <div style={{ display: "flex", flex: "wrap" }}>
+            <div
+              className={`${classes.divBlock22} div-block-22`}
+              style={{
+                width: "3px",
+                height: "100%",
+                marginRight: "15px",
+                marginLeft: "15px",
+                backgroundColor: "#2036ff",
+              }}
+            ></div>
+            <div
+              className={classes.brand}
+              style={{
+                display: "flex",
+                flexFlow: "row wrap",
+                paddingLeft: "0",
+              }}
+            >
+              <Typography
+                variant={"h3"}
+                className={classes.name}
+                style={{
+                  color: "#2036ff",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                }}
+                onClick={() => {
+                  this.nav("");
+                }}
+              >
+                YELD.APP{" "}
               </Typography>
-            }
-            { !address &&
-              <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >
+              <Typography
+                style={{
+                  marginBottom: "0",
+                  fontSize: "16px",
+                  lineHeight: "21px",
+                  fontWeight: "200",
+                }}
+              >
+                {"Next-Generation Yield Farming"}
+              </Typography>
+            </div>
+          </div>
+
+          <Button
+            style={{ marginLeft: "10px" }}
+            variant="outlined"
+            color="primary"
+            onClick={() => this.setState({ yMechanicsModalOpen: true })}
+          >
+            <Typography variant={"h5"} color="secondary">
+              Yield Mechanics
+            </Typography>
+          </Button>
+
+          <div className={classes.account}>
+            {address && (
+              <Typography
+                variant={"h4"}
+                className={classes.walletAddress}
+                noWrap
+                onClick={this.addressClicked}
+              >
+                {address}
+                <div className={classes.connectedDot}></div>
+              </Typography>
+            )}
+            {!address && (
+              <Typography
+                variant={"h4"}
+                className={classes.walletAddress}
+                noWrap
+                onClick={this.addressClicked}
+              >
                 Connect your wallet
               </Typography>
-            }
+            )}
           </div>
         </div>
-        { modalOpen && this.renderModal() }
+        {modalOpen && this.renderModal()}
       </div>
-    )
+    );
   }
 
   getModalStyle = () => {

@@ -18,12 +18,11 @@ const WorkSans = {
 
 export const colors = {
   white: "#fff",
-  gray: "rgb(242,244,247)",
   black: "#000",
   darkBlue: "#2c3b57",
   blue: "#2F80ED",
   gray: "#e1e1e1",
-  lightGray: "#737373",
+  lightGray: "rgb(247,248,250)",
   lightBlack: "#6a6a6a",
   darkBlack: "#141414",
   green: "#1abc9c",
