@@ -27,15 +27,13 @@ const styles = (theme) => ({
   root: {
     verticalAlign: "top",
     width: "100%",
-    display: "flex",
-    [theme.breakpoints.down("sm")]: {
-      marginBottom: "40px",
-    },
+    maxWidth: "calc(100vw - 24px)",
+    border: 0,
   },
   stakeContainer: {
     display: "flex",
     flex: 1,
-    alignItems: "left",
+    alignItems: "center",
     flexDirection: "row",
     justifyContent: "center",
     minWidth: "100%",
@@ -54,14 +52,9 @@ const styles = (theme) => ({
     justifyContent: "space-between",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
-      padding: "10px",
+      border: "none",
       flexDirection: "column",
-      justifyContent: "space-between"
-    },
-    [Button]: {
-      display: 'flex',
-      justifyContent: 'space-around',
-      padding: "20px",
+      width: "100%",
     },
   },
   icon: {
@@ -125,18 +118,13 @@ const styles = (theme) => ({
       gridTemplateColumns: "repeat(2, 1fr)",
       gridColumnGap: "24px",
     },
-    [theme.breakpoints.down("sm")]: {
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-    },
   },
   iconStake: {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     [theme.breakpoints.down("sm")]: {
-      marginTop: "40px",
+      margin: "20px 0 20px",
     }
   },
 });
@@ -287,11 +275,11 @@ class StakeSimple extends Component {
               className={classes.titleStake}
               style={{ textAlign: "left" }}
             >
-              You Retirement Stake
+              Your Retirement Yield Stake
             </Typography>
             <div className={classes.stakeOptions}>
               <Button
-                style={{ marginLeft: "10px" }}
+                style={{borderWidth: "1px !important"}}
                 variant="outlined"
                 color="primary"
                 disabled={!this.state.retirementYeldAvailable}
@@ -330,6 +318,7 @@ class StakeSimple extends Component {
                   marginLeft: "10px",
                   borderRadius: "0",
                   backgroundColor: "#f7f8fa",
+                  borderWidth: "1px !important"
                 }}
                 variant="outlined"
                 color="primary"
@@ -377,7 +366,7 @@ class StakeSimple extends Component {
                     <Button
                       variant="outlined"
                       color="primary"
-                      style={{ backgroundColor: "#f7f8fa" }}
+                      style={{borderWidth: "1px !important", backgroundColor: "#f7f8fa"}}
                       disabled={this.state.stakeAmount <= 0}
                       onClick={async () => {
                         if (await this.betaTesting()) {
@@ -428,7 +417,7 @@ class StakeSimple extends Component {
               </Modal>
 
               <Button
-                style={{ marginLeft: "10px", padding: "24px 30px" }}
+                style={{ marginLeft: "20px", display: "flex", justifyContent:"center", textAlign: "center", width: "50%"}}
                 variant="outlined"
                 color="primary"
                 disabled={this.state.retirementYeldCurrentStaked <= 0}

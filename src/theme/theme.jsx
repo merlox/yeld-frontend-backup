@@ -69,35 +69,35 @@ const iswapTheme = {
     ].join(","),
     h1: {
       fontSize: "48px",
-      fontWeight: "600",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       lineHeight: 1.2,
     },
     h2: {
       fontSize: "36px",
-      fontWeight: "600",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       lineHeight: 1.2,
     },
     h3: {
       fontSize: "22px",
-      fontWeight: "600",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       lineHeight: 1.2,
     },
     h4: {
       fontSize: "16px",
-      fontWeight: "600",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       lineHeight: 1.2,
     },
     h5: {
       fontSize: "14px",
-      fontWeight: "600",
+      fontWeight: "300",
       WebkitFontSmoothing: "antialiased",
       MozOsxFontSmoothing: "grayscale",
       lineHeight: 1.2,
@@ -151,7 +151,7 @@ const iswapTheme = {
     MuiInputBase: {
       input: {
         fontSize: "16px",
-        fontWeight: "600",
+        fontWeight: "300",
         WebkitFontSmoothing: "antialiased",
         MozOsxFontSmoothing: "grayscale",
         lineHeight: 1.2,
@@ -277,7 +277,7 @@ const iswapTheme = {
       label: {
         color: colors.borderBlue,
         fontSize: "14px",
-        fontWeight: "600",
+        fontWeight: "300",
         WebkitFontSmoothing: "antialiased",
         MozOsxFontSmoothing: "grayscale",
         lineHeight: 1.2,

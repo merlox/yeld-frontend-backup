@@ -150,6 +150,9 @@ const styles = (theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  yeldMechanicsTitle: {
+    borderBottom: "1px solid #e1e3e6",
+  }
 });
 
 class Header extends Component {
@@ -190,23 +193,23 @@ class Header extends Component {
 
   secondsToHms(seconds) {
     if (!seconds) return '';
-   
+
     let duration = seconds;
     let hours = duration / 3600;
     duration = duration % (3600);
-   
+
     let min = parseInt(duration / 60);
     duration = duration % (60);
-   
+
     let sec = parseInt(duration);
-   
+
     if (sec < 10) {
       sec = `0${sec}`;
     }
     if (min < 10) {
       min = `0${min}`;
     }
-   
+
     if (parseInt(hours, 10) > 0) {
       return `${parseInt(hours, 10)}h ${min}m ${sec}s`
     }
@@ -231,7 +234,7 @@ class Header extends Component {
       hoursPassedAfterStaking: snapshot.timestamp === 0 ? 0 : hoursPassedAfterStaking,
     })
 
-    // If one day has passed, change 
+    // If one day has passed, change
     if (snapshot.timestamp !== 0 && dateNowWithOneDay >= snapshot.timestamp) {
       const balanceBlackHole = String(await window.yeld.methods.balanceOf('0x0000000000000000000000000000000000000000').call())
       const totalSupply = await window.yeld.methods.totalSupply().call()
@@ -346,8 +349,21 @@ class Header extends Component {
             aria-describedby="simple-modal-description"
           >
             <div style={this.modalStyle} className={classes.paper}>
-              <div className={classes.exclusivesContainer}>
-                <h2 className={classes.exclusivesTitle}>Yeld mechanics</h2>
+              <div className={classes.yeldMechanicsBox}>
+                <div className={classes.yeldMechanicsTitle}>
+                  <div className={classes.icon}>
+                    <img
+                      alt=""
+                      src={require("../../assets/FireYeldMechanic.png")}
+                      height={"40px"}
+                      onClick={() => {
+                        this.nav("");
+                      }}
+                    />
+                    <h2 className={classes.exclusivesTitle} style={{ marginLeft: "20px"}}>Yeld mechanics</h2>
+                    </div>
+                  </div>
+
                 <p>
                   Every block you earn YELD tokens based on the stablecoin yield
                   generated in addition to your standard yield to boost the APY.

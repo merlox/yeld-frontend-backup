@@ -210,7 +210,11 @@ const styles = (theme) => ({
   iconInvested: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "left"
+    alignItems: "left",
+    [theme.breakpoints.down("sm")]: {
+      margin: "20px 0 20px",
+      alignItems: "center",
+    },
   },
   addressContainer: {
     display: "flex",
@@ -230,6 +234,11 @@ const styles = (theme) => ({
     [theme.breakpoints.up("md")]: {
       width: "100%",
       maxWidth: "auto",
+    },
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
   },
   between: {
@@ -274,9 +283,6 @@ const styles = (theme) => ({
   grey: {
     color: colors.darkGray,
   },
-  titleStake: {
-    textAlign: 'left'
-  }
 });
 
 class InvestSimple extends Component {
@@ -437,9 +443,6 @@ class InvestSimple extends Component {
           </div>
 
           <div className={classes.investedContainer}>
-            <div className={classes.titleStake}>
-              <Typography variant={"h3"} >You optimised Yield Farm </Typography>
-            </div>
             {account.address && value === 1 && this.renderAssetBlocksv2()}
           </div>
         </div>
