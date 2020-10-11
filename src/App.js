@@ -9,6 +9,7 @@ import {
 import IpfsRouter from 'ipfs-react-router'
 import { promisifyAll } from 'bluebird'
 import MyWeb3 from 'web3'
+import { Typography, Modal } from '@material-ui/core';
 
 import './i18n';
 import interestTheme from './theme';
@@ -39,7 +40,9 @@ const store = Store.store
 class App extends Component {
   state = {
     setupComplete: false,
-    betaValid: true,
+    betaValid: false,
+    displayWarning: true,
+    modalOpen: true,
   };
 
   async componentWillMount() {
@@ -77,7 +80,6 @@ class App extends Component {
     if (typeof (window.ethereum) !== 'undefined') {
       // Create the contract instance
       window.web3 = new MyWeb3(window.ethereum);
-
       try {
         await window.ethereum.enable();
       } catch (error) {
@@ -134,17 +136,48 @@ class App extends Component {
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
                 <StakeSimple setupComplete={this.state.setupComplete} />
-                {typeof (window.ethereum) !== 'undefined' ?
-                  (!this.state.betaValid ? (
-                    <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>
-                  ) : (
-                      <InvestSimple setupComplete={this.state.setupComplete} />
-                    ))
+                {!this.state.displayWarning ?
+                  (typeof (window.ethereum) !== 'undefined' ?
+                    (!this.state.betaValid ? (
+                      <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>
+                    ) : (
+                        <InvestSimple setupComplete={this.state.setupComplete} />
+                      ))
+                    :
+                    <h2 style={{ margin: 'auto' }}>
+                      <p style={{ marginLeft: "10px" }}>You don't have Metamask Installed or </p>
+                      <p>Your browser doesn't support Metamask</p>
+                    </h2>
+                  )
                   :
-                  <h2 style={{ margin: 'auto' }}>
-                    <p style={{ marginLeft: "10px" }}>You don't have Metamask Installed or </p>
-                    <p>Your browser doesn't support Metamask</p>
-                  </h2>
+                  <Modal
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                    open={this.state.modalOpen}
+                    onClose={() => this.setState({ modalOpen: false, displayWarning: false })}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                  >
+                    <Typography variant='h4' style={{
+                      position: 'absolute',
+                      width: "38%",
+                      backgroundColor: "white",
+                      boxShadow: "gray",
+                      padding: "1.5%"
+                    }}>
+                      <h3 style={{ color: "red" }}>
+                        This is a BETA product and there's a HIGH chance you may lose REAL money.
+                      </h3>
+
+                      We aren't responsible for whatever loss you incur in using the product including those
+                      related to bugs or exploits in the smart contracts, bugs or exploits in the user
+                      interface and everything else. If you use this product you accept the risks
+                      associated with using a Beta product and you may lose real money.
+                      </Typography>
+                  </Modal>
                 }
                 {/* <Footer /> */}
               </Route>
