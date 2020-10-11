@@ -140,7 +140,6 @@ const styles = theme => ({
   },
   overlay: {
     position: 'absolute',
-    borderRadius: '10px',
     background: 'RGBA(200, 200, 200, 1)',
     display: 'flex',
     alignItems: 'center',
@@ -421,6 +420,7 @@ class InvestSimple extends Component {
         >This project is in beta. Use at your own risk.</Typography>
         <div className={ classes.twoColumns }>
           <div className={ classes.investedContainer }>
+            <Typography variant={'h3'}  className={ classes.titleStake} style={{ paddingLeft: '0'}}>You optimised Yield Farm</Typography>
             { account.address && value === 1 && this.renderAssetBlocksv2() }
           </div>
           <div className={ classes.exclusivesContainer }>

@@ -34,7 +34,6 @@ const styles = theme => ({
     border: '1px solid '+colors.borderBlue,
     borderTop: 'none',
     width: '100%',
-    borderRadius: '0px 0px 50px 50px',
     display: 'flex',
     padding: '24px 32px',
     alignItems: 'center',
@@ -281,12 +280,19 @@ class Header extends Component {
           <div className={ classes.icon }>
             <img
               alt=""
-              src={ require('../../assets/favicon3.png') }
+              src={ require('../../assets/logo-v2-yeld.png') }
               height={ '40px' }
               onClick={ () => { this.nav('') } }
-            />
-            <Typography variant={ 'h3'} className={ classes.name } onClick={ () => { this.nav('') } }>Yeld.finance</Typography>
+            /> 
           </div>
+          <div className={ `${classes.divBlock22} div-block-22`} style={{ width: '3px', height: '100%', marginRight: '15px', marginLeft: '15px', backgroundColor: '#2036ff' }}></div>  
+          <div className={ classes.brand } style={{ display: 'flex', flexFlow: 'row wrap', }}>
+            <Typography variant={ 'h3'} className={ classes.name } style={{ color: '#2036ff', fontSize: '16px', paddingLeft: '0',
+    fontWeight: '500'}} onClick={ () => { this.nav('') } }>YELD.APP </Typography>
+            <Typography  style={{    marginBottom: '0', fontSize: '16px', lineHeight: '21px', fontWeight: '200'}} >{ "Next-Generation Yield Farming" }</Typography>
+          </div>
+                    
+          
 
           <Button 
             style={{marginLeft: '10px'}}

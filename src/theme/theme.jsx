@@ -205,7 +205,6 @@ const iswapTheme =  {
     MuiAccordion: {
       root: {
         border: '1px solid '+colors.borderBlue,
-        borderRadius: '50px',
         margin: '8px 0px',
         '&:before': { //underline color when textfield is inactive
           backgroundColor: 'none',

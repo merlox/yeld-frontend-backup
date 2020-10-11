@@ -37,7 +37,7 @@ const store = Store.store
 class App extends Component {
   state = {
     setupComplete: false,
-    betaValid: false,
+    betaValid: true,
   };
 
   async componentWillMount() {

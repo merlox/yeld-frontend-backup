@@ -57,3 +57,26 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.div-block-21 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: #0a141c;
+  text-decoration: none;
+}
+
+.div-block-22 {
+  width: 3px;
+  height: 100%;
+  margin-right: 15px;
+  margin-left: 15px;
+  background-color: #2036ff
+}

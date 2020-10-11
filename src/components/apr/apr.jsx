@@ -50,7 +50,6 @@ const styles = theme => ({
   },
   pairs: {
     padding: '42px 36px',
-    borderRadius: '50px',
     border: '1px solid ' + colors.borderBlue,
     marginTop: '40px',
   },
