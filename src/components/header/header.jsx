@@ -154,6 +154,8 @@ class Header extends Component {
       unstakeModalOpen: false,
       stakeAmount: 0,
       unStakeAmount: 0,
+      stakeProcessing: false,
+      unstakeProcessing: false,
     }
 
     this.waitUntilSetupComplete()
@@ -217,7 +219,8 @@ class Header extends Component {
     })
 
     // If one day has passed, change 
-    if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
+    // if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
+    if (snapshot.timestamp != 0) {
       const balanceBlackHole = String(await window.yeld.methods.balanceOf('0x0000000000000000000000000000000000000000').call())
       const totalSupply = await window.yeld.methods.totalSupply().call()
       const userPercentage = (snapshot.yeldBalance) / (totalSupply - balanceBlackHole)
@@ -300,7 +303,7 @@ class Header extends Component {
               <br/>
               <i>{this.state.retirementYeldCurrentStaked <= 0 ? 
               '' : 
-              `Currently Staked ${window.web3.utils.fromWei(this.state.retirementYeldCurrentStaked)} YELD`}
+              `Currently Staked ${window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked))} YELD`}
               </i>
             </Typography>
           </Button>
@@ -320,11 +323,24 @@ class Header extends Component {
 
               <TextField
                 fullWidth
+                type="number"
+                InputProps={{
+                  inputProps: { 
+                    min: 0,
+                    max: this.state.yeldBalance
+                  }
+                }}              
                 className={ classes.actionInput }
                 value={ this.state.stakeAmount }
                 onChange={ (e) => this.setState({stakeAmount: e.target.value}) }
                 placeholder="0"
                 variant="outlined"
+                error={Number(this.state.stakeAmount) > Number(this.state.yeldBalance)}
+                helperText={
+                  Number(this.state.stakeAmount) > Number(this.state.yeldBalance) ? 
+                  `Enter a number less than ${this.state.yeldBalance} (Yeld Balance)` 
+                  : ''
+                }
               />
               <br/> <br/>
 
@@ -332,33 +348,57 @@ class Header extends Component {
                 <Button 
                 variant="outlined"
                 color="primary"
-                disabled={this.state.stakeAmount <= 0}
+                disabled={
+                  this.state.stakeAmount <= 0 || 
+                  Number(this.state.stakeAmount) > Number(this.state.yeldBalance)
+                }
                 onClick={async () => {
-                  if(await this.betaTesting()) {
-                    await window.yeld.methods.approve(
-                      window.retirementYeld._address, 
-                      window.web3.utils.toWei(String(this.state.stakeAmount)), 
-                    ).send({
-                      from: window.web3.eth.defaultAccount,
-                    });
-    
-                    await window.retirementYeld.methods.stakeYeld(
-                      window.web3.utils.toWei(String(this.state.stakeAmount))
-                    ).send({
+                  try {
+                    if(await this.betaTesting()) {
+                      await window.yeld.methods.approve(
+                        window.retirementYeld._address, 
+                        window.web3.utils.toWei(String(this.state.stakeAmount)), 
+                      ).send({
                         from: window.web3.eth.defaultAccount,
-                    });
-                  } else {
-                    alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD");
+                      })
+                      .on('transactionHash', () => {
+                        this.setState({ stakeProcessing: true })
+                      });
+      
+                      await window.retirementYeld.methods.stakeYeld(
+                        window.web3.utils.toWei(String(this.state.stakeAmount))
+                      ).send({
+                          from: window.web3.eth.defaultAccount,
+                      })
+                      .on('transactionHash', () => {
+                        this.setState({ stakeProcessing: true })
+                      })
+                      .on('receipt', () => {
+                        this.setState({ stakeProcessing: false })
+                        window.location.reload();
+                      });
+                    } else {
+                      alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD");
+                    }
+                  } catch(error) {
+                    this.setState({ stakeProcessing: false })
                   }
                 }}
                 >
                   <Typography variant={ 'h5'} color='secondary'>
-                    Stake
+                    {!this.state.stakeProcessing ?
+                        <div>Stake Amount</div>
+                      :
+                      <div className="d-flex align-items-center">
+                          <span>Processing </span> 
+                          <span className="loading ml-2"></span>
+                      </div>
+                    }
                   </Typography>
                 </Button>
 
                 <Button 
-                  style={{marginLeft: "50%"}}
+                  style={{marginLeft: "35%"}}
                   variant="outlined"
                   color="primary"
                   onClick={() => this.setState({stakeModalOpen: false})}
@@ -398,11 +438,24 @@ class Header extends Component {
 
               <TextField
                 fullWidth
+                type="number"
+                InputProps={{
+                  inputProps: { 
+                    min: 0,
+                    max: this.state.yeldBalance
+                  }
+                }}    
                 className={ classes.actionInput }
                 value={ this.state.unStakeAmount }
                 onChange={ (e) => this.setState({unStakeAmount: e.target.value}) }
                 placeholder="0"
                 variant="outlined"
+                error={this.state.unStakeAmount > Number(window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked)))}
+                helperText={
+                  this.state.unStakeAmount > Number(window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked))) ? 
+                  `Enter a number less than ${window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked))} (Current Stake)` 
+                  : ''
+                }
               />
               <br/> <br/>
 
@@ -410,22 +463,42 @@ class Header extends Component {
                 <Button 
                 variant="outlined"
                 color="primary"
-                disabled={this.state.unStakeAmount <= 0}
+                disabled={
+                  this.state.unStakeAmount <= 0 || 
+                  this.state.unStakeAmount > Number(window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked)))
+                }
                 onClick={async () => {
-                  await window.retirementYeld.methods.unstake(
-                    window.web3.utils.toWei(String(this.state.unStakeAmount))
-                  ).send({
-                    from: window.web3.eth.defaultAccount,
-                  })
+                    await window.retirementYeld.methods.unstake(
+                      window.web3.utils.toWei(String(this.state.unStakeAmount))
+                    ).send({
+                      from: window.web3.eth.defaultAccount,
+                    })
+                    .on('transactionHash', () => {
+                      this.setState({ unstakeProcessing: true })
+                    })
+                    .on('receipt', () => {
+                      this.setState({ unstakeProcessing: false })
+                      window.location.reload();
+                    })
+                    .catch((_) => {
+                      this.setState({ unstakeProcessing: false })
+                    });
                 }}
                 >
                   <Typography variant={ 'h5'} color='secondary'>
-                    Unstake
+                    {!this.state.unstakeProcessing ?
+                        <div>UnStake Amount</div>
+                      :
+                      <div className="d-flex align-items-center">
+                          <span>Processing </span> 
+                          <span className="loading ml-2"></span>
+                      </div>
+                    }
                   </Typography>
                 </Button>
 
                 <Button 
-                  style={{marginLeft: "46%"}}
+                  style={{marginLeft: "31%"}}
                   variant="outlined"
                   color="primary"
                   onClick={() => this.setState({unstakeModalOpen: false})}
@@ -454,7 +527,7 @@ class Header extends Component {
             }}
           >
             <Typography variant={ 'h5'} color='secondary'>
-              {!this.state.retirementYeldAvailable ? (
+              {/* {!this.state.retirementYeldAvailable ? (
                 <span>
                   Retirement Yield Available in 24h
                   <br/>
@@ -465,6 +538,11 @@ class Header extends Component {
                     `Time passed ${this.state.hoursPassedAfterStaking}`
                   }
                   </i>
+                </span>
+              ) */}
+              {this.state.earnings === 0 && !this.state.retirementYeldAvailable ? (
+                <span>
+                  No ETH to Redeem Yet
                 </span>
               )
               : (
