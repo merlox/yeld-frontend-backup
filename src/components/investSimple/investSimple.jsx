@@ -39,8 +39,8 @@ const styles = (theme) => ({
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
-    [theme.breakpoints.up("xl")]: {
-      minWidth: "1870px",
+    [theme.breakpoints.up("md")]: {
+      minWidth: "1000px",
     },
   },
   investedContainerLoggedOut: {
@@ -80,6 +80,10 @@ const styles = (theme) => ({
     gridColumnGap: "0",
     [theme.breakpoints.up("lg")]: {
       gridTemplateColumns: "repeat(2, 1fr)",
+      gridColumnGap: "24px",
+    },
+    [theme.breakpoints.up("xl")]: {
+      gridTemplateColumns: "repeat(4, 1fr)",
       gridColumnGap: "24px",
     },
   },

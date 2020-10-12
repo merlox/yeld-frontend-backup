@@ -1,21 +1,12 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
-import {
-  TextField,
-  Button,
-  Typography,
-  Modal,
-  Box,
-} from "@material-ui/core";
-
+import { TextField, Button, Typography, Modal, Box } from "@material-ui/core";
 
 import { withNamespaces } from "react-i18next";
 import { colors } from "../../theme";
 
-import {
-  GET_BALANCES_LIGHT,
-} from "../../constants";
+import { GET_BALANCES_LIGHT } from "../../constants";
 
 import UnlockModal from "../unlock/unlockModal.jsx";
 
@@ -26,7 +17,6 @@ const store = Store.store;
 
 const styles = (theme) => ({
   root: {
-    flex: 1,
     display: "flex",
     flexDirection: "column",
     maxWidth: "1200px",
@@ -34,8 +24,23 @@ const styles = (theme) => ({
     justifyContent: "flex-start",
     alignItems: "center",
     marginTop: "30px",
-    [theme.breakpoints.up("xl")]: {
-      minWidth: "1870px",
+    marginBottom: "30px",
+    [theme.breakpoints.up("md")]: {
+      minWidth: "1000px",
+    },
+  },
+  separatorStakeContainer: {
+    width: "100%",
+    display: "flex",
+    borderBottom: "1px solid #e1e3e6",
+    paddingBottom: "30px",
+    borderTop: "none",
+    alignItems: "center",
+    justifyContent: "center",
+    background: colors.white,
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: "space-between",
+      padding: "16px 24px",
     },
   },
   stakeContainer: {
@@ -58,8 +63,6 @@ const styles = (theme) => ({
   stakeOptions: {
     display: "flex",
     maxWidth: "100%",
-    borderBottom: "1px solid #e1e3e6",
-    paddingBottom: "30px",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexDirection: "column",
@@ -125,6 +128,10 @@ const styles = (theme) => ({
     gridColumnGap: "0",
     [theme.breakpoints.up("lg")]: {
       gridTemplateColumns: "repeat(2, 1fr)",
+      gridColumnGap: "24px",
+    },
+    [theme.breakpoints.up("xl")]: {
+      gridTemplateColumns: "repeat(4, 2fr)",
       gridColumnGap: "24px",
     },
   },
@@ -316,7 +323,6 @@ class StakeSimple extends Component {
               Your Retirement Stake
             </Typography>
             <div className={classes.stakeOptions}>
-
               <Box className={classes.boxRetirementYeldAvailable}>
                 <Button
                   disabled={!this.state.retirementYeldAvailable}
@@ -332,7 +338,11 @@ class StakeSimple extends Component {
                     }
                   }}
                 >
-                  <Typography variant={"h5"} color="secondary" style={{color: "#000000"}}>
+                  <Typography
+                    variant={"h5"}
+                    color="secondary"
+                    style={{ color: "#000000" }}
+                  >
                     {!this.state.retirementYeldAvailable ? (
                       <span>
                         Retirement Yield Available in 24h
@@ -351,7 +361,18 @@ class StakeSimple extends Component {
                   </Typography>
                 </Button>
               </Box>
-              <Box color="text.secundary" className={classes.boxBalance} style={{ display: "flex", justifyContent: "center", alignItems: "center", border: "1px solid rgba(47, 99, 165, .12)", marginBottom: "12px", marginRight: "12px"}}>
+              <Box
+                color="text.secundary"
+                className={classes.boxBalance}
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  border: "1px solid rgba(47, 99, 165, .12)",
+                  marginBottom: "12px",
+                  marginRight: "12px",
+                }}
+              >
                 <Button
                   color="primary"
                   disabled={this.state.yeldBalance <= 0}
@@ -369,87 +390,87 @@ class StakeSimple extends Component {
                     </i>
                   </Typography>
                 </Button>
-                </Box>
+              </Box>
 
-                <Modal
-                  className={classes.modal}
-                  open={this.state.stakeModalOpen}
-                  onClose={() => this.setState({ stakeModalOpen: false })}
-                  aria-labelledby="simple-modal-title"
-                  aria-describedby="simple-modal-description"
-                >
-                  <div style={this.modalStyle} className={classes.paper}>
-                    <Typography variant="h4" className={classes.title}>
-                      Enter how much YELD you want to stake. Warning: leave at
-                      least 5 YELD in your wallet to keep using the beta!"
-                    </Typography>
-                    <br />
-                    <TextField
-                      fullWidth
-                      className={classes.actionInput}
-                      value={this.state.stakeAmount}
-                      onChange={(e) =>
-                        this.setState({ stakeAmount: e.target.value })
-                      }
-                      placeholder="0"
+              <Modal
+                className={classes.modal}
+                open={this.state.stakeModalOpen}
+                onClose={() => this.setState({ stakeModalOpen: false })}
+                aria-labelledby="simple-modal-title"
+                aria-describedby="simple-modal-description"
+              >
+                <div style={this.modalStyle} className={classes.paper}>
+                  <Typography variant="h4" className={classes.title}>
+                    Enter how much YELD you want to stake. Warning: leave at
+                    least 5 YELD in your wallet to keep using the beta!"
+                  </Typography>
+                  <br />
+                  <TextField
+                    fullWidth
+                    className={classes.actionInput}
+                    value={this.state.stakeAmount}
+                    onChange={(e) =>
+                      this.setState({ stakeAmount: e.target.value })
+                    }
+                    placeholder="0"
+                    variant="outlined"
+                  />
+                  <br /> <br />
+                  <div>
+                    <Button
+                      className={classes.BoxUnstakeLast}
                       variant="outlined"
-                    />
-                    <br /> <br />
-                    <div>
-                      <Button
-                        className={classes.BoxUnstakeLast}
-                        variant="outlined"
-                        color="primary"
-                        disabled={this.state.stakeAmount <= 0}
-                        onClick={async () => {
-                          if (await this.betaTesting()) {
-                            await window.yeld.methods
-                              .approve(
-                                window.retirementYeld._address,
-                                window.web3.utils.toWei(
-                                  String(this.state.stakeAmount)
-                                )
+                      color="primary"
+                      disabled={this.state.stakeAmount <= 0}
+                      onClick={async () => {
+                        if (await this.betaTesting()) {
+                          await window.yeld.methods
+                            .approve(
+                              window.retirementYeld._address,
+                              window.web3.utils.toWei(
+                                String(this.state.stakeAmount)
                               )
-                              .send({
-                                from: window.web3.eth.defaultAccount,
-                              });
+                            )
+                            .send({
+                              from: window.web3.eth.defaultAccount,
+                            });
 
-                            await window.retirementYeld.methods
-                              .stakeYeld(
-                                window.web3.utils.toWei(
-                                  String(this.state.stakeAmount)
-                                )
+                          await window.retirementYeld.methods
+                            .stakeYeld(
+                              window.web3.utils.toWei(
+                                String(this.state.stakeAmount)
                               )
-                              .send({
-                                from: window.web3.eth.defaultAccount,
-                              });
-                          } else {
-                            alert(
-                              "You can't use the dapp during the beta testing period if you hold less than 5 YELD"
-                            );
-                          }
-                        }}
-                      >
-                        <Typography variant={"h5"} color="secondary">
-                          Stake
-                        </Typography>
-                      </Button>
+                            )
+                            .send({
+                              from: window.web3.eth.defaultAccount,
+                            });
+                        } else {
+                          alert(
+                            "You can't use the dapp during the beta testing period if you hold less than 5 YELD"
+                          );
+                        }
+                      }}
+                    >
+                      <Typography variant={"h5"} color="secondary">
+                        Stake
+                      </Typography>
+                    </Button>
 
-                      <Button
-                        style={{ marginLeft: "50%" }}
-                        variant="outlined"
-                        color="primary"
-                        onClick={() => this.setState({ stakeModalOpen: false })}
-                      >
-                        <Typography variant={"h5"} color="secondary">
-                          Cancel
-                        </Typography>
-                      </Button>
-                    </div>
+                    <Button
+                      style={{ marginLeft: "50%" }}
+                      variant="outlined"
+                      color="primary"
+                      onClick={() => this.setState({ stakeModalOpen: false })}
+                    >
+                      <Typography variant={"h5"} color="secondary">
+                        Cancel
+                      </Typography>
+                    </Button>
                   </div>
-                </Modal>
+                </div>
+              </Modal>
 
-              <Box color="text.secundary"  className={classes.boxUnstake}>
+              <Box color="text.secundary" className={classes.boxUnstake}>
                 <Button
                   color="primary"
                   disabled={this.state.retirementYeldCurrentStaked <= 0}
@@ -509,19 +530,22 @@ class StakeSimple extends Component {
                       <Button
                         style={{ marginLeft: "46%" }}
                         color="primary"
-                        onClick={() => this.setState({ unstakeModalOpen: false })}
+                        onClick={() =>
+                          this.setState({ unstakeModalOpen: false })
+                        }
                       >
                         <Typography variant={"h5"} color="secondary">
                           Cancel
                         </Typography>
                       </Button>
-                      </div>
-                      </div>
-                      </Modal>
-                      </Box>
+                    </div>
+                  </div>
+                </Modal>
+              </Box>
             </div>
           </div>
         </div>
+      
       </div>
     );
   }
