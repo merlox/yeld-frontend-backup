@@ -32,6 +32,8 @@ import {
 } from './constants'
 
 import Store from "./stores";
+import './App.css';
+
 const emitter = Store.emitter
 const store = Store.store
 
