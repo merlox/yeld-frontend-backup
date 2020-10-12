@@ -18,6 +18,7 @@ const WorkSans = {
 
 export const colors = {
   white: "#f2f4f7",
+  whiteLight: "#f2f4f78c",
   black: "#000",
   darkBlue: "#2c3b57",
   blue: "#2F80ED",
@@ -188,7 +189,7 @@ const iswapTheme = {
     },
     MuiSnackbarContent: {
       root: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.whiteLight,
         padding: "0px",
         minWidth: "auto",
         "@media (min-width: 960px)": {
@@ -208,22 +209,25 @@ const iswapTheme = {
         margin: "8px 0px",
         "&:before": {
           //underline color when textfield is inactive
-          backgroundColor: colors.white,
+          backgroundColor: colors.whiteLight,
           height: "0px",
         },
       },
     },
     MuiAccordionSummary: {
       root: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.whiteLight,
         padding: "12px 24px",
         "@media (min-width: 960px)": {
           padding: "30px 42px",
         },
       },
       content: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.whiteLight,
         margin: "0px !important",
+      },
+      assetSummary: {
+        backgroundColor: colors.whiteLight,
       },
       MuiSvgIcon: {
         root: {
@@ -233,7 +237,7 @@ const iswapTheme = {
     },
     MuiAccordionDetails: {
       root: {
-        backgroundColor: colors.white,
+        backgroundColor: colors.whiteLight,
         padding: "0 12px 15px 12px",
         "@media (min-width: 960px)": {
           padding: "0 24px 30px 24px",
@@ -250,15 +254,15 @@ const iswapTheme = {
           color: "#555",
         },
         "&:hover": {
-          backgroundColor: colors.white,
+          backgroundColor: colors.whiteLight,
         },
         "&$selected": {
-          backgroundColor: colors.white,
+          backgroundColor: colors.whiteLight,
           "& > span > h4": {
             color: "#fff",
           },
           "&:hover": {
-            backgroundColor: colors.white,
+            backgroundColor: colors.whiteLight,
             "& > span > h4": {
               color: "#000",
             },

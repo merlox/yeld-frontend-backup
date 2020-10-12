@@ -26,16 +26,23 @@ const store = Store.store;
 
 const styles = (theme) => ({
   root: {
-    verticalAlign: "top",
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    maxWidth: "1200px",
     width: "100%",
-    maxWidth: "calc(100vw - 24px)",
+    justifyContent: "flex-start",
+    alignItems: "center",
+    marginTop: "30px",
+    [theme.breakpoints.up("xl")]: {
+      minWidth: "1870px",
+    },
   },
   stakeContainer: {
     display: "flex",
+    flex: 1,
     flexDirection: "column",
-    justifyContent: "center",
     minWidth: "100%",
-    marginBottom: "20px",
     [theme.breakpoints.up("md")]: {
       minWidth: "1000px",
     },
@@ -50,6 +57,9 @@ const styles = (theme) => ({
   },
   stakeOptions: {
     display: "flex",
+    maxWidth: "100%",
+    borderBottom: "1px solid #e1e3e6",
+    paddingBottom: "30px",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
       flexDirection: "column",
@@ -113,7 +123,6 @@ const styles = (theme) => ({
     display: "grid",
     gridTemplateColumns: "1fr",
     gridColumnGap: "0",
-    borderBottom: "1px solid #C2C6CC",
     [theme.breakpoints.up("lg")]: {
       gridTemplateColumns: "repeat(2, 1fr)",
       gridColumnGap: "24px",
@@ -122,9 +131,10 @@ const styles = (theme) => ({
   iconStake: {
     display: "flex",
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "left",
     [theme.breakpoints.down("sm")]: {
       margin: "20px 0 20px",
+      alignItems: "center",
     },
   },
   boxUnstake: {
@@ -288,13 +298,7 @@ class StakeSimple extends Component {
     const { account, modalOpen } = this.state;
 
     return (
-      <div
-        className={classes.root}
-        style={{
-          padding: "24px 32px",
-          marginBottom: "20px",
-        }}
-      >
+      <div className={classes.root}>
         <div className={classes.twoColumns}>
           <div className={classes.iconStake}>
             <img

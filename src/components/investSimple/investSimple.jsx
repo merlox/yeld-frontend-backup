@@ -5,8 +5,7 @@ import {
   Typography,
   Accordion,
   AccordionDetails,
-  AccordionSummary,
-  Box
+  AccordionSummary
 } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withNamespaces } from 'react-i18next';
@@ -40,6 +39,9 @@ const styles = (theme) => ({
     width: "100%",
     justifyContent: "flex-start",
     alignItems: "center",
+    [theme.breakpoints.up("xl")]: {
+      minWidth: "1870px",
+    },
   },
   investedContainerLoggedOut: {
     display: "flex",
@@ -284,7 +286,7 @@ const styles = (theme) => ({
     // border: '1px solid rgb(174, 174, 174)',
     borderRadius: "0.75rem",
     marginBottom: "24px",
-    background: colors.white,
+    background: colors.whiteLight,
   },
   walletAddress: {
     padding: "0px 12px",
