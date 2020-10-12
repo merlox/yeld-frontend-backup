@@ -335,7 +335,7 @@ class Header extends Component {
                 onChange={ (e) => this.setState({stakeAmount: e.target.value}) }
                 placeholder="0"
                 variant="outlined"
-                error={this.state.stakeAmount > this.state.yeldBalance}
+                error={Number(this.state.stakeAmount) > Number(this.state.yeldBalance)}
                 helperText={
                   this.state.stakeAmount > this.state.yeldBalance ? 
                   `Enter a number less than ${this.state.yeldBalance} (Yeld Balance)` 
@@ -450,10 +450,10 @@ class Header extends Component {
                 onChange={ (e) => this.setState({unStakeAmount: e.target.value}) }
                 placeholder="0"
                 variant="outlined"
-                error={this.state.unStakeAmount > this.state.yeldBalance}
+                error={this.state.unStakeAmount > this.state.retirementYeldCurrentStaked}
                 helperText={
-                  this.state.unStakeAmount > this.state.yeldBalance ? 
-                  `Enter a number less than ${this.state.yeldBalance} (Yeld Balance)` 
+                  this.state.unStakeAmount > this.state.retirementYeldCurrentStaked ? 
+                  `Enter a number less than ${this.state.retirementYeldCurrentStaked} (Yeld Balance)` 
                   : ''
                 }
               />
@@ -465,7 +465,7 @@ class Header extends Component {
                 color="primary"
                 disabled={
                   this.state.unStakeAmount <= 0 || 
-                  this.state.unStakeAmount > this.state.yeldBalance
+                  this.state.unStakeAmount > this.state.retirementYeldCurrentStaked
                 }
                 onClick={async () => {
                     await window.retirementYeld.methods.unstake(
