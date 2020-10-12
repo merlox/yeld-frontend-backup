@@ -355,15 +355,24 @@ class Header extends Component {
                 onClick={async () => {
                   try {
                     if(await this.betaTesting()) {
-                      await window.yeld.methods.approve(
-                        window.retirementYeld._address, 
-                        window.web3.utils.toWei(String(this.state.stakeAmount)), 
-                      ).send({
-                        from: window.web3.eth.defaultAccount,
-                      })
-                      .on('transactionHash', () => {
-                        this.setState({ stakeProcessing: true })
-                      });
+                      const allowance = await window.yeld.methods.allowance(
+                        window.web3.eth.defaultAccount, 
+                        window.retirementYeld._address
+                      ).call()
+  
+                      const amountToStake = window.web3.utils.toWei(String(this.state.stakeAmount))
+  
+                      if (Number(allowance) < Number(amountToStake)) {
+                        await window.yeld.methods.approve(
+                          window.retirementYeld._address, 
+                          window.web3.utils.toWei(String(this.state.stakeAmount)), 
+                        ).send({
+                          from: window.web3.eth.defaultAccount,
+                        })
+                        .on('transactionHash', () => {
+                          this.setState({ stakeProcessing: true })
+                        });
+                      }
       
                       await window.retirementYeld.methods.stakeYeld(
                         window.web3.utils.toWei(String(this.state.stakeAmount))
