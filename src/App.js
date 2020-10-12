@@ -9,7 +9,7 @@ import {
 import IpfsRouter from 'ipfs-react-router'
 import { promisifyAll } from 'bluebird'
 import MyWeb3 from 'web3'
-import { Typography, Modal } from '@material-ui/core';
+import { Typography, Modal, Box } from '@material-ui/core';
 
 import './i18n';
 import interestTheme from './theme';
@@ -136,6 +136,10 @@ class App extends Component {
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
                 <StakeSimple setupComplete={this.state.setupComplete} />
+                <Box style={{
+                  width: "100%",
+                  border: "1px solid #e1e3e6",
+                  borderTop: "none", marginBottom: "30px"}}></Box>
                 {!this.state.displayWarning ?
                   (typeof (window.ethereum) !== 'undefined' ?
                     (!this.state.betaValid ? (
