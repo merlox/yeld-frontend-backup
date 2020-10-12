@@ -42,6 +42,9 @@ const styles = (theme) => ({
     [theme.breakpoints.up("md")]: {
       minWidth: "1000px",
     },
+    [theme.breakpoints.up("lg")]: {
+      minWidth: "1000px",
+    },
   },
   investedContainerLoggedOut: {
     display: "flex",
@@ -460,7 +463,7 @@ class InvestSimple extends Component {
               style={{ textAlign: "left" }}
             >
               {" "}
-              Your Optimised Yield Farm{" "}
+              Your Optimized Yield Farm{" "}
             </Typography>
             <div className={classes.investedVaults}>
               {account.address && value === 1 && this.renderAssetBlocksv2()}

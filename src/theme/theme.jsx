@@ -223,7 +223,6 @@ const iswapTheme = {
         },
       },
       content: {
-        backgroundColor: colors.whiteLight,
         margin: "0px !important",
       },
       assetSummary: {
