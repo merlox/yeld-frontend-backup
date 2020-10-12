@@ -337,7 +337,7 @@ class Header extends Component {
                 variant="outlined"
                 error={Number(this.state.stakeAmount) > Number(this.state.yeldBalance)}
                 helperText={
-                  this.state.stakeAmount > this.state.yeldBalance ? 
+                  Number(this.state.stakeAmount) > Number(this.state.yeldBalance) ? 
                   `Enter a number less than ${this.state.yeldBalance} (Yeld Balance)` 
                   : ''
                 }
@@ -350,7 +350,7 @@ class Header extends Component {
                 color="primary"
                 disabled={
                   this.state.stakeAmount <= 0 || 
-                  this.state.stakeAmount > this.state.yeldBalance
+                  Number(this.state.stakeAmount) > Number(this.state.yeldBalance)
                 }
                 onClick={async () => {
                   try {
