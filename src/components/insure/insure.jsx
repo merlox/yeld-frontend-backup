@@ -41,7 +41,7 @@ const styles = theme => ({
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    maxWidth: '1000px',
+    maxWidth: '900px',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
@@ -53,10 +53,9 @@ const styles = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '23px 30px',
     minWidth: '100%',
     [theme.breakpoints.up('md')]: {
-      minWidth: '1000px'
+      minWidth: '900px',
     }
   },
   intro: {
@@ -93,7 +92,7 @@ const styles = theme => ({
     textOverflow:'ellipsis',
     cursor: 'pointer',
     padding: '28px 30px',
-    
+    borderRadius: '50px',
     border: '1px solid '+colors.borderBlue,
     alignItems: 'center',
     [theme.breakpoints.up('md')]: {
@@ -128,7 +127,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: colors.white,
+    color: 'white',
   },
   expansionPanel: {
     maxWidth: 'calc(100vw - 24px)',
@@ -183,6 +182,7 @@ const styles = theme => ({
   disaclaimer: {
     padding: '12px',
     border: '1px solid rgb(174, 174, 174)',
+    borderRadius: '0.75rem',
     marginBottom: '24px',
   },
   walletAddress: {

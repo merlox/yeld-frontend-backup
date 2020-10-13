@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
-import { colors } from "../../theme";
 import {
   Typography,
   TextField,
@@ -94,7 +93,7 @@ const styles = theme => ({
   },
   actionButton: {
     padding: '12px',
-    backgroundColor: colors.white,
+    backgroundColor: 'white',
     borderRadius: '1rem',
     border: '1px solid #E1E1E1',
     fontWeight: 500,

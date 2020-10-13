@@ -47,19 +47,19 @@ export function useInactiveListener(suppress = false) {
         }
       };
 
-      const handleChainChanged = (networkId) => {
+      const handleNetworkChanged = networkId => {
         activate(injected);
       };
 
       ethereum.on("chainChanged", handleChainChanged);
       ethereum.on("accountsChanged", handleAccountsChanged);
-      ethereum.on("chainChanged", handleChainChanged);
+      ethereum.on("networkChanged", handleNetworkChanged);
 
       return () => {
         if (ethereum.removeListener) {
           ethereum.removeListener("chainChanged", handleChainChanged);
           ethereum.removeListener("accountsChanged", handleAccountsChanged);
-          ethereum.removeListener("chainChanged", handleChainChanged);
+          ethereum.removeListener("networkChanged", handleNetworkChanged);
         }
       };
     }

@@ -56,7 +56,7 @@ const styles = theme => ({
     minWidth: '100%',
     marginTop: '40px',
     [theme.breakpoints.up('md')]: {
-      minWidth: '1000px'
+      minWidth: '900px',
     }
   },
   balancesContainer: {
@@ -137,7 +137,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: colors.white,
+    color: 'white',
   },
   assetSummary: {
     display: 'flex',
@@ -152,6 +152,7 @@ const styles = theme => ({
     display: 'flex',
     alignItems: 'center',
     verticalAlign: 'middle',
+    borderRadius: '20px',
     height: '30px',
     width: '30px',
     textAlign: 'center',
@@ -173,6 +174,7 @@ const styles = theme => ({
     textOverflow:'ellipsis',
     cursor: 'pointer',
     padding: '28px 30px',
+    borderRadius: '50px',
     border: '1px solid '+colors.borderBlue,
     alignItems: 'center',
     maxWidth: '450px',
@@ -239,6 +241,7 @@ const styles = theme => ({
   searchField: {
     flex: 1,
     background: colors.white,
+    borderRadius: '50px'
   },
   checkbox: {
     flex: 1,
@@ -263,7 +266,7 @@ const styles = theme => ({
     justifyContent: 'flex-start',
     minWidth: '100%',
     [theme.breakpoints.up('md')]: {
-      minWidth: '1000px'
+      minWidth: '900px',
     }
   }, 
   twoColumns: {

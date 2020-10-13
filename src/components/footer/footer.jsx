@@ -33,6 +33,7 @@ const styles = theme => ({
     justifyContent: 'space-evenly',
     width: '100%',
     background: colors.white,
+    borderRadius: '50px 50px 0px 0px',
     border: '1px solid '+colors.borderBlue,
     borderBottom: 'none',
     marginTop: '48px',
@@ -144,9 +145,9 @@ class Footer extends Component {
             <HowToVoteIcon height='15px' className={ classes.icon } />
             <Typography variant={ 'h4'} >ygov.finance</Typography>
           </div>
-          <div  className={ classes.link } onClick={()=> window.open("https://yeld.finance", "_blank")} >
+          <div  className={ classes.link } onClick={()=> window.open("https://yinsure.finance", "_blank")} >
             <SecurityIcon height='15px' className={ classes.icon } />
-            <Typography variant={ 'h4'} >yeld.finance</Typography>
+            <Typography variant={ 'h4'} >yinsure.finance</Typography>
           </div>
           <div  className={ classes.link } onClick={()=> window.open("https://yborrow.finance", "_blank")} >
             <MonetizationOnIcon height='15px' className={ classes.icon } />

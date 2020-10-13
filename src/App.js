@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import { colors } from './theme'
 import {
   Switch,
   Route
@@ -9,14 +8,13 @@ import {
 import IpfsRouter from 'ipfs-react-router'
 import { promisifyAll } from 'bluebird'
 import MyWeb3 from 'web3'
-import { Typography, Modal, Box } from '@material-ui/core';
+import { Typography, Modal } from '@material-ui/core';
 
 import './i18n';
 import interestTheme from './theme';
 
 import APR from './components/apr';
 import InvestSimple from './components/investSimple';
-import StakeSimple from './components/stakeSimple';
 import Manage from './components/manage';
 import Performance from './components/performance';
 import Zap from './components/zap';
@@ -126,17 +124,12 @@ class App extends Component {
             flexDirection: 'column',
             minHeight: '100vh',
             alignItems: 'center',
-            background: colors.white
+            background: "#e1e1e1"
           }}>
             <Switch>
               <Route path="/">
                 <Header setupComplete={this.state.setupComplete} />
                 {/* <Vaults /> */}
-                <StakeSimple setupComplete={this.state.setupComplete} />
-                <Box style={{
-                  width: "100%",
-                  border: "1px solid #e1e3e6",
-                  borderTop: "none", marginBottom: "30px"}}></Box>
                 {!this.state.displayWarning ?
                   (typeof (window.ethereum) !== 'undefined' ?
                     (!this.state.betaValid ? (
