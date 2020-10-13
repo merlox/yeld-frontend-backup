@@ -232,10 +232,10 @@ class Home extends Component {
           <BarChartIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>{ t("Home.Apr") }</Typography>
         </Card>
-        <Card className={ `${classes.card} ${classes.cover}` } onClick={ () => { window.open("https://yeld.finance", "_blank") } }>
+        <Card className={ `${classes.card} ${classes.cover}` } onClick={ () => { window.open("https://yinsure.finance", "_blank") } }>
           <SecurityIcon className={ `${classes.icon} icon` } />
           <Typography variant={'h3'} className={ `${classes.title} title` }>{ t("Home.Cover") }</Typography>
-          <Typography variant={'h4'} className={ `${classes.description} description` }>{ "Get cover with Nexus Mutual from yeld.finance" }</Typography>
+          <Typography variant={'h4'} className={ `${classes.description} description` }>{ "Get cover with Nexus Mutual from yinsure.finance" }</Typography>
         </Card>
       </div>
     )

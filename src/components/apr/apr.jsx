@@ -50,6 +50,7 @@ const styles = theme => ({
   },
   pairs: {
     padding: '42px 36px',
+    borderRadius: '50px',
     border: '1px solid ' + colors.borderBlue,
     marginTop: '40px',
   },
@@ -153,6 +154,7 @@ const styles = theme => ({
   assetIcon: {
     display: 'inline-block',
     verticalAlign: 'middle',
+    borderRadius: '20px',
     height: '30px',
     width: '30px',
     textAlign: 'center',

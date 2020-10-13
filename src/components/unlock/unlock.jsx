@@ -21,8 +21,6 @@ import {
   CONNECTION_CONNECTED
 } from '../../constants'
 
-import { colors } from "../../theme";
-
 import Store from "../../stores";
 const emitter = Store.emitter
 const store = Store.store
@@ -63,7 +61,7 @@ const styles = theme => ({
   },
   actionButton: {
     padding: '12px',
-    backgroundColor: colors.white,
+    backgroundColor: 'white',
     borderRadius: '3rem',
     border: '1px solid #E1E1E1',
     fontWeight: 500,
@@ -282,7 +280,7 @@ function MyComponent(props) {
           <div key={name} style={{ padding: '12px 0px', display: 'flex', justifyContent: 'space-between'  }}>
             <Button style={ {
                 padding: '16px',
-                backgroundColor: colors.white,
+                backgroundColor: 'white',
                 borderRadius: '1rem',
                 border: '1px solid #E1E1E1',
                 fontWeight: 500,
@@ -326,7 +324,7 @@ function MyComponent(props) {
       <div style={{ width: '252px', margin: '12px 0px'  }}>
         <Button style={ {
             padding: '12px',
-            backgroundColor: colors.white,
+            backgroundColor: 'white',
             borderRadius: '20px',
             border: '1px solid #E1E1E1',
             fontWeight: 500,

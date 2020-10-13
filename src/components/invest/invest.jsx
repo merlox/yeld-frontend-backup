@@ -11,9 +11,9 @@ import {
 } from '../../constants'
 
 import Store from "../../stores";
-const emitter = Store.emitter
+// const emitter = Store.emitter
 const dispatcher = Store.dispatcher
-const store = Store.store
+// const store = Store.store
 
 const styles = theme => ({
   root: {
@@ -26,7 +26,7 @@ const styles = theme => ({
     flex: 1,
     display: 'flex',
   },
-  seperatorContainer: {
+  seperatorontainer: {
     width: '0px',
     borderRight: '1px solid #aaa'
   },
@@ -51,7 +51,7 @@ class Invest extends Component {
         <div className={ classes.collateralContainer }>
           <Collateral />
         </div>
-        <div className={ classes.seperatorContainer }></div>
+        <div className={ classes.seperatorontainer }></div>
         <div className={ classes.investedContainer }>
           <Invested />
         </div>
