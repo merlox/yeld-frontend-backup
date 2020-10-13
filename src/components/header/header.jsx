@@ -185,6 +185,7 @@ class Header extends Component {
       unstakeModalOpen: false,
       stakeAmount: 0,
       unStakeAmount: 0,
+      yMechanicsModalOpen: false,
     }
 
     this.waitUntilSetupComplete()
@@ -196,10 +197,11 @@ class Header extends Component {
   }
 
   waitUntilSetupComplete() {
-    window.myInterval = setInterval(async () => {
+    let interval
+    interval = setInterval(() => {
       if (this.props.setupComplete) {
-        window.clearInterval(window.myInterval)
-        await this.setupContractData()
+        window.clearInterval(interval)
+        this.setupContractData()
       }
     }, 1e2)
   }
@@ -236,7 +238,6 @@ class Header extends Component {
 
   async setupContractData() {
     const snapshot = await window.retirementYeld.methods.stakes(window.web3.eth.defaultAccount).call()
-
     const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
     const dateNow = Number(Date.now().toString().substr(0, 10))
     const substraction = Number(dateNow) - Number(snapshot.timestamp)
@@ -417,7 +418,6 @@ class Header extends Component {
                 }}
                 variant="outlined"
                 color="primary"
-                noWrap
                 onClick={() => this.setState({ yMechanicsModalOpen: true })}
               >
                 <Typography variant={"h5"} color="secondary">
@@ -430,7 +430,6 @@ class Header extends Component {
               <Typography
                 variant={"h4"}
                 className={classes.walletAddress}
-                noWrap
                 onClick={this.addressClicked}
               >
                 {address}
@@ -441,7 +440,6 @@ class Header extends Component {
               <Typography
                 variant={"h4"}
                 className={classes.walletAddress}
-                noWrap
                 onClick={this.addressClicked}
               >
                 Connect your wallet

@@ -93,11 +93,6 @@ class App extends Component {
 
       // Create the retirementyeld and yelddai contract instances
       window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
-      console.log('YDAI', yeldConfig.yDAIAddress)
-      console.log('YDAI', yeldConfig.yDAIAddress)
-      console.log('YDAI', yeldConfig.yDAIAddress)
-      console.log('YDAI', yeldConfig.yDAIAddress)
-      console.log('YDAI', yeldConfig.yDAIAddress)
       window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
       window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yTUSDAddress)
       window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
@@ -174,9 +169,9 @@ class App extends Component {
                       boxShadow: "gray",
                       padding: "1.5%"
                     }}>
-                      <h3 style={{ color: "red" }}>
+                      <p style={{ color: "red" }}>
                         This is a BETA product and there's a HIGH chance you may lose REAL money.
-                      </h3>
+                      </p>
 
                       We aren't responsible for whatever loss you incur in using the product including those
                       related to bugs or exploits in the smart contracts, bugs or exploits in the user
