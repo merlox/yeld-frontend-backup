@@ -154,6 +154,7 @@ class Header extends Component {
       unstakeModalOpen: false,
       stakeAmount: 0,
       unStakeAmount: 0,
+      yMechanicsModalOpen: false,
       stakeProcessing: false,
       unstakeProcessing: false,
     }
@@ -167,10 +168,11 @@ class Header extends Component {
   }
 
   waitUntilSetupComplete() {
-    window.myInterval = setInterval(async () => {
+    let interval
+    interval = setInterval(() => {
       if (this.props.setupComplete) {
-        window.clearInterval(window.myInterval)
-        await this.setupContractData()
+        window.clearInterval(interval)
+        this.setupContractData()
       }
     }, 1e2)
   }
@@ -207,7 +209,6 @@ class Header extends Component {
 
   async setupContractData() {
     const snapshot = await window.retirementYeld.methods.stakes(window.web3.eth.defaultAccount).call()
-
     const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
     const dateNow = Number(Date.now().toString().substr(0, 10))
     const substraction = Number(dateNow) - Number(snapshot.timestamp)
