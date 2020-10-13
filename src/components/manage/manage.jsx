@@ -25,6 +25,8 @@ import {
   CONNECTION_DISCONNECTED
 } from '../../constants'
 
+import { colors } from "../../theme"
+
 import Store from "../../stores";
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
@@ -33,6 +35,7 @@ const store = Store.store
 const formatter = new Intl.NumberFormat('en-US', {
   minimumFractionDigits: 4
 })
+
 
 const styles = theme => ({
   root: {
@@ -181,7 +184,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   assetSummary: {
     display: 'flex',

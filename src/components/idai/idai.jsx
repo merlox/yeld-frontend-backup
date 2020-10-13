@@ -28,11 +28,15 @@ import {
   IDAI_RETURNED
 } from '../../constants'
 
+import { colors } from "../../theme";
+
 import { withNamespaces } from 'react-i18next';
 import Store from "../../stores";
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
 const store = Store.store
+
+
 
 const styles = theme => ({
   root: {
@@ -49,7 +53,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     padding: '24px',
-    borderRadius: '1.25em',
+    // borderRadius: '1.25em',
     maxWidth: '400px',
     justifyContent: 'center'
   },
@@ -79,7 +83,7 @@ const styles = theme => ({
     display: 'flex',
     marginTop: '60px',
     flexWrap: 'wrap',
-    maxWidth: '900px',
+    maxWidth: '1000px',
     justifyContent: 'center'
   },
   introCenter: {
@@ -115,7 +119,7 @@ const styles = theme => ({
     },
     padding: '12px',
     backgroundColor: "#2F80ED",
-    borderRadius: '1rem',
+    // borderRadius: '1rem',
     border: '1px solid #E1E1E1',
     fontWeight: 500,
     [theme.breakpoints.up('md')]: {
@@ -124,7 +128,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   sepperator: {
     borderBottom: '1px solid #E1E1E1',
