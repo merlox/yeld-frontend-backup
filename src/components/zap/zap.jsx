@@ -58,7 +58,7 @@ const styles = theme => ({
     minWidth: '100%',
     marginTop: '40px',
     [theme.breakpoints.up('md')]: {
-      minWidth: '1000px'
+      minWidth: '900px',
     }
   },
   iHaveContainer: {
@@ -66,6 +66,7 @@ const styles = theme => ({
     display: 'flex',
     flexWrap: 'wrap',
     padding: '42px 30px',
+    borderRadius: '50px',
     maxWidth: '500px',
     justifyContent: 'center',
     border: '1px solid '+colors.borderBlue,
@@ -156,7 +157,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: colors.white,
+    color: 'white',
   },
   sepperator: {
     borderBottom: '1px solid #E1E1E1',
@@ -174,6 +175,7 @@ const styles = theme => ({
     textOverflow:'ellipsis',
     cursor: 'pointer',
     padding: '28px 30px',
+    borderRadius: '50px',
     border: '1px solid '+colors.borderBlue,
     alignItems: 'center',
     [theme.breakpoints.up('md')]: {

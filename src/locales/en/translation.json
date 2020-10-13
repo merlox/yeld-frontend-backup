@@ -46,6 +46,7 @@
 
   "Insure.Intro": "Cover. Simple.",
   "Insure.Connect": "Connect wallet",
+  "Insure.Balance": "Current Balance",
   "Insure.Insured": "Insured Percent",
   "Insure.UninsuredYield": "Uninsured Yield",
   "Insure.InsuredYield": "Insured Yield",
@@ -53,6 +54,7 @@
   "Insure.Disabled": "Disabled",
   "Insure.ClaimInsurance": "Claim",
   "Insure.MintInsurance": "Mint Insurance",
+  "Insure.TotalCost": "Total Cost",
   "Insure.Expiration": "Expiration",
   "Insure.Premium": "Premium",
   "Insure.ExpectedReturns": "Expected Returns",

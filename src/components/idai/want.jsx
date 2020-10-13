@@ -33,7 +33,7 @@ const styles = theme => ({
     padding: '12px 0px 12px 20px'
   },
   assetSelectRoot: {
-    // borderRadius: '1.25rem'
+    borderRadius: '1.25rem'
   },
   assetSelectMenu: {
     padding: '15px 15px 15px 20px',
@@ -42,7 +42,7 @@ const styles = theme => ({
   assetSelectIcon: {
     display: 'inline-block',
     verticalAlign: 'middle',
-    // borderRadius: '25px',
+    borderRadius: '25px',
     background: '#dedede',
     height: '30px',
     width: '30px',
