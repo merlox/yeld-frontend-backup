@@ -53,13 +53,13 @@ export function useInactiveListener(suppress = false) {
 
       ethereum.on("chainChanged", handleChainChanged);
       ethereum.on("accountsChanged", handleAccountsChanged);
-      ethereum.on("networkChanged", handleNetworkChanged);
+      ethereum.on("chainChanged", handleChainChanged);
 
       return () => {
         if (ethereum.removeListener) {
           ethereum.removeListener("chainChanged", handleChainChanged);
           ethereum.removeListener("accountsChanged", handleAccountsChanged);
-          ethereum.removeListener("networkChanged", handleNetworkChanged);
+          ethereum.removeListener("chainChanged", handleChainChanged);
         }
       };
     }

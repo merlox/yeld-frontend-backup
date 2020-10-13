@@ -24,7 +24,7 @@ import {
   CONNECTION_CONNECTED,
   CONNECTION_DISCONNECTED
 } from '../../constants'
-
+import { colors } from "../../theme"
 import Store from "../../stores";
 const emitter = Store.emitter
 const dispatcher = Store.dispatcher
@@ -181,7 +181,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
   assetSummary: {
     display: 'flex',
