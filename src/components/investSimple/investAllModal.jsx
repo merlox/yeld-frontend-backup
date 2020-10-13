@@ -73,7 +73,7 @@ const styles = theme => ({
   },
   buttonText: {
     fontWeight: '700',
-    color: 'white',
+    color: colors.white,
   },
 });
 

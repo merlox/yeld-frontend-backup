@@ -114,7 +114,7 @@ const styles = theme => ({
   tradeContainerInfo: {
     background: '#efefef',
     padding: '18px 18px 6px 18px',
-    borderRadius: '1.25em',
+    // borderRadius: '1.25em',
     width: '100%',
     marginTop: '12px'
   },

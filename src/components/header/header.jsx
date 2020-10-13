@@ -20,120 +20,152 @@ import Store from "../../stores";
 const emitter = Store.emitter
 const store = Store.store
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    verticalAlign: 'top',
-    width: '100%',
-    display: 'flex',
-    [theme.breakpoints.down('sm')]: {
-      marginBottom: '40px'
-    }
+    verticalAlign: "top",
+    width: "100%",
+    display: "flex",
+    [theme.breakpoints.down("sm")]: {
+      marginBottom: "40px",
+    },
   },
   headerV2: {
     background: colors.white,
-    border: '1px solid '+colors.borderBlue,
-    borderTop: 'none',
-    width: '100%',
-    borderRadius: '0px 0px 50px 50px',
-    display: 'flex',
-    padding: '24px 32px',
-    alignItems: 'center',
-    justifyContent: 'center',
-    [theme.breakpoints.down('sm')]: {
-      justifyContent: 'space-between',
-      padding: '16px 24px'
-    }
+    border: "1px solid #e1e3e6",
+    borderTop: "none",
+    width: "100%",
+    display: "flex",
+    padding: "24px 32px",
+    alignItems: "center",
+    justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: "space-between",
+      padding: "16px 24px",
+    },
   },
   icon: {
-    display: 'flex',
-    alignItems: 'center',
-    flex: 1,
-    cursor: 'pointer'
+    display: "flex",
+    order: "0",
+    alignItems: "center",
+    cursor: "pointer",
+  },
+  brandColor: {
+    order: "1",
+    width: "3px",
+    height: "100%",
+    marginLeft: "15px",
+    backgroundColor: "#2036ff"
+  },
+  brandV2: {
+    display: "flex",
+    order: "2",
+  },
+  divBlock: {
+    width: "3px",
+    height: "100%",
+    marginRight: "15px",
+    marginLeft: "15px",
+    backgroundColor: colors.borderBlue,
   },
   links: {
-    display: 'flex'
+    display: "flex",
   },
   link: {
-    padding: '12px 0px',
-    margin: '0px 12px',
-    cursor: 'pointer',
-    '&:hover': {
-      paddingBottom: '9px',
-      borderBottom: "3px solid "+colors.borderBlue,
+    padding: "12px 0px",
+    margin: "0px 12px",
+    cursor: "pointer",
+    "&:hover": {
+      paddingBottom: "9px",
+      borderBottom: "3px solid " + colors.borderBlue,
     },
   },
   title: {
-    textTransform: 'capitalize'
+    textTransform: "capitalize",
   },
   actionInput: {
-    padding: '0px 0px 12px 0px',
-    fontSize: '0.5rem'
+    padding: "0px 0px 12px 0px",
+    fontSize: "0.5rem",
   },
   linkActive: {
-    padding: '12px 0px',
-    margin: '0px 12px',
-    cursor: 'pointer',
-    paddingBottom: '9px',
-    borderBottom: "3px solid "+colors.borderBlue,
+    padding: "12px 0px",
+    margin: "0px 12px",
+    cursor: "pointer",
+    paddingBottom: "9px",
+    borderBottom: "3px solid " + colors.borderBlue,
   },
   account: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
     flex: 1,
-    [theme.breakpoints.down('sm')]: {
-      flex: '0'
-    }
+    order: "4",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      flexWrap: 'wrap',
+      paddingBottom: "20px"
+    },
+  },
+  yieldMechanics: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      position: "absolute",
+      top: "90px",
+      left: "20px",
+
+    },
   },
   walletAddress: {
-    padding: '12px',
-    border: '2px solid rgb(174, 174, 174)',
-    borderRadius: '50px',
-    display: 'flex',
-    alignItems: 'center',
-    cursor: 'pointer',
-    '&:hover': {
-      border: "2px solid "+colors.borderBlue,
-      background: 'rgba(47, 128, 237, 0.1)'
+    padding: "12px",
+    border: "1px solid rgba(47, 99, 165, .12)",
+    display: "flex",
+    alignItems: "center",
+    cursor: "pointer",
+    "&:hover": {
+      border: "1px solid " + colors.borderBlue,
+      background: "rgba(47, 128, 237, 0.1)",
     },
-    [theme.breakpoints.down('sm')]: {
-      display: 'flex',
-      position: 'absolute',
-      top: '90px',
-      border: "1px solid "+colors.borderBlue,
-      background: colors.white
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      position: "absolute",
+      top: "90px",
+      border: "1px solid " + colors.borderBlue,
+      background: colors.white,
+    },
   },
   walletTitle: {
     flex: 1,
-    color: colors.darkGray
+    color: colors.darkGray,
   },
   connectedDot: {
     background: colors.compoundGreen,
-    opacity: '1',
-    borderRadius: '10px',
-    width: '10px',
-    height: '10px',
-    marginRight: '3px',
-    marginLeft:'6px'
+    opacity: "1",
+    width: "10px",
+    height: "10px",
+    marginRight: "3px",
+    marginLeft: "6px",
   },
   name: {
-    paddingLeft: '24px',
-    [theme.breakpoints.down('sm')]: {
-      display: 'none',
-    }
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+    },
   },
   modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   paper: {
-    position: 'absolute',
+    position: "absolute",
     width: 450,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  yeldMechanicsTitle: {
+    borderBottom: "1px solid #e1e3e6",
   }
 });
 
@@ -280,305 +312,148 @@ class Header extends Component {
     }
 
     return (
-      <div className={ classes.root }>
-        <div className={ classes.headerV2 }>
-          <div className={ classes.icon }>
+      <div className={classes.root}>
+        <div className={classes.headerV2}>
+          <div className={classes.icon}>
             <img
               alt=""
-              src={ require('../../assets/favicon3.png') }
-              height={ '40px' }
-              onClick={ () => { this.nav('') } }
+              src={require("../../assets/logo-v2-yeld.png")}
+              height={"40px"}
+              onClick={() => {
+                this.nav("");
+              }}
             />
-            <Typography variant={ 'h3'} className={ classes.name } onClick={ () => { this.nav('') } }>Yeld.finance</Typography>
+          </div>
+          <div className={classes.brandColor}></div>
+          <div className={classes.brandV2}>
+            <div
+              className={classes.brand}
+              style={{
+                alignContent: "space-around",
+                paddingLeft: "23px",
+              }}
+            >
+              <Typography
+                variant={"h3"}
+                className={classes.name}
+                style={{
+                  color: "#2036ff",
+                  fontSize: "16px",
+                  fontWeight: "500",
+                }}
+                onClick={() => {
+                  this.nav("");
+                }}
+              >
+                YELD.APP{" "}
+              </Typography>
+              <Typography
+                style={{
+                  marginBottom: "0",
+                  fontSize: "16px",
+                  lineHeight: "21px",
+                  fontWeight: "200",
+                }}
+              >
+                {"Next-Generation Yield Farming"}
+              </Typography>
+            </div>
           </div>
 
-          <Button 
-            style={{marginLeft: '10px'}}
-            variant="outlined"
-            color="primary"
-            disabled={ this.state.yeldBalance <= 0 }
-            onClick={() => this.setState({stakeModalOpen: true})}
-          >
-            <Typography variant={ 'h5'} color='secondary'>
-              Stake Yeld Tokens ({this.state.yeldBalance} YELD)
-              <br/>
-              <i>{this.state.retirementYeldCurrentStaked <= 0 ? 
-              '' : 
-              `Currently Staked ${window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked))} YELD`}
-              </i>
-            </Typography>
-          </Button>
-
           <Modal
             className={classes.modal}
-            open={this.state.stakeModalOpen}
-            onClose={() => this.setState({stakeModalOpen: false})}
+            open={this.state.yMechanicsModalOpen}
+            onClose={() => this.setState({ yMechanicsModalOpen: false })}
             aria-labelledby="simple-modal-title"
             aria-describedby="simple-modal-description"
           >
-          <div style={this.modalStyle} className={ classes.paper }>
-              <Typography variant='h4' className={ classes.title }>
-                Enter how much YELD you want to stake. Warning: leave at least 5 YELD in your wallet to keep using the beta!"
-              </Typography>
-              <br/>
+            <div style={this.modalStyle} className={classes.paper}>
+              <div className={classes.yeldMechanicsBox}>
+                <div className={classes.yeldMechanicsTitle}>
+                  <div className={classes.icon}>
+                    <img
+                      alt=""
+                      src={require("../../assets/FireYeldMechanic.png")}
+                      height={"40px"}
+                      onClick={() => {
+                        this.nav("");
+                      }}
+                    />
+                    <h2 className={classes.exclusivesTitle} style={{ marginLeft: "20px"}}>Yeld mechanics</h2>
+                    </div>
+                  </div>
 
-              <TextField
-                fullWidth
-                type="number"
-                InputProps={{
-                  inputProps: { 
-                    min: 0,
-                    max: this.state.yeldBalance
-                  }
-                }}              
-                className={ classes.actionInput }
-                value={ this.state.stakeAmount }
-                onChange={ (e) => this.setState({stakeAmount: e.target.value}) }
-                placeholder="0"
-                variant="outlined"
-                error={Number(this.state.stakeAmount) > Number(this.state.yeldBalance)}
-                helperText={
-                  Number(this.state.stakeAmount) > Number(this.state.yeldBalance) ? 
-                  `Enter a number less than ${this.state.yeldBalance} (Yeld Balance)` 
-                  : ''
-                }
-              />
-              <br/> <br/>
-
-              <div>
-                <Button 
-                variant="outlined"
-                color="primary"
-                disabled={
-                  this.state.stakeAmount <= 0 || 
-                  Number(this.state.stakeAmount) > Number(this.state.yeldBalance)
-                }
-                onClick={async () => {
-                  try {
-                    if(await this.betaTesting()) {
-                      const allowance = await window.yeld.methods.allowance(
-                        window.web3.eth.defaultAccount, 
-                        window.retirementYeld._address
-                      ).call()
-  
-                      const amountToStake = window.web3.utils.toWei(String(this.state.stakeAmount))
-  
-                      if (Number(allowance) < Number(amountToStake)) {
-                        await window.yeld.methods.approve(
-                          window.retirementYeld._address, 
-                          window.web3.utils.toWei(String(this.state.stakeAmount)), 
-                        ).send({
-                          from: window.web3.eth.defaultAccount,
-                        })
-                        .on('transactionHash', () => {
-                          this.setState({ stakeProcessing: true })
-                        });
-                      }
-      
-                      await window.retirementYeld.methods.stakeYeld(
-                        window.web3.utils.toWei(String(this.state.stakeAmount))
-                      ).send({
-                          from: window.web3.eth.defaultAccount,
-                      })
-                      .on('transactionHash', () => {
-                        this.setState({ stakeProcessing: true })
-                      })
-                      .on('receipt', () => {
-                        this.setState({ stakeProcessing: false })
-                        window.location.reload();
-                      });
-                    } else {
-                      alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD");
-                    }
-                  } catch(error) {
-                    this.setState({ stakeProcessing: false })
-                  }
-                }}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    {!this.state.stakeProcessing ?
-                        <div>Stake Amount</div>
-                      :
-                      <div className="d-flex align-items-center">
-                          <span>Processing </span> 
-                          <span className="loading ml-2"></span>
-                      </div>
-                    }
-                  </Typography>
-                </Button>
-
-                <Button 
-                  style={{marginLeft: "35%"}}
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => this.setState({stakeModalOpen: false})}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    Cancel
-                  </Typography>
-                </Button>
+                <p>
+                  Every block you earn YELD tokens based on the stablecoin yield
+                  generated in addition to your standard yield to boost the APY.
+                </p>
+                <p>
+                  A portion of the yield returns will be used for the Buy and
+                  Burn mechanism to increase the token price.
+                </p>
+                <p>
+                  Users that hold YELD tokens can stake their YELD balance and
+                  redeem Retirement Yield everyday based on their holdings.
+                </p>
+                <p>To redeem your Retirement Yield follow these steps:</p>
+                <ol>
+                  <li>Click on "Stake Yeld" with the amount to stake.</li>
+                  <br />
+                  <li>
+                    After 1 day or more, you'll be able to click on "Redeem
+                    Retirement Yield" and get ETH based on how much YELD you
+                    staked.
+                  </li>
+                  <br />
+                  <li>
+                    The larger percentage of the total YELD supply you stake, the
+                    more ETH you'll get from the Retirement Yield pool.
+                  </li>
+                </ol>
               </div>
             </div>
           </Modal>
-          
-          <Button 
-            style={{marginLeft: '10px'}}
-            variant="outlined"
-            color="primary"
-            disabled={this.state.retirementYeldCurrentStaked <= 0}
-            onClick={() => this.setState({unstakeModalOpen: true})}
-          >
-            <Typography variant={ 'h5'} color='secondary'>
-              Unstake Yeld
-            </Typography>
-          </Button>
 
-          <Modal
-            className={classes.modal}
-            open={this.state.unstakeModalOpen}
-            onClose={() => this.setState({unstakeModalOpen: false})}
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-          >
-          <div style={this.modalStyle} className={ classes.paper }>
-              <Typography variant='h4' className={ classes.title }>
-                Enter how much YELD you want to unstake:
-              </Typography>
-              <br/>
-
-              <TextField
-                fullWidth
-                type="number"
-                InputProps={{
-                  inputProps: { 
-                    min: 0,
-                    max: this.state.yeldBalance
-                  }
-                }}    
-                className={ classes.actionInput }
-                value={ this.state.unStakeAmount }
-                onChange={ (e) => this.setState({unStakeAmount: e.target.value}) }
-                placeholder="0"
-                variant="outlined"
-                error={this.state.unStakeAmount > Number(window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked)))}
-                helperText={
-                  this.state.unStakeAmount > Number(window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked))) ? 
-                  `Enter a number less than ${window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked))} (Current Stake)` 
-                  : ''
-                }
-              />
-              <br/> <br/>
-
-              <div>
-                <Button 
+          <div className={classes.account}>
+            <div className={classes.yieldMechanics}>
+              <Button
+                style={{
+                  border: "none",
+                }}
                 variant="outlined"
                 color="primary"
-                disabled={
-                  this.state.unStakeAmount <= 0 || 
-                  this.state.unStakeAmount > Number(window.web3.utils.fromWei(String(this.state.retirementYeldCurrentStaked)))
-                }
-                onClick={async () => {
-                    await window.retirementYeld.methods.unstake(
-                      window.web3.utils.toWei(String(this.state.unStakeAmount))
-                    ).send({
-                      from: window.web3.eth.defaultAccount,
-                    })
-                    .on('transactionHash', () => {
-                      this.setState({ unstakeProcessing: true })
-                    })
-                    .on('receipt', () => {
-                      this.setState({ unstakeProcessing: false })
-                      window.location.reload();
-                    })
-                    .catch((_) => {
-                      this.setState({ unstakeProcessing: false })
-                    });
-                }}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    {!this.state.unstakeProcessing ?
-                        <div>UnStake Amount</div>
-                      :
-                      <div className="d-flex align-items-center">
-                          <span>Processing </span> 
-                          <span className="loading ml-2"></span>
-                      </div>
-                    }
-                  </Typography>
-                </Button>
-
-                <Button 
-                  style={{marginLeft: "31%"}}
-                  variant="outlined"
-                  color="primary"
-                  onClick={() => this.setState({unstakeModalOpen: false})}
-                >
-                  <Typography variant={ 'h5'} color='secondary'>
-                    Cancel
-                  </Typography>
-                </Button>
-              </div>
+                onClick={() => this.setState({ yMechanicsModalOpen: true })}
+              >
+                <Typography variant={"h5"} color="secondary">
+                  Yield Mechanics
+                </Typography>
+              </Button>
             </div>
-          </Modal>
-        
-          <Button
-            style={{marginLeft: '10px'}}
-            variant="outlined"
-            color="primary"
-            disabled={ !this.state.retirementYeldAvailable }
-            onClick={async () => {
-              if(await this.betaTesting()) {
-                await window.retirementYeld.methods.redeemETH().send({
-                  from: window.web3.eth.defaultAccount,
-                })
-              } else {
-                alert("You can't use the dapp during the beta testing period if you hold less than 5 YELD")
-              }
-            }}
-          >
-            <Typography variant={ 'h5'} color='secondary'>
-              {/* {!this.state.retirementYeldAvailable ? (
-                <span>
-                  Retirement Yield Available in 24h
-                  <br/>
-                  <i>
-                  {
-                    this.state.hoursPassedAfterStaking <= 0 ?
-                    '' :
-                    `Time passed ${this.state.hoursPassedAfterStaking}`
-                  }
-                  </i>
-                </span>
-              ) */}
-              {this.state.earnings === 0 && !this.state.retirementYeldAvailable ? (
-                <span>
-                  No ETH to Redeem Yet
-                </span>
-              )
-              : (
-                <span>
-                  Redeem Retirement Yield ({this.state.earnings} ETH)
-                </span>
-              )}
-            </Typography>
-          </Button>
-          <div className={ classes.account }>
-            { address &&
-              <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >
-                { address }
-                <div className={ classes.connectedDot }></div>
+
+            {address && (
+              <Typography
+                variant={"h4"}
+                className={classes.walletAddress}
+                onClick={this.addressClicked}
+              >
+                {address}
+                <div className={classes.connectedDot}></div>
               </Typography>
-            }
-            { !address &&
-              <Typography variant={ 'h4'} className={ classes.walletAddress } noWrap onClick={this.addressClicked} >
+            )}
+            {!address && (
+              <Typography
+                variant={"h4"}
+                className={classes.walletAddress}
+                onClick={this.addressClicked}
+              >
                 Connect your wallet
               </Typography>
-            }
+            )}
           </div>
         </div>
-        { modalOpen && this.renderModal() }
+        {modalOpen && this.renderModal()}
       </div>
-    )
+    );
   }
 
   getModalStyle = () => {
