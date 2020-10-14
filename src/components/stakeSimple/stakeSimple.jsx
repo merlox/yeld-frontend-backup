@@ -444,7 +444,7 @@ class StakeSimple extends Component {
                   >
                     {!this.state.retirementYeldAvailable ? (
                       <span>
-                        Retirement Yield Available in 24h
+                        No ETH to Redeem Yet
                         <br />
                         <i>
                           {this.state.hoursPassedAfterStaking <= 0
