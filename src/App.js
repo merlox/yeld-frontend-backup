@@ -14,6 +14,8 @@ import { Typography, Modal, Box } from '@material-ui/core';
 import './i18n';
 import interestTheme from './theme';
 
+import betaTesting from './betaTesting'
+
 import APR from './components/apr';
 import InvestSimple from './components/investSimple';
 import StakeSimple from './components/stakeSimple';
@@ -66,18 +68,6 @@ class App extends Component {
     });
   }
 
-  betaTesting = () => {
-    return new Promise(async resolve => {
-      const endBetaTimestamp = 1604080800000
-      if (Date.now() > endBetaTimestamp) {
-        return resolve(true)
-      }
-      let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
-      const fiveYeld = await window.web3.utils.toWei('5')
-      resolve(Number(yeldBalance) >= Number(fiveYeld))
-    })
-  }
-
   setup = async () => {
     if (typeof (window.ethereum) !== 'undefined') {
       // Create the contract instance
@@ -98,7 +88,7 @@ class App extends Component {
       window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
       window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
 
-      if (await this.betaTesting()) {
+      if (await betaTesting()) {
         this.setState({
           betaValid: true,
           setupComplete: true,

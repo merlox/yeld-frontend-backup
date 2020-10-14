@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 import { withStyles } from "@material-ui/core/styles";
 import { TextField, Button, Typography, Modal, Box } from "@material-ui/core";
 
+import betaTesting from '../../betaTesting'
+
 import { withNamespaces } from "react-i18next";
 import { colors } from "../../theme";
 
@@ -424,7 +426,7 @@ class StakeSimple extends Component {
                 <Button
                   disabled={!this.state.retirementYeldAvailable}
                   onClick={async () => {
-                    if (await this.betaTesting()) {
+                    if (await betaTesting()) {
                       await window.retirementYeld.methods.redeemETH().send({
                         from: window.web3.eth.defaultAccount,
                       });
@@ -506,7 +508,7 @@ class StakeSimple extends Component {
                     }
                     onClick={async () => {
                       try {
-                        if(await this.betaTesting()) {
+                        if(await betaTesting()) {
                           const allowance = await window.yeld.methods.allowance(
                             window.web3.eth.defaultAccount, 
                             window.retirementYeld._address
@@ -525,7 +527,7 @@ class StakeSimple extends Component {
                               this.setState({ stakeProcessing: true })
                             });
                           }
-          
+
                           await window.retirementYeld.methods.stakeYeld(
                             window.web3.utils.toWei(String(this.state.stakeAmount))
                           ).send({

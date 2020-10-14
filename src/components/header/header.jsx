@@ -271,18 +271,6 @@ class Header extends Component {
     this.setState({ yeldBalance })
   }
 
-  betaTesting() {
-    return new Promise(async resolve => {
-      const endBetaTimestamp = 1604080800000
-      if (Date.now() > endBetaTimestamp) {
-        return resolve(true)
-      }
-      let yeldBalance = await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()
-      const fiveYeld = await window.web3.utils.toWei('5')
-      resolve(Number(yeldBalance) >= Number(fiveYeld))
-    })
-  }
-
   componentWillUnmount() {
     emitter.removeListener(CONNECTION_CONNECTED, this.connectionConnected);
     emitter.removeListener(CONNECTION_DISCONNECTED, this.connectionDisconnected);
