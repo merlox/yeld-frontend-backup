@@ -328,6 +328,13 @@ class InvestSimple extends Component {
     }
 
     this.getYELDPrice()
+    this.autoRefreshDataInterval()
+  }
+
+  autoRefreshDataInterval() {
+    setInterval(() => {
+      this.refresh()
+    }, 8e2)
   }
 
   async getYELDPrice() {
