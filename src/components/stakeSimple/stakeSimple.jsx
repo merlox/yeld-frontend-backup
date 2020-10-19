@@ -309,19 +309,20 @@ class StakeSimple extends Component {
           .balanceOf("0x0000000000000000000000000000000000000000")
           .call()
       );
-      const totalSupply = await window.yeld.methods.totalSupply().call();
+      const totalSupply = await window.yeld.methods.totalSupply().call()
       const userPercentage =
-        snapshot.yeldBalance / (totalSupply - balanceBlackHole);
+        snapshot.yeldBalance / (totalSupply - balanceBlackHole)
 
       // Gets how many ETH the user earns based on his balance
       const balanceRetirementContract = await window.web3.eth.getBalance(
         window.retirementYeld._address
       );
-      const earnings = String(
-        (balanceRetirementContract * userPercentage) / 100
-      );
+      const earnings = window.web3.utils.fromWei(String(Math.floor((balanceRetirementContract * userPercentage) / 100)))
+
+      // console.log('earnings', earnings, 'user percentage', userPercentage)
+
       if (earnings > 0)
-        this.setState({ retirementYeldAvailable: true, earnings });
+        this.setState({ retirementYeldAvailable: true, earnings })
     }
 
     let yeldBalance = String(

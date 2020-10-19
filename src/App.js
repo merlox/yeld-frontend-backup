@@ -33,6 +33,7 @@ import yeldConfig from './yeldConfig'
 
 import {
   CONNECTION_CONNECTED,
+  SET_YELD_ADDRESSES,
 } from './constants'
 
 import Store from "./stores";
@@ -40,6 +41,7 @@ import './App.css';
 
 const emitter = Store.emitter
 const store = Store.store
+const dispatcher = Store.dispatcher
 
 class App extends Component {
   state = {
@@ -47,6 +49,7 @@ class App extends Component {
     betaValid: false,
     displayWarning: true,
     modalOpen: true,
+    v2Selected: true,
   };
 
   async componentWillMount() {
@@ -68,6 +71,32 @@ class App extends Component {
     });
   }
 
+  async componentDidMount () {
+
+  }
+
+  updateContracts = async bool => {
+    dispatcher.dispatch({ type: SET_YELD_ADDRESSES, content: bool })
+
+    if (bool) {
+      this.setupContracts(
+        yeldConfig.twoyDAIAddress,
+        yeldConfig.twoyTUSDAddress,
+        yeldConfig.twoyUSDTAddress,
+        yeldConfig.twoyUSDCAddress,
+        yeldConfig.tworetirementYeldAddress,
+      )
+    } else {
+      this.setupContracts(
+        yeldConfig.oneyDAIAddress,
+        yeldConfig.oneyTUSDAddress,
+        yeldConfig.oneyUSDTAddress,
+        yeldConfig.oneyUSDCAddress,
+        yeldConfig.oneretirementYeldAddress,
+      )
+    }
+  }
+
   setup = async () => {
     if (typeof (window.ethereum) !== 'undefined') {
       // Create the contract instance
@@ -81,12 +110,13 @@ class App extends Component {
       const account = await this.getAccount();
       window.web3.eth.defaultAccount = account
 
-      // Create the retirementyeld and yelddai contract instances
-      window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, yeldConfig.retirementYeldAddress)
-      window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yDAIAddress)
-      window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yTUSDAddress)
-      window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDTAddress)
-      window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yeldConfig.yUSDCAddress)
+      await this.setupContracts(
+        yeldConfig.twoyDAIAddress,
+        yeldConfig.twoyTUSDAddress,
+        yeldConfig.twoyUSDTAddress,
+        yeldConfig.twoyUSDCAddress,
+        yeldConfig.tworetirementYeldAddress,
+      )
 
       if (await betaTesting()) {
         this.setState({
@@ -97,6 +127,14 @@ class App extends Component {
         this.setState({ setupComplete: true })
       }
     }
+  }
+
+  setupContracts = async (yDAIAddress, yTUSDAddress, yUSDTAddress, yUSDCAddress, retirementYeldAddress) => {
+    window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, retirementYeldAddress)
+    window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yDAIAddress)
+    window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yTUSDAddress)
+    window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDTAddress)
+    window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDCAddress)
   }
 
   getAccount() {
@@ -120,7 +158,14 @@ class App extends Component {
           }}>
               <Switch>
               <Route path="/">
-                <Header setupComplete={this.state.setupComplete} />
+                <Header
+                  setupComplete={this.state.setupComplete}
+                  setV2Selected={bool => {
+                    this.setState({v2Selected: bool})
+                    this.updateContracts(bool)
+                  }}
+                  v2Selected={this.state.v2Selected}
+                />
                 {/* <Vaults /> */}
                 <StakeSimple setupComplete={this.state.setupComplete} />
                 <Box style={{

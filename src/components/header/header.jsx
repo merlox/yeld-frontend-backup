@@ -406,6 +406,37 @@ class Header extends Component {
             <div className={classes.yieldMechanics}>
               <Button
                 style={{
+                  border: this.props.v2Selected ? 'none' : "1px solid #376EDC",
+                }}
+                variant="outlined"
+                color="primary"
+                onClick={() => 
+                  this.props.setV2Selected(false)
+                }
+              >
+                <Typography variant={"h5"} color="secondary">
+                  V1
+                </Typography>
+              </Button>
+              <Button
+                style={{
+                  border: this.props.v2Selected ? "1px solid #376EDC" : 'none',
+                }}
+                variant="outlined"
+                color="primary"
+                onClick={() => 
+                  this.props.setV2Selected(true)
+                }
+              >
+                <Typography variant={"h5"} color="secondary">
+                  V2
+                </Typography>
+              </Button>
+            </div>
+
+            <div className={classes.yieldMechanics}>
+              <Button
+                style={{
                   border: "none",
                 }}
                 variant="outlined"

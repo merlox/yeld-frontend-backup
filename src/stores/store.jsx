@@ -44,6 +44,7 @@ import {
   WITHDRAW_VAULT_RETURNED,
   WITHDRAW_ALL_VAULT,
   WITHDRAW_ALL_VAULT_RETURNED,
+  SET_YELD_ADDRESSES,
 } from '../constants';
 import Web3 from 'web3';
 
@@ -279,7 +280,7 @@ class Store {
           description: 'DAI Stablecoin',
           investSymbol: 'yDAI',
           erc20address: '0x6b175474e89094c44da98b954eedeac495271d0f',
-          iEarnContract: yeldConfig.yDAIAddress,
+          iEarnContract: yeldConfig.twoyDAIAddress,
           lastMeasurement: 9465912,
           measurement: 1000037230456849197,
           maxApr: 0,
@@ -302,7 +303,7 @@ class Store {
           description: 'USD//C',
           investSymbol: 'yUSDC',
           erc20address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
-          iEarnContract: yeldConfig.yUSDCAddress,
+          iEarnContract: yeldConfig.twoyUSDCAddress,
           lastMeasurement: 9465880,
           measurement: 1139534904703193728,
           apr: 0,
@@ -326,7 +327,7 @@ class Store {
           description: 'Tether USD',
           investSymbol: 'yUSDT',
           erc20address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
-          iEarnContract: yeldConfig.yUSDTAddress,
+          iEarnContract: yeldConfig.twoyUSDTAddress,
           lastMeasurement: 9465880,
           measurement: 1000030025124779312,
           apr: 0,
@@ -350,7 +351,7 @@ class Store {
           description: 'TrueUSD',
           investSymbol: 'yTUSD',
           erc20address: '0x0000000000085d4780B73119b644AE5ecd22b376',
-          iEarnContract: yeldConfig.yTUSDAddress,
+          iEarnContract: yeldConfig.twoyTUSDAddress,
           lastMeasurement: 9479531,
           measurement: 1000197346651007837 ,
           apr: 0,
@@ -1084,11 +1085,42 @@ class Store {
           case WITHDRAW_ALL_VAULT:
             this.withdrawAllVault(payload)
             break;
+          case SET_YELD_ADDRESSES:
+            this.setYeldAddresses(payload)
+            break;
           default: {
           }
         }
       }.bind(this)
     );
+  }
+
+  setYeldAddresses = payload => {
+    const isV2 = payload.content
+    let assetsCopy = [...this.store.assets]
+    let updatedAssets = []
+    for(let i = 0; i < assetsCopy.length; i++) {
+      let asset = assetsCopy[i]
+      switch (asset.id) {
+        case 'DAIv2':
+          const response = isV2 ? yeldConfig.twoyDAIAddress : yeldConfig.oneyDAIAddress
+          asset.iEarnContract = response
+          break
+        case 'TUSDv2':
+          asset.iEarnContract = isV2 ? yeldConfig.twoyTUSDAddress : yeldConfig.oneyTUSDAddress
+          break
+        case 'USDTv2':
+          asset.iEarnContract = isV2 ? yeldConfig.twoyUSDTAddress : yeldConfig.oneyUSDTAddress
+          break
+        case 'USDCv2':
+          asset.iEarnContract = isV2 ? yeldConfig.twoyUSDCAddress : yeldConfig.oneyUSDCAddress
+          break
+      }
+      updatedAssets.push(asset)
+    }
+    this.setStore({
+      assets: [...updatedAssets]
+    })
   }
 
   getStore(index) {
@@ -1251,7 +1283,7 @@ class Store {
     } else {
       var amountToSend = web3.utils.toWei(amount, "ether")
       if (asset.decimals !== 18) {
-        amountToSend = amount*10**asset.decimals;
+        amountToSend = String(amount*10**asset.decimals);
       }
       iEarnContract.methods[asset.invest](amountToSend).send({ from: account.address, gasPrice: web3.utils.toWei(await this._getGasPrice(), 'gwei') })
         .on('transactionHash', function(hash){
@@ -2327,9 +2359,6 @@ class Store {
       if(err) {
         return emitter.emit(ERROR, err)
       }
-
-      console.log('assets', assets)
-
       store.setStore({ vaultAssets: assets })
       return emitter.emit(VAULT_BALANCES_RETURNED, assets)
     })
