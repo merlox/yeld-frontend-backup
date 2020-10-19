@@ -558,7 +558,15 @@ class InvestSimple extends Component {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <Asset asset={ asset } startLoading={ this.startLoading } />
+            <Asset 
+              asset={ asset }
+              startLoading={ this.startLoading }
+              retirementYeld={this.props.retirementYeld}
+              yDAI={this.props.yDAI}
+              yTUSD={this.props.yTUSD}
+              yUSDT={this.props.yUSDT}
+              yUSDC={this.props.yUSDC}
+            />
           </AccordionDetails>
         </Accordion>
       )

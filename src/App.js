@@ -50,6 +50,11 @@ class App extends Component {
     displayWarning: true,
     modalOpen: true,
     v2Selected: true,
+    retirementYeld: null,
+    yDAI: null,
+    yTUSD: null,
+    yUSDT: null,
+    yUSDC: null,
   };
 
   async componentWillMount() {
@@ -130,11 +135,15 @@ class App extends Component {
   }
 
   setupContracts = async (yDAIAddress, yTUSDAddress, yUSDTAddress, yUSDCAddress, retirementYeldAddress) => {
-    window.retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, retirementYeldAddress)
-    window.yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yDAIAddress)
-    window.yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yTUSDAddress)
-    window.yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDTAddress)
-    window.yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDCAddress)
+    const retirementYeld = new window.web3.eth.Contract(yeldConfig.retirementYeldAbi, retirementYeldAddress)
+    const yDAI = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yDAIAddress)
+    const yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yTUSDAddress)
+    const yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDTAddress)
+    const yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDCAddress)
+
+    this.setState({
+      retirementYeld, yDAI, yTUSD, yUSDT, yUSDC,
+    })
   }
 
   getAccount() {
@@ -167,7 +176,14 @@ class App extends Component {
                   v2Selected={this.state.v2Selected}
                 />
                 {/* <Vaults /> */}
-                <StakeSimple setupComplete={this.state.setupComplete} />
+                <StakeSimple 
+                  retirementYeld={this.state.retirementYeld}
+                  yDAI={this.state.yDAI}
+                  yTUSD={this.state.yTUSD}
+                  yUSDT={this.state.yUSDT}
+                  yUSDC={this.state.yUSDC}
+                  setupComplete={this.state.setupComplete}
+                />
                 <Box style={{
                   width: "100%",
                   border: "1px solid #e1e3e6",
@@ -177,7 +193,14 @@ class App extends Component {
                     (!this.state.betaValid ? (
                       <h2 style={{ margin: 'auto' }}>You need to hold 5 YELD to use the dApp</h2>
                     ) : (
-                        <InvestSimple setupComplete={this.state.setupComplete} />
+                        <InvestSimple 
+                          retirementYeld={this.state.retirementYeld}
+                          yDAI={this.state.yDAI}
+                          yTUSD={this.state.yTUSD}
+                          yUSDT={this.state.yUSDT}
+                          yUSDC={this.state.yUSDC}
+                          setupComplete={this.state.setupComplete}
+                        />
                       ))
                     :
                     <h2 style={{ margin: 'auto' }}>

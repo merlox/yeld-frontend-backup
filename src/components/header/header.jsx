@@ -190,85 +190,11 @@ class Header extends Component {
       stakeProcessing: false,
       unstakeProcessing: false,
     }
-
-    this.waitUntilSetupComplete()
   }
 
   componentWillMount() {
     emitter.on(CONNECTION_CONNECTED, this.connectionConnected);
     emitter.on(CONNECTION_DISCONNECTED, this.connectionDisconnected);
-  }
-
-  waitUntilSetupComplete() {
-    let interval
-    interval = setInterval(() => {
-      if (this.props.setupComplete) {
-        window.clearInterval(interval)
-        this.setupContractData()
-      }
-    }, 1e2)
-  }
-
-  secondsToHms(seconds) {
-    if (!seconds) return '';
-   
-    let duration = seconds;
-    let hours = duration / 3600;
-    duration = duration % (3600);
-   
-    let min = parseInt(duration / 60);
-    duration = duration % (60);
-   
-    let sec = parseInt(duration);
-   
-    if (sec < 10) {
-      sec = `0${sec}`;
-    }
-    if (min < 10) {
-      min = `0${min}`;
-    }
-   
-    if (parseInt(hours, 10) > 0) {
-      return `${parseInt(hours, 10)}h ${min}m ${sec}s`
-    }
-    else if (min == 0) {
-      return `${sec}s`
-    }
-    else {
-      return `${min}m ${sec}s`
-    }
-  }
-
-  async setupContractData() {
-    const snapshot = await window.retirementYeld.methods.stakes(window.web3.eth.defaultAccount).call()
-    const dateNowWithOneDay = Number(Date.now().toString().substr(0, 10)) + 86400
-    const dateNow = Number(Date.now().toString().substr(0, 10))
-    const substraction = Number(dateNow) - Number(snapshot.timestamp)
-    const hoursPassedAfterStaking = this.secondsToHms(substraction)
-
-    this.setState({
-      retirementYeldCurrentStaked: snapshot.yeldBalance,
-      hoursPassedAfterStaking: snapshot.timestamp == 0 ? 0 : hoursPassedAfterStaking,
-    })
-
-    // If one day has passed, change 
-    // if (snapshot.timestamp != 0 && dateNowWithOneDay >= snapshot.timestamp) {
-    if (snapshot.timestamp != 0) {
-      const balanceBlackHole = String(await window.yeld.methods.balanceOf('0x0000000000000000000000000000000000000000').call())
-      const totalSupply = await window.yeld.methods.totalSupply().call()
-      const userPercentage = (snapshot.yeldBalance) / (totalSupply - balanceBlackHole)
-
-      // Gets how many ETH the user earns based on his balance
-      const balanceRetirementContract = await window.web3.eth.getBalance(window.retirementYeld._address)
-      const earnings = String(balanceRetirementContract * userPercentage / 100)
-      if (earnings > 0) this.setState({retirementYeldAvailable: true, earnings})
-    }
-
-    let yeldBalance = String(window.web3.utils.fromWei(await window.yeld.methods.balanceOf(window.web3.eth.defaultAccount).call()))
-    if (yeldBalance.split('.').length > 1) {
-      yeldBalance = yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
-    }
-    this.setState({ yeldBalance })
   }
 
   componentWillUnmount() {

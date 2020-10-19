@@ -306,9 +306,9 @@ class Asset extends Component {
               let generatedYELD
               switch (asset.symbol) {
                 case 'DAI': 
-                  generatedYELD = await window.yDAI.methods.getGeneratedYelds().call()
+                  generatedYELD = await this.props.yDAI.methods.getGeneratedYelds().call()
                   if (generatedYELD > 0) {
-                    window.yDAI.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                    this.props.yDAI.methods.extractYELDEarningsWhileKeepingDeposit().send({
                       from: window.web3.eth.defaultAccount,
                     })
                   } else {
@@ -316,9 +316,9 @@ class Asset extends Component {
                   }
                   break
                 case 'USDC':
-                  generatedYELD = await window.yUSDC.methods.getGeneratedYelds().call()
+                  generatedYELD = await this.props.yUSDC.methods.getGeneratedYelds().call()
                   if (generatedYELD > 0) {
-                    window.yUSDC.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                    this.props.yUSDC.methods.extractYELDEarningsWhileKeepingDeposit().send({
                       from: window.web3.eth.defaultAccount,
                     })
                   } else {
@@ -326,9 +326,9 @@ class Asset extends Component {
                   }
                   break
                 case 'USDT':
-                  generatedYELD = await window.yUSDT.methods.getGeneratedYelds().call()
+                  generatedYELD = await this.props.yUSDT.methods.getGeneratedYelds().call()
                   if (generatedYELD > 0) {
-                    window.yUSDT.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                    this.props.yUSDT.methods.extractYELDEarningsWhileKeepingDeposit().send({
                       from: window.web3.eth.defaultAccount,
                     })
                   } else {
@@ -336,9 +336,9 @@ class Asset extends Component {
                   }
                   break
                 case 'TUSD':
-                  generatedYELD = await window.yTUSD.methods.getGeneratedYelds().call()
+                  generatedYELD = await this.props.yTUSD.methods.getGeneratedYelds().call()
                   if (generatedYELD > 0) {
-                    window.yTUSD.methods.extractYELDEarningsWhileKeepingDeposit().send({
+                    this.props.yTUSD.methods.extractYELDEarningsWhileKeepingDeposit().send({
                       from: window.web3.eth.defaultAccount,
                     })
                   } else {
