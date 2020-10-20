@@ -290,6 +290,7 @@ class StakeSimple extends Component {
 			this.props.retirementYeld && prevProps.retirementYeld &&
 			prevProps.retirementYeld._address !== this.props.retirementYeld._address
 		) {
+			console.log('Updating contracts...')
 			this.setupContractData()
 		}
 	}
