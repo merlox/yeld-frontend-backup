@@ -331,10 +331,10 @@ class StakeSimple extends Component {
 				String(Math.floor((balanceRetirementContract * userPercentage) / 100))
 			)
 
-			// console.log('earnings', earnings, 'user percentage', userPercentage)
-
 			if (earnings > 0)
 				this.setState({ retirementYeldAvailable: true, earnings })
+			else
+				this.setState({ retirementYeldAvailable: false, earnings })
 		}
 
 		let yeldBalance = String(
