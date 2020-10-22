@@ -329,7 +329,7 @@ class Header extends Component {
           </Modal>
 
           <div className={classes.account}>
-            <div className={classes.yieldMechanics}>
+            {/* <div className={classes.yieldMechanics}>
               <Button
                 style={{
                   border: this.props.v2Selected ? 'none' : "1px solid #376EDC",
@@ -358,7 +358,7 @@ class Header extends Component {
                   V2
                 </Typography>
               </Button>
-            </div>
+            </div> */}
 
             <div className={classes.yieldMechanics}>
               <Button
