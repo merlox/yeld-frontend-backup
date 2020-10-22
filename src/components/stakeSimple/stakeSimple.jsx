@@ -242,7 +242,7 @@ class StakeSimple extends Component {
 			retirementYeldAvailable: false, // When you have something to redeem
 			earnings: 0,
 			yeldBalance: 0,
-			hoursPassedAfterStaking: 0,
+			hoursPassedAfterStaking: '00m 00s',
 			retirementYeldCurrentStaked: 0,
 			stakeModalOpen: false,
 			unstakeModalOpen: false,
@@ -303,7 +303,7 @@ class StakeSimple extends Component {
 		const dateNowWithOneDay =
 			Number(Date.now().toString().substr(0, 10)) + 86400
 		const dateNow = Number(Date.now().toString().substr(0, 10))
-		const substraction = Number(dateNow) - Number(snapshot.timestamp)
+		const substraction = snapshot.timestamp == 0 ? '0' : Number(dateNow) - Number(snapshot.timestamp)
 		const hoursPassedAfterStaking = this.secondsToHms(substraction)
 
 		this.setState({
@@ -313,7 +313,7 @@ class StakeSimple extends Component {
 		})
 
 		// If one day has passed, change
-		if (snapshot.timestamp !== 0 && dateNowWithOneDay >= snapshot.timestamp) {
+		if (snapshot.timestamp !== 0 && dateNowWithOneDay < snapshot.timestamp) {
 			const balanceBlackHole = String(
 				await window.yeld.methods
 					.balanceOf('0x0000000000000000000000000000000000000000')
@@ -344,6 +344,7 @@ class StakeSimple extends Component {
 					.call()
 			)
 		)
+
 		if (yeldBalance.split('.').length > 1) {
 			yeldBalance =
 				yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
@@ -454,7 +455,7 @@ class StakeSimple extends Component {
 												No ETH to Redeem Yet
 												<br />
 												<i>
-													{this.state.hoursPassedAfterStaking <= 0
+													{this.state.hoursPassedAfterStaking === '00m 00s'
 														? ''
 														: `Time passed ${this.state.hoursPassedAfterStaking}`}
 												</i>
