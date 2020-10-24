@@ -295,48 +295,85 @@ class StakeSimple extends Component {
 		}
 	}
 
+	async calculateEarnings (yeldBalance) {
+		const balanceBlackHole = String(
+			await window.yeld.methods
+				.balanceOf('0x0000000000000000000000000000000000000000')
+				.call()
+		)
+		const totalSupply = await window.yeld.methods.totalSupply().call()
+		const userPercentage = yeldBalance / (totalSupply - balanceBlackHole)
+		// Gets how many ETH the user earns based on his balance
+		const balanceRetirementContract = await window.web3.eth.getBalance(
+			this.props.retirementYeld._address
+		)
+		const earnings = window.web3.utils.fromWei(
+			String(Math.floor((balanceRetirementContract * userPercentage) / 100))
+		)
+		return earnings
+	}
+
 	async setupContractData() {
 		const snapshot = await this.props.retirementYeld.methods
 			.stakes(window.web3.eth.defaultAccount)
 			.call()
-
-		const dateNowWithOneDay =
-			Number(Date.now().toString().substr(0, 10)) + 86400
+		const timestamp = Number(snapshot.timestamp)
+		const yeldBalance = Number(snapshot.yeldBalance)
+		const oneDay = 86400
 		const dateNow = Number(Date.now().toString().substr(0, 10))
-		const substraction = snapshot.timestamp == 0 ? '0' : Number(dateNow) - Number(snapshot.timestamp)
-		const hoursPassedAfterStaking = this.secondsToHms(substraction)
+		let snapshotWithOneDay = timestamp + oneDay
 
-		this.setState({
-			retirementYeldCurrentStaked: snapshot.yeldBalance,
-			hoursPassedAfterStaking:
-				snapshot.timestamp === 0 ? 0 : hoursPassedAfterStaking,
-		})
+		this.setYeldBalance()
 
-		// If one day has passed, change
-		if (snapshot.timestamp !== 0 && dateNowWithOneDay < snapshot.timestamp) {
-			const balanceBlackHole = String(
-				await window.yeld.methods
-					.balanceOf('0x0000000000000000000000000000000000000000')
-					.call()
-			)
-			const totalSupply = await window.yeld.methods.totalSupply().call()
-			const userPercentage =
-				snapshot.yeldBalance / (totalSupply - balanceBlackHole)
-
-			// Gets how many ETH the user earns based on his balance
-			const balanceRetirementContract = await window.web3.eth.getBalance(
-				this.props.retirementYeld._address
-			)
-			const earnings = window.web3.utils.fromWei(
-				String(Math.floor((balanceRetirementContract * userPercentage) / 100))
-			)
-
-			if (earnings > 0)
-				this.setState({ retirementYeldAvailable: true, earnings })
-			else
-				this.setState({ retirementYeldAvailable: false, earnings })
+		// If yeldBalance == 0, the timer should be hidden and button disabled
+		// else, display the currently staked
+		if (yeldBalance == 0) {
+			return this.setState({
+				hoursPassedAfterStaking: '00m 00s',
+				retirementYeldAvailable: false,
+			})
+		} else {
+			this.setState({
+				retirementYeldCurrentStaked: yeldBalance,
+			})
 		}
 
+		// If snapshot timestamp == 0, the timer should be hidden and button disabled
+		if (timestamp == 0) {
+			return this.setState({
+				hoursPassedAfterStaking: '00m 00s',
+				retirementYeldAvailable: false,
+			})
+		}
+
+		// If timestamp is not zero and yeldBalance is not zero and timestamp + 1 day is
+		// larger than today, show timer, earnings and button disabled
+		if (snapshotWithOneDay > dateNow) {
+			let substraction = timestamp == 0 ? 0 : dateNow - timestamp
+			const hoursPassedAfterStaking = this.secondsToHms(String(substraction))
+			const earnings = await this.calculateEarnings(yeldBalance)
+			return this.setState({
+				retirementYeldAvailable: false,
+				hoursPassedAfterStaking,
+				earnings,
+			})
+		}
+
+		// If timestamp is not zero and yeldBalance is not zero, check timestamp + 1 day
+		// then if today is larger than timestamp + 1 day, enable button and show timer with earnings
+		if (snapshotWithOneDay <= dateNow) {
+			let substraction = timestamp == 0 ? 0 : dateNow - timestamp
+			const hoursPassedAfterStaking = this.secondsToHms(String(substraction))
+			const earnings = await this.calculateEarnings(yeldBalance)
+			return this.setState({
+				retirementYeldAvailable: true,
+				hoursPassedAfterStaking,
+				earnings,
+			})
+		}
+	}
+
+	async setYeldBalance() {
 		let yeldBalance = String(
 			window.web3.utils.fromWei(
 				await window.yeld.methods
@@ -344,11 +381,12 @@ class StakeSimple extends Component {
 					.call()
 			)
 		)
-
 		if (yeldBalance.split('.').length > 1) {
 			yeldBalance =
 				yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
 		}
+
+
 		this.setState({ yeldBalance })
 	}
 
