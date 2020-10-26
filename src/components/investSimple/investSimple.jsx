@@ -347,8 +347,11 @@ class InvestSimple extends Component {
     })
     const res = await req.json()
     const price = res['yeld-finance'].usd
+    const yeldToRewardPerDay = window.web3.utils.fromWei(await this.props.yDAI.methods.yeldToRewardPerDay().call())
+
     // 365 days * 100 yeld * yeld price * 100(%) / 1 million since that's the equivalence
-    const rawAPY = 365 * 100 * price * 100 / 1e6
+    const rawAPY = 365 * yeldToRewardPerDay * price * 100 / 1e6
+
     this.setState({ YELDAPY: rawAPY })
   }
 
