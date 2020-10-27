@@ -295,7 +295,7 @@ class Asset extends Component {
           >
           <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>{ t('Asset.Claim') }</Typography>
         </Button>
-        <Button
+        {/* <Button
           className={ classes.actionButton }
           style={{marginTop: '10px'}}
           variant="outlined"
@@ -352,8 +352,8 @@ class Asset extends Component {
           }}
           fullWidth
           >
-          <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Redeem YELD</Typography>
-        </Button>
+          <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>Redeem Earnings & Restake</Typography>
+        </Button> */}
       </div>
     </div>)
   };
