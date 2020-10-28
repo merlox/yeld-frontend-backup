@@ -110,7 +110,32 @@ class Asset extends Component {
       redeemAmount: '',
       redeemAmountError: false,
       account: store.getStore('account'),
+      generatedYELD: 0,
     }
+
+    this.getYeldEarned()
+    setInterval(() => this.getYeldEarned(), 1e3)
+  }
+
+  async getYeldEarned() {
+    let generatedYELD
+    switch (this.props.asset.symbol) {
+      case 'DAI': 
+        generatedYELD = await this.props.yDAI.methods.getGeneratedYelds().call()
+        break
+      case 'USDC':
+        generatedYELD = await this.props.yUSDC.methods.getGeneratedYelds().call()
+        break
+      case 'USDT':
+        generatedYELD = await this.props.yUSDT.methods.getGeneratedYelds().call()
+        break
+      case 'TUSD':
+        generatedYELD = await this.props.yTUSD.methods.getGeneratedYelds().call()
+        break
+    }
+    this.setState({
+      generatedYELD: window.web3.utils.fromWei(generatedYELD),
+    })
   }
 
   componentWillMount() {
@@ -295,6 +320,7 @@ class Asset extends Component {
           >
           <Typography className={ classes.buttonText } variant={ 'h5'} color='secondary'>{ t('Asset.Claim') }</Typography>
         </Button>
+        {this.state.generatedYELD} YELD earned
         {/* <Button
           className={ classes.actionButton }
           style={{marginTop: '10px'}}
