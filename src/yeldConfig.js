@@ -1,14 +1,14 @@
 export default {
-  oneyDAIAddress: '0xdADF6764de3452B7d00059A6A8678289BC5aA869',
-  oneyTUSDAddress: '0xEbaC66AD745df447549C9B9d5cB4265FCEFA126e',
-  oneyUSDTAddress: '0x9cD568a0cCFe19a47904E59CF33426F510aeC2d8',
-  oneyUSDCAddress: '0x1Cd03B5bFD0A137c25a66DDbEB7b7794fC8f2706',
-  oneretirementYeldAddress: '0xa06AB0aAef5Bb9B4855343e6Ab98CB19Ee8C134d',
+  oneyDAIAddress: '0xc0bc90a848CcCdE67f7615917CB2c00D77f08F22',
+  oneyTUSDAddress: '0x1C57481dc2e2B987b2f012e9d3CC4cbBEcd7c116',
+  oneyUSDTAddress: '0x5B9Cd26559fDe5902d64E81F711eC3D13b9c69D0',
+  oneyUSDCAddress: '0x9FB54C5D0430d5f9bEb07a15d9b817105Ba26A21',
+  oneretirementYeldAddress: '0xF572096BbB414C6cC0C8915e9BF9e77C89eff2bD',
 
-  twoyDAIAddress: '0xc0bc90a848CcCdE67f7615917CB2c00D77f08F22',
-  twoyTUSDAddress: '0x1C57481dc2e2B987b2f012e9d3CC4cbBEcd7c116',
-  twoyUSDTAddress: '0x5B9Cd26559fDe5902d64E81F711eC3D13b9c69D0',
-  twoyUSDCAddress: '0x9FB54C5D0430d5f9bEb07a15d9b817105Ba26A21',
+  twoyDAIAddress: '0x50418A1a7A06b697e447bB2Ffdd2241547684691',
+  twoyTUSDAddress: '0xDC3315BABDdA07b620EEFC2006C629889Cb684B1',
+  twoyUSDTAddress: '0x1b1A4586FD99f7e044868ac8e5E91EAc4863149b',
+  twoyUSDCAddress: '0xae1887e035385d2f7d3Ff057c6EE053842f30Af6',
   tworetirementYeldAddress: '0xF572096BbB414C6cC0C8915e9BF9e77C89eff2bD',
 
   yeldAddress: '0x468ab3b1f63A1C14b361bC367c3cC92277588Da1',
@@ -800,16 +800,11 @@ export default {
           "type": "address"
         }
       ],
-      "name": "deposits",
+      "name": "depositBlockStarts",
       "outputs": [
         {
           "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
-        },
-        {
-          "internalType": "uint256",
-          "name": "start",
+          "name": "",
           "type": "uint256"
         }
       ],
@@ -856,15 +851,6 @@ export default {
         }
       ],
       "name": "extractTokensIfStuck",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "extractYELDEarningsWhileKeepingDeposit",
       "outputs": [],
       "payable": false,
       "stateMutability": "nonpayable",
@@ -990,21 +976,6 @@ export default {
       "constant": true,
       "inputs": [],
       "name": "maximumTokensToBurn",
-      "outputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "minimumEffectAmount",
       "outputs": [
         {
           "internalType": "uint256",
