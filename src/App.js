@@ -10,7 +10,7 @@ import IpfsRouter from 'ipfs-react-router'
 import { promisifyAll } from 'bluebird'
 import MyWeb3 from 'web3'
 import { Typography, Modal, Box } from '@material-ui/core';
-
+import { withStyles } from '@material-ui/core/styles';
 import './i18n';
 import interestTheme from './theme';
 
@@ -42,6 +42,19 @@ import './App.css';
 const emitter = Store.emitter
 const store = Store.store
 const dispatcher = Store.dispatcher
+
+const styles = (theme) => ({
+  warningStart: {
+    position: 'absolute',
+    width: "38%",
+    backgroundColor: "white",
+    boxShadow: "gray",
+    padding: "1.5%",
+    [theme.breakpoints.down("sm")]: {
+      width: "98%",
+    },
+  },
+})
 
 class App extends Component {
   state = {
@@ -154,6 +167,10 @@ class App extends Component {
   }
 
   render() {
+    const {
+      classes
+    } = this.props;
+
     return (
       <MuiThemeProvider theme={createMuiTheme(interestTheme)}>
         <CssBaseline />
@@ -220,13 +237,7 @@ class App extends Component {
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                   >
-                    <Typography variant='h4' style={{
-                      position: 'absolute',
-                      width: "38%",
-                      backgroundColor: "white",
-                      boxShadow: "gray",
-                      padding: "1.5%"
-                    }}>
+                    <Typography variant='h4' className={classes.warningStart}>
                       <p style={{ color: "red" }}>
                         This is a BETA product and there's a HIGH chance you may lose REAL money.
                       </p>
@@ -248,4 +259,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withStyles(styles)(App);

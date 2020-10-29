@@ -114,7 +114,18 @@ const styles = (theme) => ({
       position: "absolute",
       top: "90px",
       left: "20px",
-
+      marginTop: '50px',
+    },
+  },
+  versionButtons: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    [theme.breakpoints.down("sm")]: {
+      display: "flex",
+      position: "absolute",
+      top: "90px",
+      left: "30px",
     },
   },
   walletAddress: {
@@ -160,9 +171,15 @@ const styles = (theme) => ({
   paper: {
     position: "absolute",
     width: 450,
+    height: 600,
+    overflow: 'scroll',
+    overflowX: 'hidden',
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    [theme.breakpoints.down("sm")]: {
+      width: '90%',
+    },
   },
   yeldMechanicsTitle: {
     borderBottom: "1px solid #e1e3e6",
@@ -298,6 +315,17 @@ class Header extends Component {
                   </div>
 
                 <p>
+                  The V2 and V3 buttons allow you to change the version of the contracts used
+                  in your staking efforts. Always use the latest version, V3.
+                </p>
+
+                <p>
+                  The reason why 2 versions are available is because previous beta testers
+                  staked funds in the V2 contract. We made some improvements to the V3 contracts
+                  and we recommend you to use them exclusively.
+                </p>
+
+                <p>
                   Every block you earn YELD tokens based on the stablecoin yield
                   generated in addition to your standard yield to boost the APY.
                 </p>
@@ -329,7 +357,7 @@ class Header extends Component {
           </Modal>
 
           <div className={classes.account}>
-            <div className={classes.yieldMechanics}>
+            <div className={classes.versionButtons}>
               <Button
                 style={{
                   border: this.props.v2Selected ? 'none' : "1px solid #376EDC",
