@@ -68,6 +68,7 @@ class App extends Component {
     yTUSD: null,
     yUSDT: null,
     yUSDC: null,
+    yeld: null,
   };
 
   async componentWillMount() {
@@ -116,8 +117,12 @@ class App extends Component {
   }
 
   setup = async () => {
-    if (typeof (window.ethereum) !== 'undefined') {
+    console.log('typeof', typeof (window.ethereum))
+    console.log('typeof', typeof (window.ethereum))
+    console.log('typeof', typeof (window.ethereum))
+
       // Create the contract instance
+    if (typeof (window.ethereum) !== 'undefined') {
       window.web3 = new MyWeb3(window.ethereum);
       try {
         await window.ethereum.enable();
@@ -144,6 +149,8 @@ class App extends Component {
       } else {
         this.setState({ setupComplete: true })
       }
+    } else {
+      alert('You must have metamask installed to use this dApp')
     }
   }
 
@@ -153,9 +160,10 @@ class App extends Component {
     const yTUSD = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yTUSDAddress)
     const yUSDT = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDTAddress)
     const yUSDC = new window.web3.eth.Contract(yeldConfig.yDAIAbi, yUSDCAddress)
+    const yeld = new window.web3.eth.Contract(yeldConfig.yeldAbi, yeldConfig.yeldAddress)
 
     this.setState({
-      retirementYeld, yDAI, yTUSD, yUSDT, yUSDC,
+      retirementYeld, yDAI, yTUSD, yUSDT, yUSDC, yeld,
     })
   }
 
@@ -191,6 +199,11 @@ class App extends Component {
                     this.updateContracts(bool)
                   }}
                   v2Selected={this.state.v2Selected}
+                  yDAI={this.state.yDAI}
+                  yTUSD={this.state.yTUSD}
+                  yUSDT={this.state.yUSDT}
+                  yUSDC={this.state.yUSDC}
+                  yeld={this.state.yeld}
                 />
                 {/* <Vaults /> */}
                 <StakeSimple 

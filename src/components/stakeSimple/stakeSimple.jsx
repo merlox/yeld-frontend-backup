@@ -27,6 +27,9 @@ const styles = theme => ({
 		alignItems: 'center',
 		marginTop: '30px',
 		marginBottom: '30px',
+		[theme.breakpoints.down('sm')]: {
+			marginTop: '200px',
+		},
 		[theme.breakpoints.up('md')]: {
 			minWidth: '1000px',
 		},
@@ -287,7 +290,8 @@ class StakeSimple extends Component {
 
 	componentDidUpdate(prevProps) {
 		if (
-			this.props.retirementYeld && prevProps.retirementYeld &&
+			this.props.retirementYeld &&
+			prevProps.retirementYeld &&
 			prevProps.retirementYeld._address !== this.props.retirementYeld._address
 		) {
 			console.log('Updating contracts...')
@@ -295,7 +299,7 @@ class StakeSimple extends Component {
 		}
 	}
 
-	async calculateEarnings (yeldBalance) {
+	async calculateEarnings(yeldBalance) {
 		const balanceBlackHole = String(
 			await window.yeld.methods
 				.balanceOf('0x0000000000000000000000000000000000000000')
@@ -318,7 +322,7 @@ class StakeSimple extends Component {
 			.stakes(window.web3.eth.defaultAccount)
 			.call()
 		const timestamp = Number(snapshot.timestamp)
-		const yeldBalance = Number(snapshot.yeldBalance)
+		const yeldBalance = snapshot.yeldBalance
 		const oneDay = 86400
 		const dateNow = Number(Date.now().toString().substr(0, 10))
 		let snapshotWithOneDay = timestamp + oneDay
@@ -385,7 +389,6 @@ class StakeSimple extends Component {
 			yeldBalance =
 				yeldBalance.split('.')[0] + '.' + yeldBalance.split('.')[1].substr(0, 2)
 		}
-
 
 		this.setState({ yeldBalance })
 	}

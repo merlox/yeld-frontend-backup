@@ -539,7 +539,7 @@ class InvestSimple extends Component {
                 <Typography variant={ 'h3' }>
                   {
                     asset.maxApr
-                      ? ((asset.maxApr / 2 * 100) + this.state.YELDAPY).toFixed(2) + ' %'
+                      ? ((asset.maxApr * 100) + this.state.YELDAPY).toFixed(2) + ' %'
                       : '0.00 %'
                   }
                 </Typography>
